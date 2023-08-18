@@ -1,7 +1,8 @@
 library(vctrs)
 library(rlang)
+library(pillar)
 
-# package name could be fr?
+## table_schema <- jsonlite::read_json("https://specs.frictionlessdata.io/schemas/table-schema.json")
 # R6 object-oriented alternative package: https://github.com/frictionlessdata/tableschema-r
 # this is much simpler approach using vctrs
 
@@ -45,6 +46,14 @@ format.fr_field <- function(x, ...) {
   cat(glue::glue("{attr(x, 'name')} (fr_{attr(x, 'type')})\n\n"))
   if (attr(x, "type") == "date") return(as.Date(vec_data(x)))
   vec_data(x)
+}
+
+
+obj_print_footer.fr_field <- function(x, ...) {
+  desc <- attr(x, "description")
+  if (!is.null(desc)){
+    cat(" (", desc, ")\n", sep = "")
+  }
 }
 
 #' create a frictionless [string](https://specs.frictionlessdata.io/table-schema/#string) field
