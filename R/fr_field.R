@@ -1,23 +1,21 @@
-library(vctrs)
-library(rlang)
-library(pillar)
-
 ## table_schema <- jsonlite::read_json("https://specs.frictionlessdata.io/schemas/table-schema.json")
 # R6 object-oriented alternative package: https://github.com/frictionlessdata/tableschema-r
 # this is much simpler approach using vctrs
 
 # for working with frictionless table schema: https://specs.frictionlessdata.io/table-schema/
 
-#' for all fields: x can contain missing values
-#' x must be (or be coerceable to) its corresponding R class for each frictionless `type`:
-#' |   **R class**  | **frictionless type** |
-#' |:--------------:|:------------:|
-#' |    character, factor*   |    string    |
-#' |     numeric, integer    |    number    |
-#' |     logical    |    boolean   |
-#' |      Date      |     date     |
-#'
-#' *Levels of factor columns are also captured in the "enum" item of the "constraints" attribute list.
+# for all fields: x can contain missing values
+# x must be (or be coerceable to) its corresponding R class for each frictionless `type`:
+# |   **R class**  | **frictionless type** |
+# |:--------------:|:------------:|
+# |    character, factor*   |    string    |
+# |     numeric, integer    |    number    |
+# |     logical    |    boolean   |
+# |      Date      |     date     |
+#
+# *Levels of factor columns are also captured in the "enum" item of the "constraints" attribute list.
+
+
 new_fr_field <- function(x,
                          name = character(),
                          title = character(),
@@ -26,7 +24,7 @@ new_fr_field <- function(x,
   if (!rlang::is_character(name)) {
     rlang::abort("`name` must be a character vector.")
   }
-  vec_check_size(name, size = 1L)
+  vctrs::vec_check_size(name, size = 1L)
   if (!rlang::is_character(title)) {
     rlang::abort("`title` must be a character vector.")
   }
@@ -44,8 +42,8 @@ new_fr_field <- function(x,
 
 format.fr_field <- function(x, ...) {
   cat(glue::glue("{attr(x, 'name')} (fr_{attr(x, 'type')})\n\n"))
-  if (attr(x, "type") == "date") return(as.Date(vec_data(x)))
-  vec_data(x)
+  if (attr(x, "type") == "date") return(as.Date(vctrs::vec_data(x)))
+  vctrs::vec_data(x)
 }
 
 
@@ -58,22 +56,27 @@ obj_print_footer.fr_field <- function(x, ...) {
 
 #' create a frictionless [string](https://specs.frictionlessdata.io/table-schema/#string) field
 #' @param x vector coerceable to a character vector; if x is a factor, its levels will be stored
-#' in ??????????????????????????????????????????????????????????????????????????????????????????????
+#' in ??? TODO factor things...
 #' @param name character string for name of the field; when read from a tdr_csv, *this* (i.e., not
 #' `names(x)`) becomes the column name when in a data.frame or tibble
 #' @param ... other metadata descriptors (`title`, `description`)
 #' @return "fr_field" object
 #' @examples
 #' fr_string(letters, name = "letters")
-#' d_letters <- fr_string(letters, name = "letters", title = "Letters of the Alphabet", description = "Including from A to Z")
+#' d_letters <- fr_string(letters,
+#'                        name = "letters",
+#'                        title = "Letters of the Alphabet",
+#'                        description = "Including from A to Z")
 #' d_letters
 #' str(d_letters)
+#' @export
 fr_string <- function(x, name, ...) {
-  x <- vec_cast(x, character())
+  x <- vctrs::vec_cast(x, character())
   new_fr_field(x, name = name, ..., type = "string")
 }
 
 #' create a frictionless [number](https://specs.frictionlessdata.io/table-schema/#number) field
+#' @details
 #' - the frictionless special values: `Nan` (not a number),
 #' `INF` (positive infinity), `-INF` (negative infinity) are represented in R as `NaN`, `Inf`, and -`Inf`
 #' - use `readr::locale()` to change the frictionless `decimalChar` or `groupChar`
@@ -95,9 +98,10 @@ fr_string <- function(x, name, ...) {
 #' # is unadvised and can lead to problems
 #' c("$100", "$120", NaN, Inf)
 #' fr_number(c("$100", "$120", NaN, Inf), name = "fraction_elevated", parse = TRUE)
+#' @export
 fr_number <- function(x, name, ..., parse = FALSE) {
-  if (parse) x <- readr::parse_number(vec_cast(x, character()))
-  x <- vec_cast(x, numeric())
+  if (parse) x <- readr::parse_number(vctrs::vec_cast(x, character()))
+  x <- vctrs::vec_cast(x, numeric())
   new_fr_field(x, name = name, ..., type = "number")
 }
 
@@ -118,24 +122,25 @@ fr_number <- function(x, name, ..., parse = FALSE) {
 #' fr_date(c("2023/01/01", "2023/03/01", "2022/11/24"), name = "event_date", format = "%Y/%m/%d")
 #' # can parse dates in other formats with optionally installed {datefixR} package
 #' fr_date(c("02/05/23", "02/05/21", "02/05/18"), name = "event_date", parse = TRUE)
-#' # parsing is useful for year-month combinations too, as day is always imputed as the first of the month
+#' # parsing is useful for year-month combinations too,
+#' # as day is always imputed as the first of the month
 #' fr_date(c("jan 2020", "feb 2020", "mar 2020"), name = "event_date", parse = TRUE)
 #' fr_date(c("2020-01", "2020-02", "2020-03"), name = "event_date", parse = TRUE)
 #' # parsing with a missing day and month (i.e., just year) will cause an error;
 #' # consider using fr_numeric in this case instead
-#' fr_date(c("2020", "2021", "2022"), name = "event_date", parse = TRUE)
+#' @export
 fr_date <- function(x, name, ..., format = "%Y-%m-%d", parse = FALSE) {
   if (parse) {
     rlang::check_installed("datefixR", reason = "to parse dates")
-    x <- vec_cast(x, character())
+    x <- vctrs::vec_cast(x, character())
     x <- datefixR::fix_date_char(x, day.impute = 1, month.impute = NULL)
     return(new_fr_field(x, name = name, ..., type = "date"))
   }
-  x <- vec_cast(as.Date(x, format = format), Sys.Date())
+  x <- vctrs::vec_cast(as.Date(x, format = format), Sys.Date())
   return(new_fr_field(x, name = name, ..., type = "date"))
 }
 
-#' create a frictionless [date](https://specs.frictionlessdata.io/table-schema/#date) field
+#' create a frictionless [boolean](https://specs.frictionlessdata.io/table-schema/#boolean) field
 #' @param x vector coercable to a logical vector
 #' @param name character string for name of the field; when read from a tdr_csv, *this* (i.e., not
 #' `names(x)`) becomes the column name when in a data.frame or tibble
@@ -144,15 +149,16 @@ fr_date <- function(x, name, ..., format = "%Y-%m-%d", parse = FALSE) {
 #' @return "fr_field" object
 #' @examples
 #' fr_boolean(c(TRUE, FALSE, TRUE), name = "case")
-#' fr_boolean(c(T, F, TRUE, NA), name = "case")
-#' use parse = TRUE to use `as.logical()` to parse character strings for booleans
+#' # use parse = TRUE to use `as.logical()` to parse character strings for booleans
 #' fr_boolean(c("true", "False", "TRUE", " "), name = "case", parse = TRUE)
+#' # without parse = TRUE, abbreviations will cause an error
+#' @export
 fr_boolean <- function(x, name, ..., parse = FALSE) {
   if (parse) {
-    x <- vec_cast(x, character())
+    x <- vctrs::vec_cast(x, character())
     x <- as.logical(x)
-    return(new_fr_field(x, name = name, ..., type = "string"))
+    return(new_fr_field(x, name = name, ..., type = "boolean"))
   }
-  x <- vec_cast(x, logical())
-  new_fr_field(x, name = name, ..., type = "string")
+  x <- vctrs::vec_cast(x, logical())
+  new_fr_field(x, name = name, ..., type = "boolean")
 }
