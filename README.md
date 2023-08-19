@@ -15,7 +15,18 @@ You can install the development version of codec from [GitHub](https://github.co
     # install.packages("pak")
     pak::pak("geomarker-io/codec")
 	
-## Example Usage
+## Usage
+
+Use `fr_field()` to create a frictionless field object in R. The R classes below are automatically assigned the corresponding frictionless [type](https://specs.frictionlessdata.io/table-schema/#types-and-formats)
+
+| **R class**        | **fr type** | **`fr_*()`**   |
+|:------------------:|:-----------:|:--------------:|
+| character, factor^ | string      | `fr_string()`  |
+| numeric, integer   | number      | `fr_number()`  |
+| logical            | boolean     | `fr_boolean()` |
+| Date               | date        | `fr_date()`    |
+
+Use `fr_parse_*()` to parse data or coerce vectors of classes not directly supported in `fr_field`
 
 #### parking lot
 

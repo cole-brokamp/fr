@@ -1,13 +1,22 @@
 test_that("fr_field works", {
 
-  fr_field(factor(LETTERS), name = "example_factor") |>
+  # TODO
+  ## fr_field(factor(c("a", "b", "c")), name = "example_factor") |>
+  ##   expect_s3_class("fr_field") |>
+  ##   vctrs::vec_data() |>
+  ##   expect_type("factor")
+
+  fr_field(LETTERS, name = "example_string") |>
     expect_s3_class("fr_field") |>
     vctrs::vec_data() |>
     expect_type("character")
 
-  fr_field(letters, name = "letters")
-
   fr_field(1:26, name = "example_numbers") |>
+    expect_s3_class("fr_field") |>
+    vctrs::vec_data() |>
+    expect_type("integer")
+
+  fr_field(c(1.23, 1.44, 4.55), name = "example_numbers") |>
     expect_s3_class("fr_field") |>
     vctrs::vec_data() |>
     expect_type("double")

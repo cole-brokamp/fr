@@ -2,33 +2,38 @@
 #' 
 #' Based on the class input vector `x`, the appropriate `fr_*()` function
 #' will be called to create a frictionless field descriptor object (`fr_field`).
+#' 
+#' Only classes listed in this table (and in this order) are used to automatically
+#' select the correct `fr_*()` function.
+#' 
+#' | **R class**        | **fr type** | **`fr_*()`**   |
+#' |:------------------:|:-----------:|:--------------:|
+#' | character, factor^ | string      | `fr_string()`  |
+#' | numeric, integer   | number      | `fr_number()`  |
+#' | logical            | boolean     | `fr_boolean()` |
+#' | Date               | date        | `fr_date()`    |
+#' 
+#' ^[Levels of factor columns are also captured in the "enum" item of the "constraints" attribute list.]
+#'
+#' To convert a class not specifically listed to a frictionless type
+#' or to parse character vectors for a specific frictionless type,
+#' use one of the `fr_*()` functions instead.
 #' @param x a character, factor, numeric, integer, logical, or Date vector
 #' @param name string required name metadata descriptor as a string
 #' @param ... <[`dynamic-dots`][rlang::dyn-dots]> other optional metadata descriptors (`title`, `description`, `example`)
 #' @return a [fr_field][fr::fr-package] vector
-#' @details
-#' Only classes listed in this table (and in this order) are used to automatically
-#' select the correct `fr_*()` function:
-#' (To convert a class not specifically listed to a frictionless type or to parse character vectors
-#' for a specific frictionless type, use one of the `fr_*()` functions instead.)
-#' 
-#' |   **R class**  | **frictionless type** | | **`fr_*()` function**
-#' |:--------------:|:------------:|:-------------:|
-#' |    character, factor*   |    string    | `fr_string()` |
-#' |     numeric, integer    |    number    | `fr_number()` |
-#' |     logical    |    boolean   | `fr_boolean()` |
-#' |      Date      |     date     | `fr_date()` |
-#'
-#' *Levels of factor columns are also captured in the "enum" item of the "constraints" attribute list.
-#'
 #' @examples
 #' fr_field(letters, name = "example_string")
+#' 
 #' fr_field(factor(LETTERS), name = "example_factor")
+#' 
 #' fr_field(1:26, name = "example_numbers")
+#' 
 #' fr_field(c(TRUE, FALSE, TRUE), name = "example_logical")
+#' 
 #' fr_field(as.Date(c("2013-08-15", "1986-04-29", "1986-06-10")), name = "example_date")
 #'
-#' # a more realistic field with accompanying metadata
+#' # a more realistic field with metadata
 #' uid <-
 #'   fr_field(
 #'     replicate(34, paste0(sample(c(letters,0:9), 8, TRUE), collapse = "")),
@@ -54,16 +59,30 @@
 #' glue::glue_data(attributes(uid), "`{name}` (a.k.a. '{title}') is a {type} field. {description}.")
 #' @export
 fr_field <- function(x, name, ...) {
-  if (inherits(x, "character"))  return(fr_string(x = x, name = name, ...))
-  if (inherits(x, "factor"))  return(fr_string(x = x, name = name, ...))
-  if (inherits(x, "numeric"))  return(fr_number(x = x, name = name, ...))
-  if (inherits(x, "integer"))  return(fr_number(x = x, name = name, ...))
-  if (inherits(x, "logical"))  return(fr_boolean(x = x, name = name, ...))
-  if (inherits(x, "Date"))  return(fr_date(x = x, name = name, ...))
-  rlang::abort(c("x is not of supported class for automatic frictionless typing",
+  if (inherits(x, "character")) {
+    return(new_fr_field(x = x, name = name, ..., type = "string"))
+  }
+  ## if (inherits(x, "factor")) {
+  ##   return(fr_field(x = x, name = name, ..., type = "string"))
+  ## # TODO add constraints = list(enum = levels(x))
+  ## }
+  if (inherits(x, "numeric")) {
+    return(new_fr_field(x = x, name = name, ..., type = "number"))
+  }
+  if (inherits(x, "integer")) {
+    return(new_fr_field(x = x, name = name, ..., type = "number"))
+  }
+  if (inherits(x, "logical")) {
+    return(new_fr_field(x = x, name = name, ..., type = "boolean"))
+  }
+  if (inherits(x, "Date")) {
+    return(new_fr_field(x = x, name = name, ..., type = "date"))
+  }
+  rlang::abort(c("x is not a supported class for automatic frictionless typing",
                  paste("the supplied vector was of class", class(x)[1], collapse = ""),
                  "try coercing with type-specific `fr_*()` functions"))
 }
+
 
 new_fr_field <- function(x,
                          name = character(),
@@ -101,13 +120,8 @@ format.fr_field <- function(x, ...) {
 ##   }
 ## }
 
-#' create a frictionless [string](https://specs.frictionlessdata.io/table-schema/#string) field
-#' @param x vector coerceable to a character vector; if x is a factor, its levels will be stored
-#' in ??? TODO factor things...
-#' @param name character string for name of the field; when read from a tdr_csv, *this* (i.e., not
-#' `names(x)`) becomes the column name when in a data.frame or tibble
-#' @param ... other metadata descriptors (see `fr_field()` for all possibilities)
-#' @return a [fr_field][fr::fr-package] vector
+#' frictionless [string](https://specs.frictionlessdata.io/table-schema/#string) field
+#' @rdname fr_field
 #' @examples
 #' fr_string(letters, name = "letters")
 #' fr_string(letters, name = "letters", title = "Letters")

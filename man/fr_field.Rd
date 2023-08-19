@@ -2,9 +2,12 @@
 % Please edit documentation in R/fr_field.R
 \name{fr_field}
 \alias{fr_field}
+\alias{fr_string}
 \title{frictionless \href{https://specs.frictionlessdata.io/table-schema/#field-descriptors}{field}}
 \usage{
 fr_field(x, name, ...)
+
+fr_string(x, name, ...)
 }
 \arguments{
 \item{x}{a character, factor, numeric, integer, logical, or Date vector}
@@ -22,27 +25,33 @@ will be called to create a frictionless field descriptor object (\code{fr_field}
 }
 \details{
 Only classes listed in this table (and in this order) are used to automatically
-select the correct \verb{fr_*()} function:
-(To convert a class not specifically listed to a frictionless type or to parse character vectors
-for a specific frictionless type, use one of the \verb{fr_*()} functions instead.)
+select the correct \verb{fr_*()} function.\tabular{ccc}{
+   \strong{R class} \tab \strong{fr type} \tab \strong{\verb{fr_*()}} \cr
+   character, factor^ \tab string \tab \code{fr_string()} \cr
+   numeric, integer \tab number \tab \code{fr_number()} \cr
+   logical \tab boolean \tab \code{fr_boolean()} \cr
+   Date \tab date \tab \code{fr_date()} \cr
+}
 
-|   \strong{R class}  | \strong{frictionless type} | | \strong{\verb{fr_*()} function}
-|:--------------:|:------------:|:-------------:|
-|    character, factor*   |    string    | \code{fr_string()} |
-|     numeric, integer    |    number    | \code{fr_number()} |
-|     logical    |    boolean   | \code{fr_boolean()} |
-|      Date      |     date     | \code{fr_date()} |
 
-*Levels of factor columns are also captured in the "enum" item of the "constraints" attribute list.
+^\link{Levels of factor columns are also captured in the "enum" item of the "constraints" attribute list.}
+
+To convert a class not specifically listed to a frictionless type
+or to parse character vectors for a specific frictionless type,
+use one of the \verb{fr_*()} functions instead.
 }
 \examples{
 fr_field(letters, name = "example_string")
+
 fr_field(factor(LETTERS), name = "example_factor")
+
 fr_field(1:26, name = "example_numbers")
+
 fr_field(c(TRUE, FALSE, TRUE), name = "example_logical")
+
 fr_field(as.Date(c("2013-08-15", "1986-04-29", "1986-06-10")), name = "example_date")
 
-# a more realistic field with accompanying metadata
+# a more realistic field with metadata
 uid <-
   fr_field(
     replicate(34, paste0(sample(c(letters,0:9), 8, TRUE), collapse = "")),
@@ -66,4 +75,6 @@ attr(uid, "title")
 
 # using glue_data makes it easy to write clear documentation and messages using metadata fields:
 glue::glue_data(attributes(uid), "`{name}` (a.k.a. '{title}') is a {type} field. {description}.")
+fr_string(letters, name = "letters")
+fr_string(letters, name = "letters", title = "Letters")
 }
