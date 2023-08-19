@@ -19,16 +19,19 @@
     <loc>https://cole-brokamp.github.io/fr/reference/fr-package.html</loc>
   </url>
   <url>
-    <loc>https://cole-brokamp.github.io/fr/reference/fr_boolean.html</loc>
-  </url>
-  <url>
-    <loc>https://cole-brokamp.github.io/fr/reference/fr_date.html</loc>
-  </url>
-  <url>
     <loc>https://cole-brokamp.github.io/fr/reference/fr_field.html</loc>
   </url>
   <url>
-    <loc>https://cole-brokamp.github.io/fr/reference/fr_number.html</loc>
+    <loc>https://cole-brokamp.github.io/fr/reference/fr_field_boolean.html</loc>
+  </url>
+  <url>
+    <loc>https://cole-brokamp.github.io/fr/reference/fr_field_date.html</loc>
+  </url>
+  <url>
+    <loc>https://cole-brokamp.github.io/fr/reference/fr_field_number.html</loc>
+  </url>
+  <url>
+    <loc>https://cole-brokamp.github.io/fr/reference/fr_field_string.html</loc>
   </url>
   <url>
     <loc>https://cole-brokamp.github.io/fr/reference/index.html</loc>
