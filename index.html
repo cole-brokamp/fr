@@ -71,8 +71,40 @@
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"geomarker-io/codec"</span>)</span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="example-usage">Example Usage<a class="anchor" aria-label="anchor" href="#example-usage"></a>
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
+<p>Use <code><a href="reference/fr_field.html">fr_field()</a></code> to create a frictionless field object in R. The R classes in the table below are automatically assigned the corresponding frictionless <a href="https://specs.frictionlessdata.io/table-schema/#types-and-formats" class="external-link">type</a>.</p>
+<p>In this sense, <code><a href="reference/fr_field.html">fr_field()</a></code> is “strict” because it only supports these R classes, which in turn, assume that the frictionless type, format, and constraints are already known.</p>
+<table class="table">
+<thead><tr class="header">
+<th align="center"><strong>R class</strong></th>
+<th align="center"><strong>fr type</strong></th>
+<th align="center"><strong><code>fr_parse_*()</code></strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">character, factor^</td>
+<td align="center">string</td>
+<td align="center"><code>fr_parse_string()</code></td>
+</tr>
+<tr class="even">
+<td align="center">numeric, integer</td>
+<td align="center">number</td>
+<td align="center"><code>fr_parse_number()</code></td>
+</tr>
+<tr class="odd">
+<td align="center">logical</td>
+<td align="center">boolean</td>
+<td align="center"><code>fr_parse_boolean()</code></td>
+</tr>
+<tr class="even">
+<td align="center">Date</td>
+<td align="center">date</td>
+<td align="center"><code>fr_parse_date()</code></td>
+</tr>
+</tbody>
+</table>
+<p>In contrast, <code>fr_parse_*()</code> to parse data or coerce vectors of classes not directly supported in <code>fr_field</code>. In this sense, <code>fr_parse_*()</code> are “loose” in that they accept infinitely more classes of vectors, but require more fine grained control of frictionless type, format, and constraints. They also come with parsing support, where available.</p>
 <div class="section level4">
 <h4 id="parking-lot">parking lot<a class="anchor" aria-label="anchor" href="#parking-lot"></a>
 </h4>
