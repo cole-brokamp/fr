@@ -17,16 +17,18 @@ You can install the development version of codec from [GitHub](https://github.co
 	
 ## Usage
 
-Use `fr_field()` to create a frictionless field object in R. The R classes below are automatically assigned the corresponding frictionless [type](https://specs.frictionlessdata.io/table-schema/#types-and-formats)
+Use `fr_field()` to create a frictionless field object in R. The R classes in the table below are automatically assigned the corresponding frictionless [type](https://specs.frictionlessdata.io/table-schema/#types-and-formats).
 
-| **R class**        | **fr type** | **`fr_*()`**   |
-|:------------------:|:-----------:|:--------------:|
-| character, factor^ | string      | `fr_string()`  |
-| numeric, integer   | number      | `fr_number()`  |
-| logical            | boolean     | `fr_boolean()` |
-| Date               | date        | `fr_date()`    |
+In this sense, `fr_field()` is "strict" because it only supports these R classes, which in turn, assume that the frictionless type, format, and constraints are already known.
 
-Use `fr_parse_*()` to parse data or coerce vectors of classes not directly supported in `fr_field`
+| **R class**        | **fr type** | **`fr_parse_*()`**   |
+|:------------------:|:-----------:|:--------------------:|
+| character, factor^ | string      | `fr_parse_string()`  |
+| numeric, integer   | number      | `fr_parse_number()`  |
+| logical            | boolean     | `fr_parse_boolean()` |
+| Date               | date        | `fr_parse_date()`    |
+
+In contrast, `fr_parse_*()` to parse data or coerce vectors of classes not directly supported in `fr_field`. In this sense, `fr_parse_*()` are "loose" in that they accept infinitely more classes of vectors, but require more fine grained control of frictionless type, format, and constraints.  They also come with parsing support, where available.
 
 #### parking lot
 

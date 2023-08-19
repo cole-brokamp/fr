@@ -13,7 +13,7 @@
 #' | logical            | boolean     | `fr_boolean()` |
 #' | Date               | date        | `fr_date()`    |
 #' 
-#' ^[Levels of factor columns are also captured in the "enum" item of the "constraints" attribute list.]
+#' ^*Levels of factor columns are also captured in the "enum" item of the "constraints" attribute list.*
 #'
 #' To convert a class not specifically listed to a frictionless type
 #' or to parse character vectors for a specific frictionless type,
@@ -25,7 +25,7 @@
 #' @examples
 #' fr_field(letters, name = "example_string")
 #' 
-#' fr_field(factor(LETTERS), name = "example_factor")
+#' # TODO fr_field(factor(LETTERS), name = "example_factor")
 #' 
 #' fr_field(1:26, name = "example_numbers")
 #' 
