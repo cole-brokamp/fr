@@ -13,20 +13,15 @@ in ??? TODO factor things...}
 \item{name}{character string for name of the field; when read from a tdr_csv, \emph{this} (i.e., not
 \code{names(x)}) becomes the column name when in a data.frame or tibble}
 
-\item{...}{other metadata descriptors (\code{title}, \code{description})}
+\item{...}{other metadata descriptors (see \code{fr_field()} for all possibilities)}
 }
 \value{
-"fr_field" object
+a \link[=fr-package]{fr_field} vector
 }
 \description{
 create a frictionless \href{https://specs.frictionlessdata.io/table-schema/#string}{string} field
 }
 \examples{
 fr_string(letters, name = "letters")
-d_letters <- fr_string(letters,
-                       name = "letters",
-                       title = "Letters of the Alphabet",
-                       description = "Including from A to Z")
-d_letters
-str(d_letters)
+fr_string(letters, name = "letters", title = "Letters")
 }

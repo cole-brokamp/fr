@@ -12,12 +12,12 @@ fr_number(x, name, ..., parse = FALSE)
 \item{name}{character string for name of the field; when read from a tdr_csv, \emph{this} (i.e., not
 \code{names(x)}) becomes the column name when in a data.frame or tibble}
 
-\item{...}{other metadata descriptors (\code{title}, \code{description})}
+\item{...}{other metadata descriptors (see \code{fr_field()} for all possibilities)}
 
 \item{parse}{parse x with \code{readr::parse_number} instead of coercion? requires that x is a character vector}
 }
 \value{
-"fr_field" object
+a \link[=fr-package]{fr_field} vector
 }
 \description{
 create a frictionless \href{https://specs.frictionlessdata.io/table-schema/#number}{number} field
@@ -32,11 +32,15 @@ create a frictionless \href{https://specs.frictionlessdata.io/table-schema/#numb
 }
 \examples{
 fr_number(1:10, name = "score")
+
 fr_number(c(10, 9, -Inf, NA, Inf, NaN), name = "score")
+
 # setting parse = TRUE is useful when x contains non-numeric characters:
 fr_number(c("$95,000", "$100,000", "78000"), name = "cost", parse = TRUE)
+
 # parsing replaces non-numeric character values with missing values
 fr_number(c("12\%", "44\%", "xx\%"), name = "fraction_elevated", parse = TRUE)
+
 # caution: combining numerics and characters into one character vector
 # is unadvised and can lead to problems
 c("$100", "$120", NaN, Inf)

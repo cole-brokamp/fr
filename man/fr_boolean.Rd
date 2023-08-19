@@ -17,14 +17,16 @@ fr_boolean(x, name, ..., parse = FALSE)
 \item{parse}{parse x with \code{as.logical} instead of coercion? requires that x is a character vector}
 }
 \value{
-"fr_field" object
+a \link[=fr-package]{fr_field} vector
 }
 \description{
 create a frictionless \href{https://specs.frictionlessdata.io/table-schema/#boolean}{boolean} field
 }
 \examples{
 fr_boolean(c(TRUE, FALSE, TRUE), name = "case")
+
 # use parse = TRUE to use `as.logical()` to parse character strings for booleans
 fr_boolean(c("true", "False", "TRUE", " "), name = "case", parse = TRUE)
+
 # without parse = TRUE, abbreviations will cause an error
 }

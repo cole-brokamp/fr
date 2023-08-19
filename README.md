@@ -6,7 +6,7 @@
 [![R-CMD-check](https://github.com/cole-brokamp/fr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/cole-brokamp/fr/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-`fr` is a package for implementing the [**Fr**ctionless](https://specs.frictionlessdata.io) [Table Schema](https://specs.frictionlessdata.io/table-schema) Standards in R.
+`fr` is a package for implementing [frictionless](https://specs.frictionlessdata.io) [table schema](https://specs.frictionlessdata.io/table-schema) standards in R
 
 ## Installation
 
@@ -29,3 +29,7 @@ How to make a markdown/html button for a tabular-data-resource to list the versi
 R function to do a rendered html file of metadata?? (Just use json and use browser to display the raw json?)
 
 Implement a subset of the tabular data resource functionality. Exclude foregin and primary keys, which allows for the removal of `fields` by collapsing the structure up one level into `schema`. Schema is basically a special type of descriptor that can have many descriptors in it for each data field. This makes it less confusing with the "fields" terminology used in vctrs. Consider this as `schema`.
+
+### Alternatives
+
+R6 object-oriented alternative package: https://github.com/frictionlessdata/tableschema-r; this is much simpler approach using vctrs
