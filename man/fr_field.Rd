@@ -2,17 +2,14 @@
 % Please edit documentation in R/fr_field.R
 \name{fr_field}
 \alias{fr_field}
-\alias{fr_string}
 \title{frictionless \href{https://specs.frictionlessdata.io/table-schema/#field-descriptors}{field}}
 \usage{
 fr_field(x, name, ...)
-
-fr_string(x, name, ...)
 }
 \arguments{
 \item{x}{a character, factor, numeric, integer, logical, or Date vector}
 
-\item{name}{string required name metadata descriptor as a string}
+\item{name}{required name metadata descriptor as a string}
 
 \item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> other optional metadata descriptors (\code{title}, \code{description}, \code{example})}
 }
@@ -20,25 +17,20 @@ fr_string(x, name, ...)
 a \link[=fr-package]{fr_field} vector
 }
 \description{
-Based on the class input vector \code{x}, the appropriate \verb{fr_*()} function
-will be called to create a frictionless field descriptor object (\code{fr_field}).
+Automatically create a frictionless field descriptor object (\code{fr_field}) with the appropriate frictionless type, format, and constraints based on the class of the input vector \code{x}:
 }
 \details{
-Only classes listed in this table (and in this order) are used to automatically
-select the correct \verb{fr_*()} function.\tabular{ccc}{
-   \strong{R class} \tab \strong{fr type} \tab \strong{\verb{fr_*()}} \cr
-   character, factor^ \tab string \tab \code{fr_string()} \cr
-   numeric, integer \tab number \tab \code{fr_number()} \cr
-   logical \tab boolean \tab \code{fr_boolean()} \cr
-   Date \tab date \tab \code{fr_date()} \cr
-}
+| \strong{R class}        | \strong{fr type} | format | constraints |
+|:------------------:|:-----------:|:--------------:| |
+| character, factor^ | string      | | |
+| numeric, integer   | number      | | |
+| logical            | boolean     | | |
+| Date               | date        | | |
 
-
-^\emph{Levels of factor columns are also captured in the "enum" item of the "constraints" attribute list.}
-
+Only these specific classes are automatically coerced.
 To convert a class not specifically listed to a frictionless type
 or to parse character vectors for a specific frictionless type,
-use one of the \verb{fr_*()} functions instead.
+use one of the \verb{fr_field_*()} functions instead.
 }
 \examples{
 fr_field(letters, name = "example_string")
@@ -75,6 +67,4 @@ attr(uid, "title")
 
 # using glue_data makes it easy to write clear documentation and messages using metadata fields:
 glue::glue_data(attributes(uid), "`{name}` (a.k.a. '{title}') is a {type} field. {description}.")
-fr_string(letters, name = "letters")
-fr_string(letters, name = "letters", title = "Letters")
 }
