@@ -62,7 +62,7 @@
 </h1></div>
 <!-- badges: start -->
 
-<p><code>fr</code> is a package for implementing the <a href="https://specs.frictionlessdata.io" class="external-link"><strong>Fr</strong>ctionless</a> <a href="https://specs.frictionlessdata.io/table-schema" class="external-link">Table Schema</a> Standards in R.</p>
+<p><code>fr</code> is a package for implementing <a href="https://specs.frictionlessdata.io" class="external-link">frictionless</a> <a href="https://specs.frictionlessdata.io/table-schema" class="external-link">table schema</a> standards in R</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -84,6 +84,11 @@
 <p>How to make a markdown/html button for a tabular-data-resource to list the version number and have a link for download? <em>or</em> to display an html popup or link to the metadata and schema???</p>
 <p>R function to do a rendered html file of metadata?? (Just use json and use browser to display the raw json?)</p>
 <p>Implement a subset of the tabular data resource functionality. Exclude foregin and primary keys, which allows for the removal of <code>fields</code> by collapsing the structure up one level into <code>schema</code>. Schema is basically a special type of descriptor that can have many descriptors in it for each data field. This makes it less confusing with the “fields” terminology used in vctrs. Consider this as <code>schema</code>.</p>
+</div>
+<div class="section level3">
+<h3 id="alternatives">Alternatives<a class="anchor" aria-label="anchor" href="#alternatives"></a>
+</h3>
+<p>R6 object-oriented alternative package: <a href="https://github.com/frictionlessdata/tableschema-r" class="external-link uri">https://github.com/frictionlessdata/tableschema-r</a>; this is much simpler approach using vctrs</p>
 </div>
 </div>
 </div>

@@ -48,7 +48,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fr_date</span><span class="op">(</span><span class="va">x</span>, <span class="va">name</span>, <span class="va">...</span>, format <span class="op">=</span> <span class="st">"%Y-%m-%d"</span>, parse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fr_date</span><span class="op">(</span><span class="va">x</span>, <span class="va">name</span>, <span class="va">...</span>, parse <span class="op">=</span> <span class="cn">FALSE</span>, format <span class="op">=</span> <span class="st">"%Y-%m-%d"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -63,22 +63,22 @@
 
 
 <dt>...</dt>
-<dd><p>other metadata descriptors (<code>title</code>, <code>description</code>)</p></dd>
-
-
-<dt>format</dt>
-<dd><p>as used in <code><a href="https://rdrr.io/r/base/strptime.html" class="external-link">strptime()</a></code>, defaults to <a href="https://en.wikipedia.org/wiki/ISO_8601" class="external-link">ISO8601</a></p></dd>
+<dd><p>other metadata descriptors (see <code><a href="fr_field.html">fr_field()</a></code> for all possibilities)</p></dd>
 
 
 <dt>parse</dt>
-<dd><p>parse x with <code><a href="https://docs.ropensci.org/datefixR/reference/fix_date_char.html" class="external-link">datefixR::fix_date_char</a></code> instead of coercion? requires that x is a character vector</p></dd>
+<dd><p>parse x with <code><a href="https://docs.ropensci.org/datefixR/reference/fix_date_char.html" class="external-link">datefixR::fix_date_char</a></code> instead of coercion? requires that x is a character vector and assumes that the month value comes before the day; e.g., <code>2/29/2023</code></p></dd>
+
+
+<dt>format</dt>
+<dd><p>see <code>format</code> argument in <code><a href="https://rdrr.io/r/base/strptime.html" class="external-link">strptime()</a></code>; defaults to <a href="https://en.wikipedia.org/wiki/ISO_8601" class="external-link">ISO8601</a></p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>"fr_field" object</p>
+<p>a <a href="fr-package.html">fr_field</a> vector</p>
     </div>
 
     <div class="section level2">
@@ -86,27 +86,38 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># normal usage</span></span></span>
 <span class="r-in"><span><span class="fu">fr_date</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2023-01-01"</span>, <span class="st">"2023-03-01"</span>, <span class="st">"2022-11-24"</span><span class="op">)</span>, name <span class="op">=</span> <span class="st">"event_date"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;fr_field[3]&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 19358 19417 19320</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> event_date (fr_date)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2023-01-01 2023-03-01 2022-11-24</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># also takes Dates if already converted</span></span></span>
 <span class="r-in"><span><span class="fu">fr_date</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2023-01-01"</span>, <span class="st">"2023-03-01"</span>, <span class="st">"2022-11-24"</span><span class="op">)</span><span class="op">)</span>, name <span class="op">=</span> <span class="st">"event_date"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;fr_field[3]&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 19358 19417 19320</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> event_date (fr_date)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2023-01-01 2023-03-01 2022-11-24</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># can specify format for non-ISO8601 dates</span></span></span>
 <span class="r-in"><span><span class="fu">fr_date</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2023/01/01"</span>, <span class="st">"2023/03/01"</span>, <span class="st">"2022/11/24"</span><span class="op">)</span>, name <span class="op">=</span> <span class="st">"event_date"</span>, format <span class="op">=</span> <span class="st">"%Y/%m/%d"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;fr_field[3]&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 19358 19417 19320</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> event_date (fr_date)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2023-01-01 2023-03-01 2022-11-24</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># can parse dates in other formats with optionally installed {datefixR} package</span></span></span>
 <span class="r-in"><span><span class="fu">fr_date</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"02/05/23"</span>, <span class="st">"02/05/21"</span>, <span class="st">"02/05/18"</span><span class="op">)</span>, name <span class="op">=</span> <span class="st">"event_date"</span>, parse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;fr_field[3]&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 19479 18749 17653</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> event_date (fr_date)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2023-02-05 2021-02-05 2018-02-05</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># parsing is useful for year-month combinations too,</span></span></span>
 <span class="r-in"><span><span class="co"># as day is always imputed as the first of the month</span></span></span>
 <span class="r-in"><span><span class="fu">fr_date</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"jan 2020"</span>, <span class="st">"feb 2020"</span>, <span class="st">"mar 2020"</span><span class="op">)</span>, name <span class="op">=</span> <span class="st">"event_date"</span>, parse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;fr_field[3]&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 18262 18293 18322</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> event_date (fr_date)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2020-01-01 2020-02-01 2020-03-01</span>
 <span class="r-in"><span><span class="fu">fr_date</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2020-01"</span>, <span class="st">"2020-02"</span>, <span class="st">"2020-03"</span><span class="op">)</span>, name <span class="op">=</span> <span class="st">"event_date"</span>, parse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;fr_field[3]&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 18262 18293 18322</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> event_date (fr_date)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2020-01-01 2020-02-01 2020-03-01</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># parsing with a missing day and month (i.e., just year) will cause an error;</span></span></span>
 <span class="r-in"><span><span class="co"># consider using fr_numeric in this case instead</span></span></span>
 </code></pre></div>
