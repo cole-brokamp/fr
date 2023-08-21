@@ -2,7 +2,7 @@
 % Please edit documentation in R/fr_field.R
 \name{fr_field_string}
 \alias{fr_field_string}
-\title{frictionless \href{https://specs.frictionlessdata.io/table-schema/#string}{string} field}
+\title{frictionless field: \href{https://specs.frictionlessdata.io/table-schema/#string}{string} type}
 \usage{
 fr_field_string(x, name, ...)
 }
@@ -17,9 +17,12 @@ fr_field_string(x, name, ...)
 a \link[=fr-package]{fr_field} vector
 }
 \description{
-frictionless \href{https://specs.frictionlessdata.io/table-schema/#string}{string} field
+frictionless field: \href{https://specs.frictionlessdata.io/table-schema/#string}{string} type
 }
 \examples{
 fr_field_string(letters, name = "letters")
 fr_field_string(letters, name = "letters", title = "Letters")
+# factors are a special type of frictionless string that have an `enum` `constraint`
+fr_field_string(letters, name = "letters", constraints = list(enum = letters))
+attributes()
 }

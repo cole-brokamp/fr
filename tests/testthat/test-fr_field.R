@@ -1,5 +1,12 @@
 test_that("fr_field works", {
 
+  # print methods
+  fr_field(x = 1, name = "x") |>
+    expect_snapshot()
+
+  fr_field(factor(letters), name = "letters") |>
+    expect_snapshot()
+
   fr_field(factor(c("a", "b", "c")), name = "example_factor") |>
     expect_s3_class("fr_field") |>
     vctrs::vec_data() |>

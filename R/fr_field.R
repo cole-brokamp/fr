@@ -19,9 +19,14 @@ new_fr_field <- function(x,
     rlang::inject()
 }
 
+#' @export
+#' @rdname fr_field
+is_fr_field <- function(x) {
+  inherits(x, "fr_field")
+}
+
 # on print, show name and type
 # include a * in the display if the field has constraints
-#' @examples
 #' fr_field(letters, name = "letters")
 #' fr_field(factor(letters), name = "letters")
 #' @export
@@ -31,12 +36,18 @@ format.fr_field <- function(x, ...) {
     attributes(x),
     "{name} (fr_{type}",
     ")"))
-  cat(ifelse(is.null(attributes(x)$constraints$enum), "", "*"))
+  cat(ifelse(is.null(attributes(x)$constraints$enum), "\n", "*\n"))
   if (attr(x, "type") == "date") return(as.Date(vctrs::vec_data(x)))
   vctrs::vec_data(x)
 }
 
-#' frictionless [field](https://specs.frictionlessdata.io/table-schema/#field-descriptors)
+#' @export
+vec_ptype_abbr.fr_field <- function(x, ...) {
+  "field"
+}
+
+
+#' frictionless [field descriptor](https://specs.frictionlessdata.io/table-schema/#field-descriptors)
 #' 
 #' Automatically create a frictionless field descriptor object (`fr_field`) with the appropriate frictionless type, format, and constraints based on the class of the input vector `x`:
 #' 
@@ -51,7 +62,9 @@ format.fr_field <- function(x, ...) {
 #' To convert a class not specifically listed to a frictionless type
 #' or to parse character vectors for a specific frictionless type,
 #' use one of the `fr_field_*()` functions instead.
-#' @param x a character, factor, numeric, integer, logical, or Date vector
+#' @param x
+#'   - For `fr_field`, a character, factor, numeric, integer, logical, or Date vector
+#'   - For `is_fr_field`, an object to test
 #' @param name required name metadata descriptor as a string
 #' @param ... <[`dynamic-dots`][rlang::dyn-dots]> other optional metadata descriptors (`title`, `description`, `example`)
 #' @return a [fr_field][fr::fr-package] vector
@@ -116,7 +129,6 @@ fr_field <- function(x, name, ...) {
                  "try coercing with type-specific `fr_*()` functions"))
 }
 
-
 ## obj_print_footer.fr_field <- function(x, ...) {
 ##   desc <- attr(x, "description")
 ##   if (!is.null(desc)){
@@ -124,7 +136,7 @@ fr_field <- function(x, name, ...) {
 ##   }
 ## }
 
-#' frictionless [string](https://specs.frictionlessdata.io/table-schema/#string) field
+#' frictionless field: [string](https://specs.frictionlessdata.io/table-schema/#string) type
 #' @param x vector coerceable to a character vector
 #' @param name required name metadata descriptor as a string
 #' @param ... <[`dynamic-dots`][rlang::dyn-dots]> other optional metadata descriptors (`title`, `description`, `example`)
@@ -141,7 +153,7 @@ fr_field_string <- function(x, name, ...) {
   new_fr_field(x, name = name, ..., type = "string")
 }
 
-#' frictionless [number](https://specs.frictionlessdata.io/table-schema/#number) field
+#' frictionless field: [number](https://specs.frictionlessdata.io/table-schema/#number) type
 #'
 #' - the frictionless special values: `Nan` (not a number),
 #' `INF` (positive infinity), `-INF` (negative infinity) are represented in R as `NaN`, `Inf`, and -`Inf`
@@ -174,7 +186,7 @@ fr_field_number <- function(x, name, ..., parse = FALSE) {
   new_fr_field(x, name = name, ..., type = "number")
 }
 
-#' frictionless [date](https://specs.frictionlessdata.io/table-schema/#date) field
+#' frictionless field: [date](https://specs.frictionlessdata.io/table-schema/#date) type
 #' @param x vector coercable to a Date vector based on `format` (ideally as `YYYY-MM-DD`)
 #' @param name required name metadata descriptor as a string
 #' @param ... <[`dynamic-dots`][rlang::dyn-dots]> other optional metadata descriptors (`title`, `description`, `example`)
@@ -213,7 +225,7 @@ fr_field_date <- function(x, name, ..., parse = FALSE, format = "%Y-%m-%d") {
   return(new_fr_field(x, name = name, ..., type = "date"))
 }
 
-#' frictionless [boolean](https://specs.frictionlessdata.io/table-schema/#boolean) field
+#' frictionless field: [boolean](https://specs.frictionlessdata.io/table-schema/#boolean) type
 #' @param x vector coercable to a logical vector
 #' @param name required name metadata descriptor as a string
 #' @param ... <[`dynamic-dots`][rlang::dyn-dots]> other optional metadata descriptors (`title`, `description`, `example`)

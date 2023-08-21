@@ -2,7 +2,7 @@
 % Please edit documentation in R/fr_field.R
 \name{fr_field_boolean}
 \alias{fr_field_boolean}
-\title{frictionless \href{https://specs.frictionlessdata.io/table-schema/#boolean}{boolean} field}
+\title{frictionless field: \href{https://specs.frictionlessdata.io/table-schema/#boolean}{boolean} type}
 \usage{
 fr_field_boolean(x, name, ..., parse = FALSE)
 }
@@ -19,7 +19,7 @@ fr_field_boolean(x, name, ..., parse = FALSE)
 a \link[=fr-package]{fr_field} vector
 }
 \description{
-frictionless \href{https://specs.frictionlessdata.io/table-schema/#boolean}{boolean} field
+frictionless field: \href{https://specs.frictionlessdata.io/table-schema/#boolean}{boolean} type
 }
 \examples{
 fr_field_boolean(c(TRUE, FALSE, TRUE), name = "case")

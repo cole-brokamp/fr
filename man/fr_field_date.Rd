@@ -2,7 +2,7 @@
 % Please edit documentation in R/fr_field.R
 \name{fr_field_date}
 \alias{fr_field_date}
-\title{frictionless \href{https://specs.frictionlessdata.io/table-schema/#date}{date} field}
+\title{frictionless field: \href{https://specs.frictionlessdata.io/table-schema/#date}{date} type}
 \usage{
 fr_field_date(x, name, ..., parse = FALSE, format = "\%Y-\%m-\%d")
 }
@@ -21,7 +21,7 @@ fr_field_date(x, name, ..., parse = FALSE, format = "\%Y-\%m-\%d")
 a \link[=fr-package]{fr_field} vector
 }
 \description{
-frictionless \href{https://specs.frictionlessdata.io/table-schema/#date}{date} field
+frictionless field: \href{https://specs.frictionlessdata.io/table-schema/#date}{date} type
 }
 \examples{
 # normal usage

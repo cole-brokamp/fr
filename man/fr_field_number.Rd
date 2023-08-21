@@ -2,7 +2,7 @@
 % Please edit documentation in R/fr_field.R
 \name{fr_field_number}
 \alias{fr_field_number}
-\title{frictionless \href{https://specs.frictionlessdata.io/table-schema/#number}{number} field}
+\title{frictionless field: \href{https://specs.frictionlessdata.io/table-schema/#number}{number} type}
 \usage{
 fr_field_number(x, name, ..., parse = FALSE)
 }
