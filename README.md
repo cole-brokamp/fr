@@ -19,16 +19,16 @@ You can install the development version of codec from [GitHub](https://github.co
 
 Use `fr_field()` to create a frictionless field object in R by automatically selecting the appropriate Frictionless [`type`](https://specs.frictionlessdata.io/table-schema/#types-and-formats), `format`, and `constraint` descriptors for a specific set of R objects:
 
-| **R class**           | **fr type** |
-|:---------------------:|:-----------:|
-| `character`, `factor` | `string`    |
-| `numeric`, `integer`  | `number`    |
-| `logical`             | `boolean`   |
-| `Date`                | `date`      |
+| **R class**        | **fr type** | format | constraints |
+|:------------------:|:-----------:|:--------------:|:----:|
+| `character()`, `factor()` | `string`      | | |
+| `numeric()`, `integer()`   | `number`      | | |
+| `logical()`            | `boolean`     | | |
+| `Date`               | `date`        | | |
 
 Automatically defining metadata descriptors based on the `class()` and `attributes()` of an object in R is powerful, but it is *strict* because it only supports these R classes. 
 
-In contrast, `fr_field_string()`, `fr_field_number()`, `fr_field_boolean()`, and `fr_field_date()` are *lenient* in that they accept infinitely more classes of vectors, but require more fine grained control of frictionless `type`, `format`, and `constraints`.  These each also come with parsing input character strings for the specific type; e.g., parsing the string `$11,000` as a frictionless number (`11000`).
+In contrast, `fr_field_string()`, `fr_field_number()`, `fr_field_boolean()`, and `fr_field_date()` are *lenient* in that they accept infinitely more classes of vectors (through coercion), but they require more fine grained specification of frictionless `type`, `format`, and `constraints`.  These each also come with parsing of the input character strings for the specific type; e.g., parsing `$11,000` as a frictionless number (`11000`) or `jun-2016` as a frictionless date (`2016-01-06`).
 
 ### Alternatives
 

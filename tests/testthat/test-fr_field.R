@@ -1,10 +1,11 @@
 test_that("fr_field works", {
 
-  # TODO
-  ## fr_field(factor(c("a", "b", "c")), name = "example_factor") |>
-  ##   expect_s3_class("fr_field") |>
-  ##   vctrs::vec_data() |>
-  ##   expect_type("factor")
+  fr_field(factor(c("a", "b", "c")), name = "example_factor") |>
+    expect_s3_class("fr_field") |>
+    vctrs::vec_data() |>
+    expect_type("character") |>
+    factor(levels = c("a", "b", "c")) |>
+    expect_s3_class("factor")
 
   fr_field(LETTERS, name = "example_string") |>
     expect_s3_class("fr_field") |>

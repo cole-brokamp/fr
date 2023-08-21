@@ -8,7 +8,7 @@ new_fr_field <- function(x,
   }
   vctrs::vec_check_size(name, size = 1L)
   optional_descriptors <- rlang::list2(...)
-  # TODO add checks for optional descriptors (character vector and of length one)
+  # TODO add checks for optional descriptors (character vector and of length one, except constraints
   # TODO should restrict to just supported descriptors?
   type <- rlang::arg_match(type)
   vctrs::new_vctr(x,
@@ -19,9 +19,19 @@ new_fr_field <- function(x,
     rlang::inject()
 }
 
+# on print, show name and type
+# include a * in the display if the field has constraints
+#' @examples
+#' fr_field(letters, name = "letters")
+#' fr_field(factor(letters), name = "letters")
 #' @export
 format.fr_field <- function(x, ...) {
-  cat(glue::glue("{attr(x, 'name')} (fr_{attr(x, 'type')})\n\n"))
+  cat(
+  glue::glue_data(
+    attributes(x),
+    "{name} (fr_{type}",
+    ")"))
+  cat(ifelse(is.null(attributes(x)$constraints$enum), "", "*"))
   if (attr(x, "type") == "date") return(as.Date(vctrs::vec_data(x)))
   vctrs::vec_data(x)
 }
@@ -31,11 +41,11 @@ format.fr_field <- function(x, ...) {
 #' Automatically create a frictionless field descriptor object (`fr_field`) with the appropriate frictionless type, format, and constraints based on the class of the input vector `x`:
 #' 
 #' | **R class**        | **fr type** | format | constraints |
-#' |:------------------:|:-----------:|:--------------:| |
-#' | character, factor^ | string      | | |
-#' | numeric, integer   | number      | | |
-#' | logical            | boolean     | | |
-#' | Date               | date        | | |
+#' |:------------------:|:-----------:|:--------------:|:----:|
+#' | `character()`, `factor()` | `string`      | | |
+#' | `numeric()`, `integer()`   | `number`      | | |
+#' | `logical()`            | `boolean`     | | |
+#' | `Date`               | `date`        | | |
 #' 
 #' Only these specific classes are automatically coerced.
 #' To convert a class not specifically listed to a frictionless type
@@ -48,7 +58,7 @@ format.fr_field <- function(x, ...) {
 #' @examples
 #' fr_field(letters, name = "example_string")
 #' 
-#' # TODO fr_field(factor(LETTERS), name = "example_factor")
+#' fr_field(factor(LETTERS), name = "example_factor")
 #' 
 #' fr_field(1:26, name = "example_numbers")
 #' 
@@ -85,10 +95,10 @@ fr_field <- function(x, name, ...) {
   if (inherits(x, "character")) {
     return(new_fr_field(x = x, name = name, ..., type = "string"))
   }
-  ## if (inherits(x, "factor")) {
-  ##   return(fr_field(x = x, name = name, ..., type = "string"))
-  ## # TODO add constraints = list(enum = levels(x))
-  ## }
+  if (inherits(x, "factor")) {
+    return(new_fr_field(x = as.character(x), name = name, ..., type = "string",
+                        constraints = list(enum = levels(x))))
+  }
   if (inherits(x, "numeric")) {
     return(new_fr_field(x = x, name = name, ..., type = "number"))
   }
@@ -122,6 +132,9 @@ fr_field <- function(x, name, ...) {
 #' @examples
 #' fr_field_string(letters, name = "letters")
 #' fr_field_string(letters, name = "letters", title = "Letters")
+#' # factors are a special type of frictionless string that have an `enum` `constraint`
+#' fr_field_string(letters, name = "letters", constraints = list(enum = letters))
+#' attributes()
 #' @export
 fr_field_string <- function(x, name, ...) {
   x <- vctrs::vec_cast(x, character())
