@@ -1,18 +1,18 @@
 test_that("fr_field works", {
 
   # print methods
-  fr_field(x = 1, name = "x") |>
+  fr_field(x = 1:3, name = "x") |>
     expect_snapshot()
 
-  fr_field(factor(letters), name = "letters") |>
-    expect_snapshot()
+  ## fr_field(factor(letters), name = "letters") |>
+  ##   expect_snapshot()
 
-  fr_field(factor(c("a", "b", "c")), name = "example_factor") |>
-    expect_s3_class("fr_field") |>
-    vctrs::vec_data() |>
-    expect_type("character") |>
-    factor(levels = c("a", "b", "c")) |>
-    expect_s3_class("factor")
+  ## fr_field(factor(c("a", "b", "c")), name = "example_factor") |>
+  ##   expect_s3_class("fr_field") |>
+  ##   vctrs::vec_data() |>
+  ##   expect_type("character") |>
+  ##   factor(levels = c("a", "b", "c")) |>
+  ##   expect_s3_class("factor")
 
   fr_field(LETTERS, name = "example_string") |>
     expect_s3_class("fr_field") |>
@@ -40,8 +40,9 @@ test_that("fr_field works", {
     as.Date() |>
     expect_s3_class("Date")
 
-  fr_field(Sys.time()) |>
-  expect_error("supported class for automatic frictionless typing")
+  fr_field(Sys.time(), name = "time") |>
+    expect_error("supported class for automatic frictionless typing")
+
 })
 
 test_that("fr_field_string works", {

@@ -7,7 +7,7 @@
 \usage{
 is_fr_field(x)
 
-fr_field(x, name, ...)
+fr_field(x, name = character(), ...)
 }
 \arguments{
 \item{x}{\itemize{
@@ -17,9 +17,11 @@ fr_field(x, name, ...)
 }
 }}
 
-\item{name}{required name metadata descriptor as a string}
+\item{name}{metadata name descriptor as a string; if NULL, it will be set automatically
+using \code{rlang::as_label()}, which is usually nondescript}
 
-\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> other optional metadata descriptors (\code{title}, \code{description}, \code{example})}
+\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> other user-set optional metadata
+descriptors (e.g., \code{title}, \code{description}, \code{example})}
 }
 \value{
 a \link[=fr-package]{fr_field} vector

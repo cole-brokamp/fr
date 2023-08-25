@@ -1,22 +1,32 @@
 new_fr_field <- function(x,
                          name = character(),
-                         ...,
-                         type = c("string", "number", "boolean", "date")
+                         type = c("string", "number", "boolean", "date"),
+                         title = character(),
+                         description = character(),
+                         constraints = NULL
                          ) {
+  rlang::check_required(x)
   if (!rlang::is_character(name)) {
     rlang::abort("`name` must be a character vector.")
   }
   vctrs::vec_check_size(name, size = 1L)
-  optional_descriptors <- rlang::list2(...)
-  # TODO add checks for optional descriptors (character vector and of length one, except constraints
-  # TODO should restrict to just supported descriptors?
   type <- rlang::arg_match(type)
+  if (!rlang::is_character(title)) {
+    rlang::abort("`name` must be a character vector.")
+  }
+  if (!rlang::is_character(description)) {
+    rlang::abort("`description` must be a character vector.")
+  }
+  ## if(!rlang::is_list(constraints)) {
+  ##   rlang::abort("`constraints` must be a list.")
+  ## }
   vctrs::new_vctr(x,
                   name = name,
-                  !!!optional_descriptors,
                   type = type,
-                  class = "fr_field") |>
-    rlang::inject()
+                  title = title[1],
+                  description = description[1],
+                  constraints = constraints,
+                  class = "fr_field")
 }
 
 #' @export
@@ -65,8 +75,10 @@ vec_ptype_abbr.fr_field <- function(x, ...) {
 #' @param x
 #'   - For `fr_field`, a character, factor, numeric, integer, logical, or Date vector
 #'   - For `is_fr_field`, an object to test
-#' @param name required name metadata descriptor as a string
-#' @param ... <[`dynamic-dots`][rlang::dyn-dots]> other optional metadata descriptors (`title`, `description`, `example`)
+#' @param name metadata name descriptor as a string; if NULL, it will be set automatically
+#' using `rlang::as_label()`, which is usually nondescript
+#' @param ... <[`dynamic-dots`][rlang::dyn-dots]> other user-set optional metadata
+#' descriptors (e.g., `title`, `description`, `example`)
 #' @return a [fr_field][fr::fr-package] vector
 #' @examples
 #' fr_field(letters, name = "example_string")
@@ -104,29 +116,33 @@ vec_ptype_abbr.fr_field <- function(x, ...) {
 #' # using glue_data makes it easy to write clear documentation and messages using metadata fields:
 #' glue::glue_data(attributes(uid), "`{name}` (a.k.a. '{title}') is a {type} field. {description}.")
 #' @export
-fr_field <- function(x, name, ...) {
-  if (inherits(x, "character")) {
-    return(new_fr_field(x = x, name = name, ..., type = "string"))
+fr_field <- function(x, name = character(), ...) {
+
+  # od: optional_descriptors
+  od <- rlang::list2(...)
+  od$name <- name
+
+  if (vctrs::vec_size(od$name) == 0) {
+    rlang::warn(c("Frictionless `name` attribute for this field is empty",
+                  "i" = "setting `name` automatically using rlang::as_label",
+                  "x" = "this usually creates a nondescript name",
+                  "i" = "set the name instead with fr_field(x, name = \"my_name\")"))
+    od$name <- paste0("unnamed_", rlang::as_label(x))
   }
-  if (inherits(x, "factor")) {
-    return(new_fr_field(x = as.character(x), name = name, ..., type = "string",
-                        constraints = list(enum = levels(x))))
+
+  if (inherits(x, "character") || inherits(x, "factor")) od$type <- "string"
+  if (inherits(x, "numeric") || inherits(x, "integer")) od$type <- "number"
+  if (inherits(x, "logical")) od$type <- "boolean"
+  if (inherits(x, "Date")) od$type <- "date"
+  if(is.null(od$type)) {
+    rlang::abort(c("x is not a supported class for automatic frictionless typing",
+                   paste("the supplied vector was of class", class(x)[1], collapse = ""),
+                   "try coercing with type-specific `fr_*()` functions"))
   }
-  if (inherits(x, "numeric")) {
-    return(new_fr_field(x = x, name = name, ..., type = "number"))
-  }
-  if (inherits(x, "integer")) {
-    return(new_fr_field(x = x, name = name, ..., type = "number"))
-  }
-  if (inherits(x, "logical")) {
-    return(new_fr_field(x = x, name = name, ..., type = "boolean"))
-  }
-  if (inherits(x, "Date")) {
-    return(new_fr_field(x = x, name = name, ..., type = "date"))
-  }
-  rlang::abort(c("x is not a supported class for automatic frictionless typing",
-                 paste("the supplied vector was of class", class(x)[1], collapse = ""),
-                 "try coercing with type-specific `fr_*()` functions"))
+
+  if (inherits(x, "factor")) od$constraints <- list(enum = levels(x))
+
+  return(rlang::inject(new_fr_field(x = x, !!!od)))
 }
 
 ## obj_print_footer.fr_field <- function(x, ...) {
