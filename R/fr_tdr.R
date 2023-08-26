@@ -1,3 +1,9 @@
+new_fr_tdr <- function(...) {
+  x <- rlang::list2(...)
+
+}
+
+
 # function that takes list of fr_field objects and creates a
 # tibble of them based on their names
 

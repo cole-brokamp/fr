@@ -1,3 +1,8 @@
+## x <-
+##   tibble::tibble(
+##     id = fr_field(letters)
+
+
 ## the_md <- yaml::read_yaml("https://github.com/geomarker-io/hamilton_property_code_enforcement/releases/download/0.1.2/tabular-data-resource.yaml")
 
 

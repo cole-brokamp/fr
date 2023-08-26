@@ -118,14 +118,6 @@ fr_field <- function(x, name, ...) {
   od <- rlang::list2(...)
   od$name <- name
 
-  if (vctrs::vec_size(od$name) == 0) {
-    rlang::warn(c("Frictionless `name` attribute for this field is empty",
-                  "i" = "setting `name` automatically using rlang::as_label",
-                  "x" = "this usually creates a nondescript name",
-                  "i" = "set the name instead with fr_field(x, name = \"my_name\")"))
-    od$name <- paste0("unnamed_", rlang::as_label(x))
-  }
-
   if (inherits(x, "character") || inherits(x, "factor")) od$type <- "string"
   if (inherits(x, "numeric") || inherits(x, "integer")) od$type <- "number"
   if (inherits(x, "logical")) od$type <- "boolean"
