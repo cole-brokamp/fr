@@ -54,22 +54,23 @@ vec_ptype_abbr.fr_field <- function(x, ...) {
 
 #' frictionless [field descriptor](https://specs.frictionlessdata.io/table-schema/#field-descriptors)
 #' 
-#' Automatically create a frictionless field descriptor object (`fr_field`) with the appropriate frictionless type, format, and constraints based on the class of the input vector `x`:
+#' Automatically create a frictionless field descriptor object (`fr_field`) with the appropriate frictionless type, format, and constraints based on the class of the input vector `x`.  See details.
 #' 
-#' | **R class**        | **fr type** | format | constraints |
-#' |:------------------:|:-----------:|:--------------:|:----:|
-#' | `character()`, `factor()` | `string`      | | |
-#' | `numeric()`, `integer()`   | `number`      | | |
-#' | `logical()`            | `boolean`     | | |
-#' | `Date`               | `date`        | | |
-#' 
-#' Only these specific classes are automatically coerced.
-#' To convert a class not specifically listed to a frictionless type
+#' Automatic conversion is implemented for the specific `R` classes below. To convert a class not specifically listed to a frictionless type
 #' or to parse character vectors for a specific frictionless type,
 #' use one of the `fr_field_*()` functions instead.
+#' 
+#' | **`R` class**   | **`fr` type**   |
+#' |:-----------------|:-------------|
+#' | `character()`, `factor()` | `string`* |
+#' | `numeric()`, `integer()` | `number` |
+#' | `logical()` | `boolean` |
+#' | `Date` | `date` |
+#' 
+#' *If a `factor()`, the `enum` `constraint` is set to the levels of the factor in R.
 #' @param x
-#'   - For `fr_field`, a character, factor, numeric, integer, logical, or Date vector
-#'   - For `is_fr_field`, an object to test
+#' - For `fr_field`, a character, factor, numeric, integer, logical, or Date vector
+#' - For `is_fr_field`, an object to test
 #' @param name metadata name descriptor as a string; if NULL, it will be set automatically
 #' using `rlang::as_label()`, which is usually nondescript
 #' @param ... <[`dynamic-dots`][rlang::dyn-dots]> other user-set optional metadata
@@ -111,7 +112,7 @@ vec_ptype_abbr.fr_field <- function(x, ...) {
 #' # using glue_data makes it easy to write clear documentation and messages using metadata fields:
 #' glue::glue_data(attributes(uid), "`{name}` (a.k.a. '{title}') is a {type} field. {description}.")
 #' @export
-fr_field <- function(x, name = character(), ...) {
+fr_field <- function(x, name, ...) {
 
   # od: optional_descriptors
   od <- rlang::list2(...)

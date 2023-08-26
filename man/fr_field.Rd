@@ -5,16 +5,14 @@
 \alias{is_fr_field}
 \title{frictionless \href{https://specs.frictionlessdata.io/table-schema/#field-descriptors}{field descriptor}}
 \usage{
-fr_field(x, name = character(), ...)
+fr_field(x, name, ...)
 
 is_fr_field(x)
 }
 \arguments{
 \item{x}{\itemize{
 \item For \code{fr_field}, a character, factor, numeric, integer, logical, or Date vector
-\itemize{
 \item For \code{is_fr_field}, an object to test
-}
 }}
 
 \item{name}{metadata name descriptor as a string; if NULL, it will be set automatically
@@ -27,22 +25,21 @@ descriptors (e.g., \code{title}, \code{description}, \code{example})}
 a \link[=fr-package]{fr_field} vector
 }
 \description{
-Automatically create a frictionless field descriptor object (\code{fr_field}) with the appropriate frictionless type, format, and constraints based on the class of the input vector \code{x}:
+Automatically create a frictionless field descriptor object (\code{fr_field}) with the appropriate frictionless type, format, and constraints based on the class of the input vector \code{x}.  See details.
 }
 \details{
-\tabular{cccc}{
-   \strong{R class} \tab \strong{fr type} \tab format \tab constraints \cr
-   \code{character()}, \code{factor()} \tab \code{string} \tab  \tab  \cr
-   \code{numeric()}, \code{integer()} \tab \code{number} \tab  \tab  \cr
-   \code{logical()} \tab \code{boolean} \tab  \tab  \cr
-   \code{Date} \tab \code{date} \tab  \tab  \cr
+Automatic conversion is implemented for the specific \code{R} classes below. To convert a class not specifically listed to a frictionless type
+or to parse character vectors for a specific frictionless type,
+use one of the \verb{fr_field_*()} functions instead.\tabular{ll}{
+   \strong{\code{R} class} \tab \strong{\code{fr} type} \cr
+   \code{character()}, \code{factor()} \tab \code{string}* \cr
+   \code{numeric()}, \code{integer()} \tab \code{number} \cr
+   \code{logical()} \tab \code{boolean} \cr
+   \code{Date} \tab \code{date} \cr
 }
 
 
-Only these specific classes are automatically coerced.
-To convert a class not specifically listed to a frictionless type
-or to parse character vectors for a specific frictionless type,
-use one of the \verb{fr_field_*()} functions instead.
+*If a \code{factor()}, the \code{enum} \code{constraint} is set to the levels of the factor in R.
 }
 \examples{
 fr_field(letters, name = "example_string")
