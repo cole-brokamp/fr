@@ -7,3 +7,7 @@
       x (fr_number)
       [1] 1 2 3
 
+---
+
+    Code
+

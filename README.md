@@ -17,7 +17,7 @@ You can install the development version of codec from [GitHub](https://github.co
 	
 ## Usage
 
-Use `fr_field()` to create a frictionless field object in R by automatically selecting the appropriate Frictionless [`type`, `format`](https://specs.frictionlessdata.io/table-schema/#types-and-formats), and [`constraint`](https://specs.frictionlessdata.io/table-schema/#constraints) metadata descriptors for a specific class of R objects:
+Use `fr_field()` to create a frictionless field object in R by automatically selecting the appropriate Frictionless [`type`, `format`](https://specs.frictionlessdata.io/table-schema/#types-and-formats), and [`constraint`](https://specs.frictionlessdata.io/table-schema/#constraints) metadata descriptors for a specific set of R objects:
 
 | `R` class   | `fr` type   |
 |:--------------|:----------------|

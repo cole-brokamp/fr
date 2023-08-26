@@ -29,12 +29,6 @@ new_fr_field <- function(x,
                   class = "fr_field")
 }
 
-#' @export
-#' @rdname fr_field
-is_fr_field <- function(x) {
-  inherits(x, "fr_field")
-}
-
 # on print, show name and type
 # include a * in the display if the field has constraints
 #' fr_field(letters, name = "letters")
@@ -48,6 +42,7 @@ format.fr_field <- function(x, ...) {
     ")"))
   cat(ifelse(is.null(attributes(x)$constraints$enum), "\n", "*\n"))
   if (attr(x, "type") == "date") return(as.Date(vctrs::vec_data(x)))
+  x
   vctrs::vec_data(x)
 }
 
@@ -133,17 +128,30 @@ fr_field <- function(x, name = character(), ...) {
   if (inherits(x, "character") || inherits(x, "factor")) od$type <- "string"
   if (inherits(x, "numeric") || inherits(x, "integer")) od$type <- "number"
   if (inherits(x, "logical")) od$type <- "boolean"
-  if (inherits(x, "Date")) od$type <- "date"
-  if(is.null(od$type)) {
+  if (inherits(x, "Date")) {
+    x <- as.character(x)
+    od$type <- "date"
+  }
+  if (inherits(x, "factor")) {
+    od$constraints <- list(enum = levels(x))
+    x <- as.character(x)
+    od$type <- "string"
+  }
+  if (vctrs::vec_size(od$type) == 0) {
     rlang::abort(c("x is not a supported class for automatic frictionless typing",
                    paste("the supplied vector was of class", class(x)[1], collapse = ""),
                    "try coercing with type-specific `fr_*()` functions"))
   }
 
-  if (inherits(x, "factor")) od$constraints <- list(enum = levels(x))
-
   return(rlang::inject(new_fr_field(x = x, !!!od)))
 }
+
+#' @export
+#' @rdname fr_field
+is_fr_field <- function(x) {
+  inherits(x, "fr_field")
+}
+
 
 ## obj_print_footer.fr_field <- function(x, ...) {
 ##   desc <- attr(x, "description")
