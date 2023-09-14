@@ -9,6 +9,9 @@ fr_field <- new_class("fr_field", properties = list(
   constraints = class_list
 ))
 
+# TODO how to validate that type is one of?
+# c("numeric", "string", "boolean", "date")
+
 as_fr_field <- new_generic("as_fr_field", "x")
 
 method(as_fr_field, class_numeric) <- function(x, name, ...) {
@@ -40,19 +43,22 @@ method(as_fr_field, class_Date) <- function(x, name, ...) {
 ## }
 
 method(print, fr_field) <- function(x, ...) {
-  glue::glue("\n",
-    " name: {x@name}",
-    " type: {x@type}",
-    "title: {x@title}",
-    ## "description: {x@description}",
-    .sep = "\n"
-  ) |>
-    print()
+  cat(x@name, " (", x@type, ")", "\n", sep = "")
   print(x@value)
 }
 
-as_fr_field(1:10, "example_integer", title = "Example Integer")
+method(format, fr_field) <- function(x, ...) {
+  cat(x@name, " (", x@type, ")", "\n", sep = "")
+  print(x@value)
+}
 
+as_vector <- new_generic("as_vector", "x")
+
+method(as_vector, fr_field) <- function(x, ...){
+  x@type
+  # TODO switch to return which type
+
+}
 
 ## examples
 as_fr_field(1:10, "example_integer") # -> frictionless numeric
@@ -60,9 +66,7 @@ as_fr_field((1:10) * 0.1, "example_double") # -> frictionless numeric
 as_fr_field(letters, "example_character") # -> frictionless string
 as_fr_field(factor(letters), "example_factor") # -> frictionless string with enum constraints
 as_fr_field(c(TRUE, FALSE, TRUE), "example_logical") # -> frictionless boolean
-as_fr_field(as.Date(c("2023-04-23", "2004-12-31")), "test_score") # -> frictionless date
-
-xx <- as_fr_field(1:10, "example_integer")
+as_fr_field(as.Date(c("2023-04-23", "2004-12-31")), "example_date") # -> frictionless date
 
 uid <-
   replicate(34, paste0(sample(c(letters, 0:9), 8, TRUE), collapse = "")) |>
@@ -75,24 +79,4 @@ prop(uid, "description")
 uid@description <- "Consists of 8 random characters from (a-z) and (0-9)"
 
 str(uid)
-
-describe <- new_generic("describe", "x")
-
-method(describe, fr_field) <- function(x) {
-  glue::glue(
-    "name: {x@name}",
-    ## "title: {x@title}",
-    "frictionless type: {x@type}",
-    ## "description: {x@description}",
-    .sep = "\n",
-    .null = "",
-    .na = "",
-  )
-}
-
-describe(uid)
-
-str(xx)
 pillar::glimpse(uid)
-
-describe(xx)
