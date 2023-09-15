@@ -16,8 +16,7 @@ a \link[=fr-package]{fr_field} object
 }
 \description{
 Coerce a \code{character}, \code{factor}, \code{numeric}, \code{logical}, or \code{Date} vector to a frictionless
-field descriptor object (\code{fr_field}) with \code{as_fr_field}. Create a new \code{fr_field} object
-with \code{fr_field()}.
+field descriptor object (\code{fr_field}) with \code{as_fr_field}.
 }
 \details{
 The supported classes of \code{R} objects are converted to the corresponding frictionless \code{type}:\tabular{ll}{

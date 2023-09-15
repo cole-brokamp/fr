@@ -23,8 +23,7 @@ fr_field <- S7::new_class("fr_field",
 #' convert a vector to a frictionless [field](https://specs.frictionlessdata.io/table-schema/#field-descriptors)
 #'
 #' Coerce a `character`, `factor`, `numeric`, `logical`, or `Date` vector to a frictionless
-#' field descriptor object (`fr_field`) with `as_fr_field`. Create a new `fr_field` object
-#' with `fr_field()`.
+#' field descriptor object (`fr_field`) with `as_fr_field`. 
 #'
 #' The supported classes of `R` objects are converted to the corresponding frictionless `type`:
 #'
@@ -90,8 +89,13 @@ S7::method(print, fr_field) <- function(x, ...) {
   print(x@value)
 }
 
+#' convert a frictionless [field](https://specs.frictionlessdata.io/table-schema/#field-descriptors) object back to a vector
+#' @param x a [fr_field][fr::fr-package] object
+#' @param ... ignored
+#' @return the vector stored in `x@value`, which is a `character`, `factor`, `numeric`, `logical`, or `Date` vector
+#' @export
 as_vector <- S7::new_generic("as_vector", "x")
 
-S7::method(as_vector, fr_field) <- function(x, ...) {
+S7::method(as_vector, fr_field) <- function(x) {
   x@value
 }
