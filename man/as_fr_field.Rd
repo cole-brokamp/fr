@@ -9,13 +9,13 @@ as_fr_field(x, ...)
 \arguments{
 \item{x}{a character, factor, numeric, integer, logical, or Date vector}
 
-\item{name}{\href{https://specs.frictionlessdata.io/table-schema/#name}{name} property}
+\item{...}{\code{name}, \code{title}, or \code{description} property (\href{https://specs.frictionlessdata.io/table-schema/#name}{\code{name} is required})}
 }
 \value{
 a \link[=fr-package]{fr_field} object
 }
 \description{
-Coerce a \code{character}, \code{factor}, \code{numeric}, \code{logical}, or \code{Date} vector to frictionless
+Coerce a \code{character}, \code{factor}, \code{numeric}, \code{logical}, or \code{Date} vector to a frictionless
 field descriptor object (\code{fr_field}) with \code{as_fr_field}. Create a new \code{fr_field} object
 with \code{fr_field()}.
 }
@@ -48,11 +48,10 @@ uid <-
   )
 
 # set properties of the `fr_field`
-prop(uid, "description")
+S7::prop(uid, "description")
 uid@description <- "Consists of 8 random characters from (a-z) and (0-9)"
 
 # inspect properties of the `fr_field`
 uid
 str(uid)
-pillar::glimpse(uid)
 }

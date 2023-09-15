@@ -15,13 +15,14 @@ fr_field <- S7::new_class("fr_field",
     } else if (!(self@type) %in% c("numeric", "string", "boolean", "date")) {
       "@type must be one of 'numeric', 'string', 'boolean', or 'date'"
     }
-    # TODO force x to have be non-NULL?
+    # TODO force x to have be non-NULL? no, this can be frictionless metadata
+    ## idea: read in metadata first as list of fields, then assign in data to @value
   }
 )
 
 #' convert a vector to a frictionless [field](https://specs.frictionlessdata.io/table-schema/#field-descriptors)
 #'
-#' Coerce a `character`, `factor`, `numeric`, `logical`, or `Date` vector to frictionless
+#' Coerce a `character`, `factor`, `numeric`, `logical`, or `Date` vector to a frictionless
 #' field descriptor object (`fr_field`) with `as_fr_field`. Create a new `fr_field` object
 #' with `fr_field()`.
 #'
@@ -36,7 +37,7 @@ fr_field <- S7::new_class("fr_field",
 #'
 #' *If a `factor()`, the `enum` `constraint` is set to the levels of the factor in R.
 #' @param x a character, factor, numeric, integer, logical, or Date vector
-#' @param name [name](https://specs.frictionlessdata.io/table-schema/#name) property
+#' @param ... `name`, `title`, or `description` property ([`name` is required](https://specs.frictionlessdata.io/table-schema/#name))
 #' @return a [fr_field][fr::fr-package] object
 #' @examples
 #' as_fr_field(1:10, "example_integer") # -> frictionless numeric
@@ -55,13 +56,12 @@ fr_field <- S7::new_class("fr_field",
 #'   )
 #'
 #' # set properties of the `fr_field`
-#' prop(uid, "description")
+#' S7::prop(uid, "description")
 #' uid@description <- "Consists of 8 random characters from (a-z) and (0-9)"
 #'
 #' # inspect properties of the `fr_field`
 #' uid
 #' str(uid)
-#' pillar::glimpse(uid)
 #' @export
 as_fr_field <- S7::new_generic("as_fr_field", "x")
 
@@ -90,6 +90,8 @@ S7::method(print, fr_field) <- function(x, ...) {
   print(x@value)
 }
 
-S7::method(as.vector, fr_field) <- function(x, ...) {
+as_vector <- S7::new_generic("as_vector", "x")
+
+S7::method(as_vector, fr_field) <- function(x, ...) {
   x@value
 }
