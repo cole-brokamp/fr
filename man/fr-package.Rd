@@ -4,7 +4,7 @@
 \name{fr-package}
 \alias{fr}
 \alias{fr-package}
-\title{fr: Implement Frictionless Standards in R}
+\title{fr: Frictionless Standards in R}
 \description{
 Classes for Frictionless table and field schema as well as tabular-data-resource are provided. Tools for creating, curating, writing, and reading tabular-data-resources are also available.
 }
