@@ -1,4 +1,17 @@
-fr_field <- S7::new_class("fr_field",
+#' is_fr_field
+#' @param x an object to test
+#' @return `TRUE` if object is a [fr_field][fr::fr-package] object, `FALSE` otherwise
+#' @examples
+#' is_fr_field(letters)
+#' is_fr_field(as_fr_field(letters))
+#' @export
+is_fr_field <- function(x) {
+  inherits(x, "fr::fr_field")
+}
+
+fr_field <- S7::new_class(
+  "fr_field",
+  package = "fr",
   properties = list(
     value = S7::class_vector,
     name = S7::class_character,
@@ -23,7 +36,7 @@ fr_field <- S7::new_class("fr_field",
 #' convert a vector to a frictionless [field](https://specs.frictionlessdata.io/table-schema/#field-descriptors)
 #'
 #' Coerce a `character`, `factor`, `numeric`, `logical`, or `Date` vector to a frictionless
-#' field descriptor object (`fr_field`) with `as_fr_field`. 
+#' field descriptor object (`fr_field`) with `as_fr_field`.
 #'
 #' The supported classes of `R` objects are converted to the corresponding frictionless `type`:
 #'

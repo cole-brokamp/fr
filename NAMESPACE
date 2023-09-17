@@ -2,3 +2,4 @@
 
 export(as_fr_field)
 export(as_vector)
+export(is_fr_field)
