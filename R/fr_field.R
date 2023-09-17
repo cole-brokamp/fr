@@ -28,8 +28,6 @@ fr_field <- S7::new_class(
     } else if (!(self@type) %in% c("numeric", "string", "boolean", "date")) {
       "@type must be one of 'numeric', 'string', 'boolean', or 'date'"
     }
-    # TODO force x to have be non-NULL? no, this can be frictionless metadata
-    ## idea: read in metadata first as list of fields, then assign in data to @value
   }
 )
 
