@@ -2,7 +2,8 @@
 % Please edit documentation in R/fr_field.R
 \name{as_fr_field}
 \alias{as_fr_field}
-\title{convert a vector to a frictionless \href{https://specs.frictionlessdata.io/table-schema/#field-descriptors}{field}}
+\title{Coerce \code{character}, \code{factor}, \code{numeric}, \code{logical}, and \code{Date}
+vectors into \code{\link[=fr-package]{fr_field}} objects}
 \usage{
 as_fr_field(x, ...)
 }
@@ -15,10 +16,6 @@ as_fr_field(x, ...)
 a \link[=fr-package]{fr_field} object
 }
 \description{
-Coerce a \code{character}, \code{factor}, \code{numeric}, \code{logical}, or \code{Date} vector to a frictionless
-field descriptor object (\code{fr_field}) with \code{as_fr_field}.
-}
-\details{
 The supported classes of \code{R} objects are converted to the corresponding frictionless \code{type}:\tabular{ll}{
    \strong{\code{R} class} \tab \strong{\code{fr} type} \cr
    \code{character()}, \code{factor()} \tab \code{string}* \cr
@@ -26,8 +23,8 @@ The supported classes of \code{R} objects are converted to the corresponding fri
    \code{logical()} \tab \code{boolean} \cr
    \code{Date} \tab \code{date} \cr
 }
-
-
+}
+\details{
 *If a \code{factor()}, the \code{enum} \code{constraint} is set to the levels of the factor in R.
 }
 \examples{

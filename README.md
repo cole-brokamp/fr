@@ -6,7 +6,7 @@
 [![R-CMD-check](https://github.com/cole-brokamp/fr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/cole-brokamp/fr/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-`fr` is a package for implementing [frictionless](https://specs.frictionlessdata.io) [table schema](https://specs.frictionlessdata.io/table-schema) standards in R
+`fr` provides `fr_field` and `fr_tdr` objects for implementing [frictionless](https://specs.frictionlessdata.io) [tabular-data-resource](https://specs.frictionlessdata.io/tabular-data-resource) standards in R.
 
 ## Installation
 

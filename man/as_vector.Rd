@@ -2,18 +2,18 @@
 % Please edit documentation in R/fr_field.R
 \name{as_vector}
 \alias{as_vector}
-\title{convert a frictionless \href{https://specs.frictionlessdata.io/table-schema/#field-descriptors}{field} object back to a vector}
+\title{Coerce a \code{\link[=fr-package]{fr_field}} object into a vector}
 \usage{
 as_vector(x, ...)
 }
 \arguments{
-\item{x}{a \link[=fr-package]{fr_field} object}
+\item{x}{a \code{\link[=fr-package]{fr_field}} object}
 
 \item{...}{ignored}
 }
 \value{
-the vector stored in \code{x@value}, which is a \code{character}, \code{factor}, \code{numeric}, \code{logical}, or \code{Date} vector
+depending on the \code{type} property of the object, a \code{character}, \code{factor}, \code{numeric}, \code{logical}, or \code{Date} vector
 }
 \description{
-convert a frictionless \href{https://specs.frictionlessdata.io/table-schema/#field-descriptors}{field} object back to a vector
+Coerce a \code{\link[=fr-package]{fr_field}} object into a vector
 }

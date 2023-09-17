@@ -1,4 +1,4 @@
-#' is_fr_field
+#' Test if an object is a [`fr_field`][fr::fr-package] object
 #' @param x an object to test
 #' @return `TRUE` if object is a [fr_field][fr::fr-package] object, `FALSE` otherwise
 #' @examples
@@ -31,13 +31,10 @@ fr_field <- S7::new_class(
   }
 )
 
-#' convert a vector to a frictionless [field](https://specs.frictionlessdata.io/table-schema/#field-descriptors)
-#'
-#' Coerce a `character`, `factor`, `numeric`, `logical`, or `Date` vector to a frictionless
-#' field descriptor object (`fr_field`) with `as_fr_field`.
-#'
-#' The supported classes of `R` objects are converted to the corresponding frictionless `type`:
-#'
+#' Coerce `character`, `factor`, `numeric`, `logical`, and `Date`
+#' vectors into [`fr_field`][fr::fr-package] objects
+#' 
+#' The supported classes of `R` objects are converted to the corresponding frictionless `type`:  
 #' | **`R` class**   | **`fr` type**   |
 #' |:-----------------|:-------------|
 #' | `character()`, `factor()` | `string`* |
@@ -100,10 +97,10 @@ S7::method(print, fr_field) <- function(x, ...) {
   print(x@value)
 }
 
-#' convert a frictionless [field](https://specs.frictionlessdata.io/table-schema/#field-descriptors) object back to a vector
-#' @param x a [fr_field][fr::fr-package] object
+#' Coerce a [`fr_field`][fr::fr-package] object into a vector
+#' @param x a [`fr_field`][fr::fr-package] object
 #' @param ... ignored
-#' @return the vector stored in `x@value`, which is a `character`, `factor`, `numeric`, `logical`, or `Date` vector
+#' @return depending on the `type` property of the object, a `character`, `factor`, `numeric`, `logical`, or `Date` vector
 #' @export
 as_vector <- S7::new_generic("as_vector", "x")
 

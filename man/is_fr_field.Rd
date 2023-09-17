@@ -2,7 +2,7 @@
 % Please edit documentation in R/fr_field.R
 \name{is_fr_field}
 \alias{is_fr_field}
-\title{is_fr_field}
+\title{Test if an object is a \code{\link[=fr-package]{fr_field}} object}
 \usage{
 is_fr_field(x)
 }
@@ -13,7 +13,7 @@ is_fr_field(x)
 \code{TRUE} if object is a \link[=fr-package]{fr_field} object, \code{FALSE} otherwise
 }
 \description{
-is_fr_field
+Test if an object is a \code{\link[=fr-package]{fr_field}} object
 }
 \examples{
 is_fr_field(letters)

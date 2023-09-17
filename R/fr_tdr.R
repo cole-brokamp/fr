@@ -22,7 +22,7 @@ fr_tdr <- S7::new_class(
   }
 )
 
-#' Coerce data frames to a frictionless tabular-data-resource (`fr_tdr`) object
+#' Coerce a data frame into a [`fr_tdr`][fr::fr-package] object
 #' @param x a data.frame
 #' @param ... [tabular-data-resource properties](https://specs.frictionlessdata.io/data-resource/#descriptor) (e.g., `name` *required*, `path`, `version`, `title`, `homepage`, `description`
 #' @export

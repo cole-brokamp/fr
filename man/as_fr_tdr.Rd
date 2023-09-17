@@ -2,7 +2,7 @@
 % Please edit documentation in R/fr_tdr.R
 \name{as_fr_tdr}
 \alias{as_fr_tdr}
-\title{Coerce data frames to a frictionless tabular-data-resource (\code{fr_tdr}) object}
+\title{Coerce a data frame into a \code{\link[=fr-package]{fr_tdr}} object}
 \usage{
 as_fr_tdr(x, ...)
 }
@@ -12,5 +12,5 @@ as_fr_tdr(x, ...)
 \item{...}{\href{https://specs.frictionlessdata.io/data-resource/#descriptor}{tabular-data-resource properties} (e.g., \code{name} \emph{required}, \code{path}, \code{version}, \code{title}, \code{homepage}, \code{description}}
 }
 \description{
-Coerce data frames to a frictionless tabular-data-resource (\code{fr_tdr}) object
+Coerce a data frame into a \code{\link[=fr-package]{fr_tdr}} object
 }
