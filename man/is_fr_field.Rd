@@ -17,5 +17,5 @@ Test if an object is a \code{\link[=fr-package]{fr_field}} object
 }
 \examples{
 is_fr_field(letters)
-is_fr_field(as_fr_field(letters))
+is_fr_field(as_fr_field(letters, "letters"))
 }

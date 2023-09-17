@@ -3,7 +3,7 @@
 #' @return `TRUE` if object is a [fr_field][fr::fr-package] object, `FALSE` otherwise
 #' @examples
 #' is_fr_field(letters)
-#' is_fr_field(as_fr_field(letters))
+#' is_fr_field(as_fr_field(letters, "letters"))
 #' @export
 is_fr_field <- function(x) {
   inherits(x, "fr::fr_field")
