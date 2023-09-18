@@ -9,3 +9,7 @@
 #' @importFrom tibble as_tibble
 ## usethis namespace: end
 NULL
+
+.onLoad <- function(...) {
+  S7::methods_register()
+}
