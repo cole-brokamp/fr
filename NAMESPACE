@@ -2,6 +2,8 @@
 
 export(as_fr_field)
 export(as_fr_tdr)
+export(as_tibble)
 export(as_vector)
 export(is_fr_field)
 importFrom(purrr,imap)
+importFrom(tibble,as_tibble)

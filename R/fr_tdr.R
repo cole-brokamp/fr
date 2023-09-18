@@ -36,3 +36,15 @@ S7::method(as_fr_tdr, S7::class_data.frame) <- function(x, name, ...) {
     ...
   )
 }
+
+#' Coerce a [`fr_tdr`][fr::fr-package] object into a data frame
+#' @param x a [`fr_tdr`][fr::fr-package]
+#' @param ... ignored
+#' @importFrom tibble as_tibble
+#' @return a tibble
+#' @export
+as_tibble <- S7::new_generic("as_tibble", "x")
+
+S7::method(as_tibble, fr_tdr) <- function(x) tibble::as_tibble(sapply(x@value, as_vector))
+
+S7::method(print, fr_tdr) <- function(x) print(as_tibble(x))
