@@ -43,8 +43,6 @@ S7::method(as_fr_tdr, S7::class_data.frame) <- function(x, name, ...) {
 #' @importFrom tibble as_tibble
 #' @return a tibble
 #' @export
-as_tibble <- S7::new_generic("as_tibble", "x")
+as_tbl <- S7::new_generic("as_tbl", "x")
 
-S7::method(as_tibble, fr_tdr) <- function(x) tibble::as_tibble(sapply(x@value, as_vector))
-
-S7::method(print, fr_tdr) <- function(x) print(as_tibble(x))
+S7::method(as_tbl, fr_tdr) <- function(x) tibble::as_tibble(sapply(x@value, as_vector))
