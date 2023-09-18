@@ -25,6 +25,7 @@ fr_tdr <- S7::new_class(
 #' Coerce a data frame into a [`fr_tdr`][fr::fr-package] object
 #' @param x a data.frame
 #' @param ... [tabular-data-resource properties](https://specs.frictionlessdata.io/data-resource/#descriptor) (e.g., `name` *required*, `path`, `version`, `title`, `homepage`, `description`
+#' @importFrom purrr imap
 #' @export
 as_fr_tdr <- S7::new_generic("as_fr_tdr", "x")
 
