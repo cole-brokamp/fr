@@ -24,12 +24,20 @@ fr_tdr <- S7::new_class(
 
 #' Coerce a data frame into a [`fr_tdr`][fr::fr-package] object
 #' @param x a data.frame
-#' @param ... [tabular-data-resource properties](https://specs.frictionlessdata.io/data-resource/#descriptor) (e.g., `name` *required*, `path`, `version`, `title`, `homepage`, `description`
-#' @importFrom purrr imap
+#' @param name the `name` property
+#' @param ... optional [tabular-data-resource properties](https://specs.frictionlessdata.io/data-resource/#descriptor) (e.g., `path`, `version`, `title`, `homepage`, `description`
+#' @return a [fr_tdr][fr::fr-package] object
 #' @export
 as_fr_tdr <- S7::new_generic("as_fr_tdr", "x")
 
-S7::method(as_fr_tdr, S7::class_data.frame) <- function(x, name, ...) {
+S7::method(as_fr_tdr, S7::class_data.frame) <- function(x, name = NULL, ...) {
+  if (is.null(name)) {
+    cli::cli_warn(c(
+      "!" = "{.arg name} was not supplied, but was guessed",
+      "i" = "instead, specify the {.arg name} argument"
+    ))
+    name <- deparse(substitute(x))
+  }
   fr_tdr(
     value = purrr::imap(x, as_fr_field),
     name = name,
@@ -40,7 +48,6 @@ S7::method(as_fr_tdr, S7::class_data.frame) <- function(x, name, ...) {
 #' Coerce a [`fr_tdr`][fr::fr-package] object into a data frame
 #' @param x a [`fr_tdr`][fr::fr-package]
 #' @param ... ignored
-#' @importFrom tibble as_tibble
 #' @return a tibble
 #' @export
 as_tbl_df <- S7::new_generic("as_tbl_df", "x")

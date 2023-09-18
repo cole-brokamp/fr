@@ -39,16 +39,30 @@ pak::pak("cole-brokamp/fr")
 library(fr)
 ```
 
-Create a frictionless field (`fr_field` object):
+Convert R vectors to a frictionless field (i.e., `fr_field` object):
 
 ```{r}
 uid <-
   replicate(34, paste0(sample(c(letters, 0:9), 8, TRUE), collapse = "")) |>
-  as_fr_field(
-    name = "uid",
-    title = "Unique Identifier",
-    description = "Each identifier is composed of 8 alphanumeric characters."
-  )
+  as_fr_field(name = "uid",
+              title = "Unique Identifier",
+              description = "Each uid is composed of 8 random alphanumeric characters")
+```
 
-uid
+TODO Printing and other operations proceed as if `uid` were still a character:
+
+```{r, eval = FALSE}
+grep("[0-9]", uid)
+```
+
+To drop the Frictionless attributes and coerce a `fr_field` object back to a vector, use `as_vector()`:
+
+```{r}
+as_vector(uid)
+```
+
+Inspect [field descriptors](https://specs.frictionlessdata.io/table-schema/#field-descriptors) using `fr_descriptors()`:
+
+```{r}
+## fr_descriptors(uid)
 ```

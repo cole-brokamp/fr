@@ -9,7 +9,12 @@ as_fr_tdr(x, ...)
 \arguments{
 \item{x}{a data.frame}
 
-\item{...}{\href{https://specs.frictionlessdata.io/data-resource/#descriptor}{tabular-data-resource properties} (e.g., \code{name} \emph{required}, \code{path}, \code{version}, \code{title}, \code{homepage}, \code{description}}
+\item{...}{optional \href{https://specs.frictionlessdata.io/data-resource/#descriptor}{tabular-data-resource properties} (e.g., \code{path}, \code{version}, \code{title}, \code{homepage}, \code{description}}
+
+\item{name}{the \code{name} property}
+}
+\value{
+a \link[=fr-package]{fr_tdr} object
 }
 \description{
 Coerce a data frame into a \code{\link[=fr-package]{fr_tdr}} object
