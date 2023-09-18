@@ -93,54 +93,25 @@ vectors into <code><a href="fr-package.html">fr_field</a></code> objects</h1>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">as_fr_field</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="st">"example_integer"</span><span class="op">)</span> <span class="co"># -&gt; frictionless numeric</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;fr::fr_field&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ value      : int [1:10] 1 2 3 4 5 6 7 8 9 10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ name       : chr "example_integer"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ type       : chr "numeric"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ title      : chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ description: chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ constraints: list()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> example_integer (numeric)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  1  2  3  4  5  6  7  8  9 10</span>
 <span class="r-in"><span><span class="fu">as_fr_field</span><span class="op">(</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span> <span class="op">*</span> <span class="fl">0.1</span>, <span class="st">"example_double"</span><span class="op">)</span> <span class="co"># -&gt; frictionless numeric</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;fr::fr_field&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ value      : num [1:10] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ name       : chr "example_double"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ type       : chr "numeric"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ title      : chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ description: chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ constraints: list()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> example_double (numeric)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0</span>
 <span class="r-in"><span><span class="fu">as_fr_field</span><span class="op">(</span><span class="va">letters</span>, <span class="st">"example_character"</span><span class="op">)</span> <span class="co"># -&gt; frictionless string</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;fr::fr_field&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ value      : chr [1:26] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ name       : chr "example_character"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ type       : chr "string"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ title      : chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ description: chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ constraints: list()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> example_character (string)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [20] "t" "u" "v" "w" "x" "y" "z"</span>
 <span class="r-in"><span><span class="fu">as_fr_field</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">letters</span><span class="op">)</span>, <span class="st">"example_factor"</span><span class="op">)</span> <span class="co"># -&gt; frictionless string with enum constraints</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;fr::fr_field&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ value      : Factor w/ 26 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ name       : chr "example_factor"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ type       : chr "string"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ title      : chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ description: chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ constraints:List of 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  .. $ enum: chr [1:26] "a" "b" "c" "d" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> example_factor (string)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] a b c d e f g h i j k l m n o p q r s t u v w x y z</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: a b c d e f g h i j k l m n o p q r s t u v w x y z</span>
 <span class="r-in"><span><span class="fu">as_fr_field</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span>, <span class="st">"example_logical"</span><span class="op">)</span> <span class="co"># -&gt; frictionless boolean</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;fr::fr_field&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ value      : logi [1:3] TRUE FALSE TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ name       : chr "example_logical"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ type       : chr "boolean"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ title      : chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ description: chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ constraints: list()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> example_logical (boolean)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  TRUE FALSE  TRUE</span>
 <span class="r-in"><span><span class="fu">as_fr_field</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2023-04-23"</span>, <span class="st">"2004-12-31"</span><span class="op">)</span><span class="op">)</span>, <span class="st">"example_date"</span><span class="op">)</span> <span class="co"># -&gt; frictionless date</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;fr::fr_field&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ value      : Date[1:2], format: "2023-04-23" "2004-12-31"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ name       : chr "example_date"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ type       : chr "date"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ title      : chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ description: chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ constraints: list()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> example_date (date)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2023-04-23" "2004-12-31"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># an example `fr_field` object</span></span></span>
 <span class="r-in"><span><span class="va">uid</span> <span class="op">&lt;-</span></span></span>
@@ -151,22 +122,22 @@ vectors into <code><a href="fr-package.html">fr_field</a></code> objects</h1>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># set properties of the `fr_field`</span></span></span>
-<span class="r-in"><span><span class="fu">S7</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/S7/man/prop.html" class="external-link">prop</a></span><span class="op">(</span><span class="va">uid</span>, <span class="st">"description"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">S7</span><span class="fu">::</span><span class="fu"><a href="https://rconsortium.github.io/S7/reference/prop.html" class="external-link">prop</a></span><span class="op">(</span><span class="va">uid</span>, <span class="st">"description"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-in"><span><span class="va">uid</span><span class="op">@</span><span class="va">description</span> <span class="op">&lt;-</span> <span class="st">"Consists of 8 random characters from (a-z) and (0-9)"</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># inspect properties of the `fr_field`</span></span></span>
 <span class="r-in"><span><span class="va">uid</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;fr::fr_field&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ value      : chr [1:34] "5in66gnq" "4xbpa2x4" "0wq9cymj" "jo5xczzs" "7czxsun1" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ name       : chr "uid"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ type       : chr "string"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ title      : chr "Unique Identifier"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ description: chr "Consists of 8 random characters from (a-z) and (0-9)"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ constraints: list()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> uid (string)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "0ifz4tkx" "f5jzb784" "bl60yzzg" "f9sjoqww" "3nyhqdrb" "8te5uvk3"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "fpwbh32u" "dhiuxedj" "ue4bp0mu" "78mo8fbv" "n2u086rg" "lv0hz6tn"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "fmbxcrkc" "5lcslqje" "meam97rm" "25yvn8zd" "fnv893q6" "s7p5z7ce"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "bb1xb520" "us8n1ouz" "h8nii24g" "vug184o1" "s2zybtmd" "ttm9pkwp"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "6xlfojqm" "bupn1pn6" "ymt4nvw0" "j4u9rpot" "3w8gxy0t" "7p22wrh2"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "3wysd87s" "n4jeqxh4" "d5a793nd" "cwat0i0c"</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">uid</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;fr::fr_field&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ value      : chr [1:34] "5in66gnq" "4xbpa2x4" "0wq9cymj" "jo5xczzs" "7czxsun1" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  @ value      : chr [1:34] "0ifz4tkx" "f5jzb784" "bl60yzzg" "f9sjoqww" "3nyhqdrb" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  @ name       : chr "uid"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  @ type       : chr "string"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  @ title      : chr "Unique Identifier"</span>
