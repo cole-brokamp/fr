@@ -40,6 +40,6 @@ test_that("as_fr_field works", {
 })
 
 test_that("is_fr_field works", {
-  expect_identical(is_fr_field(letters), FALSE)
-  expect_identical(is_fr_field(as_fr_field(letters, "letters")), TRUE)
+  expect_true(is_fr_field(as_fr_field(letters, "letters")))
+  expect_false(is_fr_field(letters))
 })
