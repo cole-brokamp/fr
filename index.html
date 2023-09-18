@@ -67,12 +67,33 @@
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>You can install the development version of codec from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("pak")</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"cole-brokamp/fr"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"cole-brokamp/fr"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cole-brokamp/fr" class="external-link">fr</a></span><span class="op">)</span></span></code></pre></div>
+<p>Create a frictionless field (<code>fr_field</code> object):</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">uid</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">replicate</a></span><span class="op">(</span><span class="fl">34</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">letters</span>, <span class="fl">0</span><span class="op">:</span><span class="fl">9</span><span class="op">)</span>, <span class="fl">8</span>, <span class="cn">TRUE</span><span class="op">)</span>, collapse <span class="op">=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="reference/as_fr_field.html">as_fr_field</a></span><span class="op">(</span></span>
+<span>    name <span class="op">=</span> <span class="st">"uid"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Unique Identifier"</span>,</span>
+<span>    description <span class="op">=</span> <span class="st">"Each identifier is composed of 8 alphanumeric characters."</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">uid</span></span>
+<span><span class="co">#&gt; &lt;fr::fr_field&gt;</span></span>
+<span><span class="co">#&gt;  @ value      : chr [1:34] "j60eip5e" "wmblidse" "5xm18b5x" "x9y4i2j8" "a6cvdtik" ...</span></span>
+<span><span class="co">#&gt;  @ name       : chr "uid"</span></span>
+<span><span class="co">#&gt;  @ type       : chr "string"</span></span>
+<span><span class="co">#&gt;  @ title      : chr "Unique Identifier"</span></span>
+<span><span class="co">#&gt;  @ description: chr "Each identifier is composed of 8 alphanumeric characters."</span></span>
+<span><span class="co">#&gt;  @ constraints: list()</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
