@@ -18,7 +18,7 @@ test_that("fr_tdr works", {
   as_fr_tdr(x = mtcars, name = "mtcars", description = "the cars thing") |>
     expect_s3_class("fr::fr_tdr")
 
-  expect_identical(as_tbl(as_fr_tdr(mtcars, "mtcars")),
+  expect_identical(as_tbl_df(as_fr_tdr(mtcars, "mtcars")),
                    tibble::as_tibble(mtcars))
 
 })
