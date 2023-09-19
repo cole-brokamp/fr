@@ -81,7 +81,8 @@
 </h3>
 <p>Create a frictionless field (i.e., <code>fr_field</code> object) by converting an R vector and specifying named <a href="https://specs.frictionlessdata.io/table-schema/#field-descriptors" class="external-link">field descriptors</a>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">uid</span> <span class="op">&lt;-</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">uid</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">replicate</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">letters</span>, <span class="fl">0</span><span class="op">:</span><span class="fl">9</span><span class="op">)</span>, <span class="fl">8</span>, <span class="cn">TRUE</span><span class="op">)</span>, collapse <span class="op">=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/as_fr_field.html">as_fr_field</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"uid"</span>,</span>
 <span>              title <span class="op">=</span> <span class="st">"Unique Identifier"</span>,</span>
@@ -93,7 +94,7 @@
 <span><span class="co">#&gt; type: string</span></span>
 <span><span class="co">#&gt; title: Unique Identifier</span></span>
 <span><span class="co">#&gt; description: Each uid is composed of 8 random alphanumeric characters.</span></span>
-<span><span class="co">#&gt; [1] "dzwnuts4" "gu1fcw1w" "ex6z10yx" "43lt1nec" "x1a7d2on" "i53fvop3"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "da7wnr6u" "ujgiouy7" "yo6t8fjt" "1twfyffx" "5nbrvnaf" "wfkq9myy"</span></span></code></pre></div>
 <p>Extract the descriptors as a list using <code>fr_desc</code>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/fr_desc.html">fr_desc</a></span><span class="op">(</span><span class="va">uid</span><span class="op">)</span></span>
@@ -113,11 +114,11 @@
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"[[:alnum:]]"</span>, <span class="va">uid</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] TRUE TRUE TRUE TRUE TRUE TRUE</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">uid</span>, collapse <span class="op">=</span> <span class="st">"-"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "dzwnuts4-gu1fcw1w-ex6z10yx-43lt1nec-x1a7d2on-i53fvop3"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "da7wnr6u-ujgiouy7-yo6t8fjt-1twfyffx-5nbrvnaf-wfkq9myy"</span></span></code></pre></div>
 <p>Explicitly drop the Frictionless attributes and extract just the underlying vector that contains the data vector with <code><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector()</a></code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="va">uid</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "dzwnuts4" "gu1fcw1w" "ex6z10yx" "43lt1nec" "x1a7d2on" "i53fvop3"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "da7wnr6u" "ujgiouy7" "yo6t8fjt" "1twfyffx" "5nbrvnaf" "wfkq9myy"</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="frictionless-tabular-data-resource">Frictionless Tabular-Data-Resource<a class="anchor" aria-label="anchor" href="#frictionless-tabular-data-resource"></a>
@@ -127,93 +128,31 @@
 <code class="sourceCode R"><span><span class="va">d_fr</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">mtcars</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/as_fr_tdr.html">as_fr_tdr</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"mtcars"</span>, description <span class="op">=</span> <span class="st">"The mtcars dataset included with R"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: ! row.names will be dropped</span></span>
+<span><span class="co">#&gt; ℹ convert row.names to a new column with `tibble::rowid_to_column`</span></span>
+<span><span class="co">#&gt; ℹ remove row.names with `tibble::remove_rownames`</span></span>
 <span></span>
 <span><span class="va">d_fr</span></span>
-<span><span class="co">#&gt; &lt;fr_tdr&gt;</span></span>
-<span><span class="co">#&gt;  @ value      :List of 11</span></span>
-<span><span class="co">#&gt;  .. $ mpg : &lt;fr_field&gt;</span></span>
-<span><span class="co">#&gt;  ..  ..@ value      : num [1:32] 21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...</span></span>
-<span><span class="co">#&gt;  ..  ..@ name       : chr "mpg"</span></span>
-<span><span class="co">#&gt;  ..  ..@ type       : chr "numeric"</span></span>
-<span><span class="co">#&gt;  ..  ..@ title      : chr(0) </span></span>
-<span><span class="co">#&gt;  ..  ..@ description: chr(0) </span></span>
-<span><span class="co">#&gt;  ..  ..@ constraints: list()</span></span>
-<span><span class="co">#&gt;  .. $ cyl : &lt;fr_field&gt;</span></span>
-<span><span class="co">#&gt;  ..  ..@ value      : num [1:32] 6 6 4 6 8 6 8 4 4 6 ...</span></span>
-<span><span class="co">#&gt;  ..  ..@ name       : chr "cyl"</span></span>
-<span><span class="co">#&gt;  ..  ..@ type       : chr "numeric"</span></span>
-<span><span class="co">#&gt;  ..  ..@ title      : chr(0) </span></span>
-<span><span class="co">#&gt;  ..  ..@ description: chr(0) </span></span>
-<span><span class="co">#&gt;  ..  ..@ constraints: list()</span></span>
-<span><span class="co">#&gt;  .. $ disp: &lt;fr_field&gt;</span></span>
-<span><span class="co">#&gt;  ..  ..@ value      : num [1:32] 160 160 108 258 360 ...</span></span>
-<span><span class="co">#&gt;  ..  ..@ name       : chr "disp"</span></span>
-<span><span class="co">#&gt;  ..  ..@ type       : chr "numeric"</span></span>
-<span><span class="co">#&gt;  ..  ..@ title      : chr(0) </span></span>
-<span><span class="co">#&gt;  ..  ..@ description: chr(0) </span></span>
-<span><span class="co">#&gt;  ..  ..@ constraints: list()</span></span>
-<span><span class="co">#&gt;  .. $ hp  : &lt;fr_field&gt;</span></span>
-<span><span class="co">#&gt;  ..  ..@ value      : num [1:32] 110 110 93 110 175 105 245 62 95 123 ...</span></span>
-<span><span class="co">#&gt;  ..  ..@ name       : chr "hp"</span></span>
-<span><span class="co">#&gt;  ..  ..@ type       : chr "numeric"</span></span>
-<span><span class="co">#&gt;  ..  ..@ title      : chr(0) </span></span>
-<span><span class="co">#&gt;  ..  ..@ description: chr(0) </span></span>
-<span><span class="co">#&gt;  ..  ..@ constraints: list()</span></span>
-<span><span class="co">#&gt;  .. $ drat: &lt;fr_field&gt;</span></span>
-<span><span class="co">#&gt;  ..  ..@ value      : num [1:32] 3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...</span></span>
-<span><span class="co">#&gt;  ..  ..@ name       : chr "drat"</span></span>
-<span><span class="co">#&gt;  ..  ..@ type       : chr "numeric"</span></span>
-<span><span class="co">#&gt;  ..  ..@ title      : chr(0) </span></span>
-<span><span class="co">#&gt;  ..  ..@ description: chr(0) </span></span>
-<span><span class="co">#&gt;  ..  ..@ constraints: list()</span></span>
-<span><span class="co">#&gt;  .. $ wt  : &lt;fr_field&gt;</span></span>
-<span><span class="co">#&gt;  ..  ..@ value      : num [1:32] 2.62 2.88 2.32 3.21 3.44 ...</span></span>
-<span><span class="co">#&gt;  ..  ..@ name       : chr "wt"</span></span>
-<span><span class="co">#&gt;  ..  ..@ type       : chr "numeric"</span></span>
-<span><span class="co">#&gt;  ..  ..@ title      : chr(0) </span></span>
-<span><span class="co">#&gt;  ..  ..@ description: chr(0) </span></span>
-<span><span class="co">#&gt;  ..  ..@ constraints: list()</span></span>
-<span><span class="co">#&gt;  .. $ qsec: &lt;fr_field&gt;</span></span>
-<span><span class="co">#&gt;  ..  ..@ value      : num [1:32] 16.5 17 18.6 19.4 17 ...</span></span>
-<span><span class="co">#&gt;  ..  ..@ name       : chr "qsec"</span></span>
-<span><span class="co">#&gt;  ..  ..@ type       : chr "numeric"</span></span>
-<span><span class="co">#&gt;  ..  ..@ title      : chr(0) </span></span>
-<span><span class="co">#&gt;  ..  ..@ description: chr(0) </span></span>
-<span><span class="co">#&gt;  ..  ..@ constraints: list()</span></span>
-<span><span class="co">#&gt;  .. $ vs  : &lt;fr_field&gt;</span></span>
-<span><span class="co">#&gt;  ..  ..@ value      : num [1:32] 0 0 1 1 0 1 0 1 1 1 ...</span></span>
-<span><span class="co">#&gt;  ..  ..@ name       : chr "vs"</span></span>
-<span><span class="co">#&gt;  ..  ..@ type       : chr "numeric"</span></span>
-<span><span class="co">#&gt;  ..  ..@ title      : chr(0) </span></span>
-<span><span class="co">#&gt;  ..  ..@ description: chr(0) </span></span>
-<span><span class="co">#&gt;  ..  ..@ constraints: list()</span></span>
-<span><span class="co">#&gt;  .. $ am  : &lt;fr_field&gt;</span></span>
-<span><span class="co">#&gt;  ..  ..@ value      : num [1:32] 1 1 1 0 0 0 0 0 0 0 ...</span></span>
-<span><span class="co">#&gt;  ..  ..@ name       : chr "am"</span></span>
-<span><span class="co">#&gt;  ..  ..@ type       : chr "numeric"</span></span>
-<span><span class="co">#&gt;  ..  ..@ title      : chr(0) </span></span>
-<span><span class="co">#&gt;  ..  ..@ description: chr(0) </span></span>
-<span><span class="co">#&gt;  ..  ..@ constraints: list()</span></span>
-<span><span class="co">#&gt;  .. $ gear: &lt;fr_field&gt;</span></span>
-<span><span class="co">#&gt;  ..  ..@ value      : num [1:32] 4 4 4 3 3 3 3 4 4 4 ...</span></span>
-<span><span class="co">#&gt;  ..  ..@ name       : chr "gear"</span></span>
-<span><span class="co">#&gt;  ..  ..@ type       : chr "numeric"</span></span>
-<span><span class="co">#&gt;  ..  ..@ title      : chr(0) </span></span>
-<span><span class="co">#&gt;  ..  ..@ description: chr(0) </span></span>
-<span><span class="co">#&gt;  ..  ..@ constraints: list()</span></span>
-<span><span class="co">#&gt;  .. $ carb: &lt;fr_field&gt;</span></span>
-<span><span class="co">#&gt;  ..  ..@ value      : num [1:32] 4 4 1 1 2 1 4 2 2 4 ...</span></span>
-<span><span class="co">#&gt;  ..  ..@ name       : chr "carb"</span></span>
-<span><span class="co">#&gt;  ..  ..@ type       : chr "numeric"</span></span>
-<span><span class="co">#&gt;  ..  ..@ title      : chr(0) </span></span>
-<span><span class="co">#&gt;  ..  ..@ description: chr(0) </span></span>
-<span><span class="co">#&gt;  ..  ..@ constraints: list()</span></span>
-<span><span class="co">#&gt;  @ name       : chr "mtcars"</span></span>
-<span><span class="co">#&gt;  @ path       : chr(0) </span></span>
-<span><span class="co">#&gt;  @ version    : chr(0) </span></span>
-<span><span class="co">#&gt;  @ title      : chr(0) </span></span>
-<span><span class="co">#&gt;  @ homepage   : chr(0) </span></span>
-<span><span class="co">#&gt;  @ description: chr "The mtcars dataset included with R"</span></span></code></pre></div>
+<span><span class="co">#&gt; name: mtcars</span></span>
+<span><span class="co">#&gt; path:</span></span>
+<span><span class="co">#&gt; version:</span></span>
+<span><span class="co">#&gt; title:</span></span>
+<span><span class="co">#&gt; homepage: &lt;&gt;</span></span>
+<span><span class="co">#&gt; description: The mtcars dataset included with R</span></span>
+<span><span class="co">#&gt; # A tibble: 32 × 11</span></span>
+<span><span class="co">#&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb</span></span>
+<span><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1  21       6  160    110  3.9   2.62  16.5     0     1     4     4</span></span>
+<span><span class="co">#&gt;  2  21       6  160    110  3.9   2.88  17.0     0     1     4     4</span></span>
+<span><span class="co">#&gt;  3  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1</span></span>
+<span><span class="co">#&gt;  4  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1</span></span>
+<span><span class="co">#&gt;  5  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2</span></span>
+<span><span class="co">#&gt;  6  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1</span></span>
+<span><span class="co">#&gt;  7  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4</span></span>
+<span><span class="co">#&gt;  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2</span></span>
+<span><span class="co">#&gt;  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2</span></span>
+<span><span class="co">#&gt; 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4</span></span>
+<span><span class="co">#&gt; # ℹ 22 more rows</span></span></code></pre></div>
 <p>TODO After conversion, set field-level descriptors: Make <code>$</code> accessor work on <code>fr_tdr</code> as it does on tibble or data frame?</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d_fr</span><span class="op">@</span><span class="va">value</span><span class="op">$</span><span class="va">mpg</span><span class="op">@</span><span class="va">title</span> <span class="op">&lt;-</span> <span class="st">"Miles Per Gallon"</span></span></code></pre></div>

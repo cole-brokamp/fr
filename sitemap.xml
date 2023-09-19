@@ -16,10 +16,16 @@
     <loc>https://cole-brokamp.github.io/fr/index.html</loc>
   </url>
   <url>
+    <loc>https://cole-brokamp.github.io/fr/reference/as_data_frame.html</loc>
+  </url>
+  <url>
     <loc>https://cole-brokamp.github.io/fr/reference/as_fr_field.html</loc>
   </url>
   <url>
     <loc>https://cole-brokamp.github.io/fr/reference/as_fr_tdr.html</loc>
+  </url>
+  <url>
+    <loc>https://cole-brokamp.github.io/fr/reference/as_vector.html</loc>
   </url>
   <url>
     <loc>https://cole-brokamp.github.io/fr/reference/fr-package.html</loc>
