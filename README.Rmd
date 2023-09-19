@@ -40,17 +40,17 @@ library(fr)
 
 ### Frictionless Field
 
-Convert an R vector to a frictionless field (i.e., `fr_field` object), while specifying the [field descriptors](https://specs.frictionlessdata.io/table-schema/#field-descriptors):
+Create a frictionless field (i.e., `fr_field` object) by converting an R vector and specifying named [field descriptors](https://specs.frictionlessdata.io/table-schema/#field-descriptors):
 
 ```{r}
 uid <-
   replicate(6, paste0(sample(c(letters, 0:9), 8, TRUE), collapse = "")) |>
   as_fr_field(name = "uid",
               title = "Unique Identifier",
-              description = "Each uid is composed of 8 random alphanumeric characters")
+              description = "Each uid is composed of 8 random alphanumeric characters.")
 ```
 
-Printing works as usual except that `fr_field` objects prepend an extra line including the `name` and `type` Frictionless attributes:
+Printing works as usual except that `fr_field` objects prepend extra lines for the Frictionless attributes:
 
 ```{r}
 uid
@@ -88,6 +88,7 @@ d_fr
 ```
 
 TODO After conversion, set field-level descriptors:
+Make `$` accessor work on `fr_tdr` as it does on tibble or data frame?
 
 ```{r}
 d_fr@value$mpg@title <- "Miles Per Gallon"

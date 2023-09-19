@@ -108,21 +108,13 @@ S7::method(as.vector, fr_field) <- function(x, ...) {
 }
 
 S7::method(print, fr_field) <- function(x, ...) {
-  cat(x@name, " (", x@type, ")\n", sep = "")
-  if (length(x@title) > 0) {
-    cat(x@title, "\n")
-  }
-  if (length(x@description) > 0) {
-    cat(x@description, "\n")
-  }
-  if (length(x@constraints) > 0) {
-    cat("  *with constraints*\n")
-  }
-  print(x@value, ...)
+  cli::cli_dl(fr_desc(x))
+  print(as.vector(x), ...)
 }
 
 S7::method(fr_desc, fr_field) <- function(x, ...) {
   fr_field_desc <- S7::props(x)
   fr_field_desc$value <- NULL
+  if (length(fr_field_desc$constraints) == 0) fr_field_desc$constraints <- NULL
   return(fr_field_desc)
 }

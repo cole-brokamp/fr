@@ -2,7 +2,9 @@
 % Please edit documentation in R/fr_desc.R
 \name{fr_desc}
 \alias{fr_desc}
-\title{extract the frictionless descriptors for a \code{fr_field} or \code{fr_tdr} object}
+\title{extract the frictionless descriptors for a \code{fr_field} or \code{fr_tdr} object
+If the \code{fr_field} object has a \code{constraints} list of length zero, then it
+is not included in the returned list}
 \usage{
 fr_desc(x, ...)
 }
@@ -16,4 +18,6 @@ list of frictionless descriptors
 }
 \description{
 extract the frictionless descriptors for a \code{fr_field} or \code{fr_tdr} object
+If the \code{fr_field} object has a \code{constraints} list of length zero, then it
+is not included in the returned list
 }

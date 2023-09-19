@@ -35,8 +35,8 @@ library(fr)
 
 ### Frictionless Field
 
-Convert an R vector to a frictionless field (i.e., `fr_field` object),
-while specifying the [field
+Create a frictionless field (i.e., `fr_field` object) by converting an R
+vector and specifying named [field
 descriptors](https://specs.frictionlessdata.io/table-schema/#field-descriptors):
 
 ``` r
@@ -44,18 +44,19 @@ uid <-
   replicate(6, paste0(sample(c(letters, 0:9), 8, TRUE), collapse = "")) |>
   as_fr_field(name = "uid",
               title = "Unique Identifier",
-              description = "Each uid is composed of 8 random alphanumeric characters")
+              description = "Each uid is composed of 8 random alphanumeric characters.")
 ```
 
-Printing works as usual except that `fr_field` objects prepend an extra
-line including the `name` and `type` Frictionless attributes:
+Printing works as usual except that `fr_field` objects prepend extra
+lines for the Frictionless attributes:
 
 ``` r
 uid
-#> uid (string)
-#> Unique Identifier 
-#> Each uid is composed of 8 random alphanumeric characters 
-#> [1] "hhlr674m" "dni5khza" "c6vvmw94" "aq5pce85" "j3x36r0n" "rmujb9jm"
+#> name: uid
+#> type: string
+#> title: Unique Identifier
+#> description: Each uid is composed of 8 random alphanumeric characters.
+#> [1] "dzwnuts4" "gu1fcw1w" "ex6z10yx" "43lt1nec" "x1a7d2on" "i53fvop3"
 ```
 
 Extract the descriptors as a list using `fr_desc`:
@@ -72,10 +73,7 @@ fr_desc(uid)
 #> [1] "Unique Identifier"
 #> 
 #> $description
-#> [1] "Each uid is composed of 8 random alphanumeric characters"
-#> 
-#> $constraints
-#> list()
+#> [1] "Each uid is composed of 8 random alphanumeric characters."
 ```
 
 `fr_field` objects can be used anywhere that the underlying vector in
@@ -86,7 +84,7 @@ the underlying vector in this case is a character vector.
 grepl("[[:alnum:]]", uid)
 #> [1] TRUE TRUE TRUE TRUE TRUE TRUE
 paste(uid, collapse = "-")
-#> [1] "hhlr674m-dni5khza-c6vvmw94-aq5pce85-j3x36r0n-rmujb9jm"
+#> [1] "dzwnuts4-gu1fcw1w-ex6z10yx-43lt1nec-x1a7d2on-i53fvop3"
 ```
 
 Explicitly drop the Frictionless attributes and extract just the
@@ -94,7 +92,7 @@ underlying vector that contains the data vector with `as.vector()`:
 
 ``` r
 as.vector(uid)
-#> [1] "hhlr674m" "dni5khza" "c6vvmw94" "aq5pce85" "j3x36r0n" "rmujb9jm"
+#> [1] "dzwnuts4" "gu1fcw1w" "ex6z10yx" "43lt1nec" "x1a7d2on" "i53fvop3"
 ```
 
 ### Frictionless Tabular-Data-Resource
@@ -196,7 +194,8 @@ d_fr
 #>  @ description: chr "The mtcars dataset included with R"
 ```
 
-TODO After conversion, set field-level descriptors:
+TODO After conversion, set field-level descriptors: Make `$` accessor
+work on `fr_tdr` as it does on tibble or data frame?
 
 ``` r
 d_fr@value$mpg@title <- "Miles Per Gallon"
