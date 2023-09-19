@@ -104,6 +104,7 @@ vectors into <code><a href="fr-package.html">fr_field</a></code> objects</h1>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [20] "t" "u" "v" "w" "x" "y" "z"</span>
 <span class="r-in"><span><span class="fu">as_fr_field</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">letters</span><span class="op">)</span>, <span class="st">"example_factor"</span><span class="op">)</span> <span class="co"># -&gt; frictionless string with enum constraints</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> example_factor (string)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   *with constraints*</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] a b c d e f g h i j k l m n o p q r s t u v w x y z</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Levels: a b c d e f g h i j k l m n o p q r s t u v w x y z</span>
 <span class="r-in"><span><span class="fu">as_fr_field</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span>, <span class="st">"example_logical"</span><span class="op">)</span> <span class="co"># -&gt; frictionless boolean</span></span></span>
@@ -129,15 +130,17 @@ vectors into <code><a href="fr-package.html">fr_field</a></code> objects</h1>
 <span class="r-in"><span><span class="co"># inspect properties of the `fr_field`</span></span></span>
 <span class="r-in"><span><span class="va">uid</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> uid (string)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "ek5qb386" "t3p23zaf" "1a189be3" "ob96v29g" "802rpz3w" "bcqgo6bp"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "jjw5uwo4" "s3j5mc9c" "fjr2qtiz" "67l40tb7" "lecnf9es" "hm2p2c7j"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "z7wrkfue" "oimmfh4m" "b8frr8ti" "8eh2za12" "9pvanc3r" "j18kfh7f"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "6p5yi32r" "ejl2plj6" "ppgl2psv" "c1uw2i68" "sn7en4fo" "ti22rq0o"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "4h6gqekk" "d2af190e" "4u0an1zc" "cg77tjf7" "1buu01z3" "x0w3l9nk"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "efo01upg" "47tu61ye" "llnzcmqh" "eelbaejk"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Unique Identifier </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Consists of 8 random characters from (a-z) and (0-9) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "obq3p5hh" "ajb84s98" "sd61uk2p" "yiq2rte2" "39wwy09p" "crsx5is9"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "vrw10pbo" "p0232jjk" "p5v7z7lc" "k669z9zm" "p9ex8per" "hrtnjjxw"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "fhlc7ys4" "y7zqc484" "252l3pbm" "i7e69g95" "2k9ttnh5" "cxjw5gqp"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "rgs2lttx" "abaq5saa" "efas6q26" "b4769hpj" "gkbasgcm" "0mvb06sw"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "r6fwqxyg" "64rm533m" "1a8v3k8e" "apj1cnwe" "la3o8gho" "iy410s23"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "1yekp65p" "ma2kh5zr" "t8mekjae" "n35s3gp2"</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">uid</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;fr::fr_field&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ value      : chr [1:34] "ek5qb386" "t3p23zaf" "1a189be3" "ob96v29g" "802rpz3w" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;fr_field&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  @ value      : chr [1:34] "obq3p5hh" "ajb84s98" "sd61uk2p" "yiq2rte2" "39wwy09p" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  @ name       : chr "uid"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  @ type       : chr "string"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  @ title      : chr "Unique Identifier"</span>
