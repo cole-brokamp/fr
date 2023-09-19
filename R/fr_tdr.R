@@ -104,5 +104,10 @@ S7::method(`[`, fr_tdr) <- function(x, name, ...) {
 }
 
 S7::method(fr_schema, fr_tdr) <- function(x, ...) {
-  lapply(x@value, fr_desc)
+  # TODO how can we do this without purrr, tidyr??
+  purrr::map(x@value, fr_desc) |>
+  purrr::map(tibble::enframe) |>
+  purrr::map(tidyr::unnest, cols = value) |>
+  purrr::map(tidyr::pivot_wider) |>
+  purrr::list_rbind()
 }

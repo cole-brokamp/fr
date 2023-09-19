@@ -83,7 +83,7 @@ Convert a data frame into a frictionless tabular-data-resource (i.e., `fr_tdr` o
 ```{r}
 d_fr <-
   mtcars |>
-  tibble::remove_rownames() |> # to prevent a warning
+  tibble::as_tibble() |>
   as_fr_tdr(name = "mtcars",
             version = "0.9.1",
             title = "Motor Trend Car Road Tests",
@@ -91,7 +91,7 @@ d_fr <-
             description = "The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models).")
 ```
 
-Print the `fr_tdr` object to view all of the metadata descriptors and the underlying data frame (or tibble):
+Print the `fr_tdr` object to view all of the table-specific metadata descriptors and the underlying data frame:
 
 ```{r}
 d_fr
@@ -100,27 +100,21 @@ d_fr
 Add a `name` metadata descriptor for each field in the `fr_tdr` object by using the `@` accessor
 
 ```{r}
-d_fr
-
-fr_desc(d_fr)
-
-purrr::map(d_fr@value, fr_desc)
-
-
+# TODO
 ```
 
-
-Add another descriptor, but just for one of the fields:
+Add another descriptor, but just for some of the fields:
 
 ```{r}
-d_fr$disp@description
+# TODO
+## d_fr$disp@description
 ```
 
-Use `fr_schema()` to extract the metadata for each field as a list:
+Use `fr_schema()` to extract the metadata for each field in a tibble:
 
-```{r}
+```{r, results = "asis"}
 fr_schema(d_fr) |>
-  str()
+  knitr::kable()
 ```
 
 Accessor functions work as they do with data frames and tibbles, but return a `fr_field` or `td_tdr` object:

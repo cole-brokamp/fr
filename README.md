@@ -106,7 +106,7 @@ create some metadata based on `?mtcars`:
 ``` r
 d_fr <-
   mtcars |>
-  tibble::remove_rownames() |> # to prevent a warning
+  tibble::as_tibble() |>
   as_fr_tdr(name = "mtcars",
             version = "0.9.1",
             title = "Motor Trend Car Road Tests",
@@ -114,8 +114,8 @@ d_fr <-
             description = "The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models).")
 ```
 
-Print the `fr_tdr` object to view all of the metadata descriptors and
-the underlying data frame (or tibble):
+Print the `fr_tdr` object to view all of the table-specific metadata
+descriptors and the underlying data frame:
 
 ``` r
 d_fr
@@ -147,273 +147,36 @@ Add a `name` metadata descriptor for each field in the `fr_tdr` object
 by using the `@` accessor
 
 ``` r
-d_fr
-#> name: mtcars
-#> path:
-#> version: 0.9.1
-#> title: Motor Trend Car Road Tests
-#> homepage: <https://rdrr.io/r/datasets/mtcars.html>
-#> description: The data was extracted from the 1974 Motor Trend US magazine, and
-#> comprises fuel consumption and 10 aspects of automobile design and performance
-#> for 32 automobiles (1973–74 models).
-#> # A tibble: 32 × 11
-#>      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
-#>    <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
-#>  1  21       6  160    110  3.9   2.62  16.5     0     1     4     4
-#>  2  21       6  160    110  3.9   2.88  17.0     0     1     4     4
-#>  3  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1
-#>  4  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1
-#>  5  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2
-#>  6  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1
-#>  7  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4
-#>  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2
-#>  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2
-#> 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4
-#> # ℹ 22 more rows
-
-fr_desc(d_fr)
-#> $name
-#> [1] "mtcars"
-#> 
-#> $path
-#> character(0)
-#> 
-#> $version
-#> [1] "0.9.1"
-#> 
-#> $title
-#> [1] "Motor Trend Car Road Tests"
-#> 
-#> $homepage
-#> [1] "https://rdrr.io/r/datasets/mtcars.html"
-#> 
-#> $description
-#> [1] "The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models)."
-
-purrr::map(d_fr@value, fr_desc)
-#> $mpg
-#> $mpg$name
-#> [1] "mpg"
-#> 
-#> $mpg$type
-#> [1] "numeric"
-#> 
-#> $mpg$title
-#> character(0)
-#> 
-#> $mpg$description
-#> character(0)
-#> 
-#> 
-#> $cyl
-#> $cyl$name
-#> [1] "cyl"
-#> 
-#> $cyl$type
-#> [1] "numeric"
-#> 
-#> $cyl$title
-#> character(0)
-#> 
-#> $cyl$description
-#> character(0)
-#> 
-#> 
-#> $disp
-#> $disp$name
-#> [1] "disp"
-#> 
-#> $disp$type
-#> [1] "numeric"
-#> 
-#> $disp$title
-#> character(0)
-#> 
-#> $disp$description
-#> character(0)
-#> 
-#> 
-#> $hp
-#> $hp$name
-#> [1] "hp"
-#> 
-#> $hp$type
-#> [1] "numeric"
-#> 
-#> $hp$title
-#> character(0)
-#> 
-#> $hp$description
-#> character(0)
-#> 
-#> 
-#> $drat
-#> $drat$name
-#> [1] "drat"
-#> 
-#> $drat$type
-#> [1] "numeric"
-#> 
-#> $drat$title
-#> character(0)
-#> 
-#> $drat$description
-#> character(0)
-#> 
-#> 
-#> $wt
-#> $wt$name
-#> [1] "wt"
-#> 
-#> $wt$type
-#> [1] "numeric"
-#> 
-#> $wt$title
-#> character(0)
-#> 
-#> $wt$description
-#> character(0)
-#> 
-#> 
-#> $qsec
-#> $qsec$name
-#> [1] "qsec"
-#> 
-#> $qsec$type
-#> [1] "numeric"
-#> 
-#> $qsec$title
-#> character(0)
-#> 
-#> $qsec$description
-#> character(0)
-#> 
-#> 
-#> $vs
-#> $vs$name
-#> [1] "vs"
-#> 
-#> $vs$type
-#> [1] "numeric"
-#> 
-#> $vs$title
-#> character(0)
-#> 
-#> $vs$description
-#> character(0)
-#> 
-#> 
-#> $am
-#> $am$name
-#> [1] "am"
-#> 
-#> $am$type
-#> [1] "numeric"
-#> 
-#> $am$title
-#> character(0)
-#> 
-#> $am$description
-#> character(0)
-#> 
-#> 
-#> $gear
-#> $gear$name
-#> [1] "gear"
-#> 
-#> $gear$type
-#> [1] "numeric"
-#> 
-#> $gear$title
-#> character(0)
-#> 
-#> $gear$description
-#> character(0)
-#> 
-#> 
-#> $carb
-#> $carb$name
-#> [1] "carb"
-#> 
-#> $carb$type
-#> [1] "numeric"
-#> 
-#> $carb$title
-#> character(0)
-#> 
-#> $carb$description
-#> character(0)
+# TODO
 ```
 
-Add another descriptor, but just for one of the fields:
+Add another descriptor, but just for some of the fields:
 
 ``` r
-d_fr$disp@description
-#> character(0)
+# TODO
+## d_fr$disp@description
 ```
 
-Use `fr_schema()` to extract the metadata for each field as a list:
+Use `fr_schema()` to extract the metadata for each field in a tibble:
 
 ``` r
 fr_schema(d_fr) |>
-  str()
-#> List of 11
-#>  $ mpg :List of 4
-#>   ..$ name       : chr "mpg"
-#>   ..$ type       : chr "numeric"
-#>   ..$ title      : chr(0) 
-#>   ..$ description: chr(0) 
-#>  $ cyl :List of 4
-#>   ..$ name       : chr "cyl"
-#>   ..$ type       : chr "numeric"
-#>   ..$ title      : chr(0) 
-#>   ..$ description: chr(0) 
-#>  $ disp:List of 4
-#>   ..$ name       : chr "disp"
-#>   ..$ type       : chr "numeric"
-#>   ..$ title      : chr(0) 
-#>   ..$ description: chr(0) 
-#>  $ hp  :List of 4
-#>   ..$ name       : chr "hp"
-#>   ..$ type       : chr "numeric"
-#>   ..$ title      : chr(0) 
-#>   ..$ description: chr(0) 
-#>  $ drat:List of 4
-#>   ..$ name       : chr "drat"
-#>   ..$ type       : chr "numeric"
-#>   ..$ title      : chr(0) 
-#>   ..$ description: chr(0) 
-#>  $ wt  :List of 4
-#>   ..$ name       : chr "wt"
-#>   ..$ type       : chr "numeric"
-#>   ..$ title      : chr(0) 
-#>   ..$ description: chr(0) 
-#>  $ qsec:List of 4
-#>   ..$ name       : chr "qsec"
-#>   ..$ type       : chr "numeric"
-#>   ..$ title      : chr(0) 
-#>   ..$ description: chr(0) 
-#>  $ vs  :List of 4
-#>   ..$ name       : chr "vs"
-#>   ..$ type       : chr "numeric"
-#>   ..$ title      : chr(0) 
-#>   ..$ description: chr(0) 
-#>  $ am  :List of 4
-#>   ..$ name       : chr "am"
-#>   ..$ type       : chr "numeric"
-#>   ..$ title      : chr(0) 
-#>   ..$ description: chr(0) 
-#>  $ gear:List of 4
-#>   ..$ name       : chr "gear"
-#>   ..$ type       : chr "numeric"
-#>   ..$ title      : chr(0) 
-#>   ..$ description: chr(0) 
-#>  $ carb:List of 4
-#>   ..$ name       : chr "carb"
-#>   ..$ type       : chr "numeric"
-#>   ..$ title      : chr(0) 
-#>   ..$ description: chr(0)
+  knitr::kable()
 ```
+
+| name | type    |
+|:-----|:--------|
+| mpg  | numeric |
+| cyl  | numeric |
+| disp | numeric |
+| hp   | numeric |
+| drat | numeric |
+| wt   | numeric |
+| qsec | numeric |
+| vs   | numeric |
+| am   | numeric |
+| gear | numeric |
+| carb | numeric |
 
 Accessor functions work as they do with data frames and tibbles, but
 return a `fr_field` or `td_tdr` object:
