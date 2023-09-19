@@ -14,7 +14,7 @@ fr_desc(x, ...)
 \item{...}{ignored}
 }
 \value{
-list of frictionless descriptors
+a list of table- or field-specific metadata descriptors
 }
 \description{
 extract the frictionless descriptors for a \code{fr_field} or \code{fr_tdr} object

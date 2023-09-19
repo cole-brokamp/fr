@@ -62,6 +62,11 @@ test_that("fr_tdr works", {
     expect_identical("no_row_names_mtcars") |>
     expect_warning("was not supplied")
 
+  # tibble removes row.names, so no concern there
+  as_fr_tdr(tibble::as_tibble(mtcars), "mtcars") |>
+    tibble::as_tibble() |>
+    expect_identical(tibble::as_tibble(mtcars))
+
   as_fr_tdr(tibble::as_tibble(mtcars)) |>
     S7::prop("name") |>
     expect_identical("tibble::as_tibble(mtcars)") |>

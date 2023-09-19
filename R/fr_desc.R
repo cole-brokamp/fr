@@ -3,6 +3,6 @@
 #' is not included in the returned list
 #' @param x a [fr_tdr][fr::fr-package] or [fr_field][fr::fr-package] object
 #' @param ... ignored
-#' @return list of frictionless descriptors
+#' @return a list of table- or field-specific metadata descriptors
 #' @export
 fr_desc <- S7::new_generic("fr_desc", "x")

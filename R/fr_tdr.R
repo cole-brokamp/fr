@@ -56,7 +56,10 @@ S7::method(as.data.frame, fr_tdr) <- function(x, ...) {
 }
 
 #' Coerce a [`fr_tdr`][fr::fr-package] object into a data frame
-#' @details equivalent to `as.data.frame()`
+#'
+#' - equivalent to `as.data.frame()`
+#' - `tibble::as_tibble()` also works because its input is first
+#' coerced with `as.data.frame()`
 #' @param x a [`fr_tdr`][fr::fr-package] object
 #' @param ... ignored
 #' @return a data frame
@@ -66,12 +69,6 @@ as_data_frame <- S7::new_generic("as_data_frame", "x")
 S7::method(as_data_frame, fr_tdr) <- function(x, ...) {
   as.data.frame(x)
 }
-
-# TODO how to extend tibble::as_tibble() ??
-## S7::method(tibble::as_tibble, fr_tdr) <- function(x, ...) {
-##   tibble::as_tibble(as.data.frame(fr_tdr))
-## }
-
 
 S7::method(print, fr_tdr) <- function(x, ...) {
   c(
@@ -84,12 +81,28 @@ S7::method(print, fr_tdr) <- function(x, ...) {
     "description" = "{.field {x@description}}"
   ) |>
     cli::cli_dl()
-  print(tibble::as_tibble(as_data_frame(x)), ...)
+  print(tibble::as_tibble(x), ...)
 }
-
 
 S7::method(fr_desc, fr_tdr) <- function(x, ...) {
   fr_tdr_desc <- S7::props(x)
   fr_tdr_desc$value <- NULL
   return(fr_tdr_desc)
+}
+
+S7::method(`$`, fr_tdr) <- function(x, name, ...) {
+  x@value[[name]]
+}
+
+S7::method(`[[`, fr_tdr) <- function(x, name, ...) {
+  x@value[[name]]
+}
+
+S7::method(`[`, fr_tdr) <- function(x, name, ...) {
+  x@value <- list(x@value[[name]])
+  return(x)
+}
+
+S7::method(fr_schema, fr_tdr) <- function(x, ...) {
+  lapply(x@value, fr_desc)
 }

@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 
 ## Installation
 
-You can install the development version of codec from [GitHub](https://github.com/) with:
+You can install the development version of {fr} from [GitHub](https://github.com/) with:
 
 ```{r, eval = FALSE}
 # install.packages("pak")
@@ -70,27 +70,81 @@ grepl("[[:alnum:]]", uid)
 paste(uid, collapse = "-")
 ```
 
-Explicitly drop the Frictionless attributes and extract just the underlying vector that contains the data vector with `as.vector()`:
+Explicitly drop the Frictionless attributes and extract just the underlying vector that contains the data vector with `as_vector()`:
 
 ```{r}
-as.vector(uid)
+as_vector(uid)
 ```
 
 ### Frictionless Tabular-Data-Resource
 
-Convert a data frame into a frictionless tabular-data-resource (i.e., `fr_tdr` object) with `as_fr_tdr()`.  An `fr_tdr` object is essentially a list of `fr_field`s with table-specific metadata descriptors.
+Convert a data frame into a frictionless tabular-data-resource (i.e., `fr_tdr` object) with `as_fr_tdr()`.  An `fr_tdr` object is essentially a list of `fr_field`s with table-specific metadata descriptors. Here, we create some metadata based on `?mtcars`:
 
 ```{r}
 d_fr <-
   mtcars |>
-  as_fr_tdr(name = "mtcars", description = "The mtcars dataset included with R")
+  tibble::remove_rownames() |> # to prevent a warning
+  as_fr_tdr(name = "mtcars",
+            version = "0.9.1",
+            title = "Motor Trend Car Road Tests",
+            homepage = "https://rdrr.io/r/datasets/mtcars.html",
+            description = "The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models).")
+```
 
+Print the `fr_tdr` object to view all of the metadata descriptors and the underlying data frame (or tibble):
+
+```{r}
 d_fr
 ```
 
-TODO After conversion, set field-level descriptors:
-Make `$` accessor work on `fr_tdr` as it does on tibble or data frame?
+Add a `name` metadata descriptor for each field in the `fr_tdr` object by using the `@` accessor
 
 ```{r}
-d_fr@value$mpg@title <- "Miles Per Gallon"
+d_fr
+
+fr_desc(d_fr)
+
+purrr::map(d_fr@value, fr_desc)
+
+
+```
+
+
+Add another descriptor, but just for one of the fields:
+
+```{r}
+d_fr$disp@description
+```
+
+Use `fr_schema()` to extract the metadata for each field as a list:
+
+```{r}
+fr_schema(d_fr) |>
+  str()
+```
+
+Accessor functions work as they do with data frames and tibbles, but return a `fr_field` or `td_tdr` object:
+
+```{r}
+d_fr[["disp"]] |> class()
+
+d_fr$disp |> class()
+
+d_fr["disp"] |> class()
+```
+
+`fr_field` objects can be used mostly anywhere that the underlying data frame can be used. 
+
+```{r}
+lm(mpg ~ cyl + disp + wt, data = d_fr)
+```
+
+Explicitly drop the Frictionless attributes and extract just the underlying data frame with `as_data_frame()` or `as_tibble()`:
+
+```{r}
+tibble::as_tibble(d_fr)
+
+summary(d_fr)
+
+summary(as_data_frame(d_fr))
 ```
