@@ -79,20 +79,21 @@
 <div class="section level3">
 <h3 id="frictionless-field">Frictionless Field<a class="anchor" aria-label="anchor" href="#frictionless-field"></a>
 </h3>
-<p>Convert an R vector to a frictionless field (i.e., <code>fr_field</code> object), while specifying the <a href="https://specs.frictionlessdata.io/table-schema/#field-descriptors" class="external-link">field descriptors</a>:</p>
+<p>Create a frictionless field (i.e., <code>fr_field</code> object) by converting an R vector and specifying named <a href="https://specs.frictionlessdata.io/table-schema/#field-descriptors" class="external-link">field descriptors</a>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">uid</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">replicate</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">letters</span>, <span class="fl">0</span><span class="op">:</span><span class="fl">9</span><span class="op">)</span>, <span class="fl">8</span>, <span class="cn">TRUE</span><span class="op">)</span>, collapse <span class="op">=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/as_fr_field.html">as_fr_field</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"uid"</span>,</span>
 <span>              title <span class="op">=</span> <span class="st">"Unique Identifier"</span>,</span>
-<span>              description <span class="op">=</span> <span class="st">"Each uid is composed of 8 random alphanumeric characters"</span><span class="op">)</span></span></code></pre></div>
-<p>Printing works as usual except that <code>fr_field</code> objects prepend an extra line including the <code>name</code> and <code>type</code> Frictionless attributes:</p>
+<span>              description <span class="op">=</span> <span class="st">"Each uid is composed of 8 random alphanumeric characters."</span><span class="op">)</span></span></code></pre></div>
+<p>Printing works as usual except that <code>fr_field</code> objects prepend extra lines for the Frictionless attributes:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">uid</span></span>
-<span><span class="co">#&gt; uid (string)</span></span>
-<span><span class="co">#&gt; Unique Identifier </span></span>
-<span><span class="co">#&gt; Each uid is composed of 8 random alphanumeric characters </span></span>
-<span><span class="co">#&gt; [1] "hhlr674m" "dni5khza" "c6vvmw94" "aq5pce85" "j3x36r0n" "rmujb9jm"</span></span></code></pre></div>
+<span><span class="co">#&gt; name: uid</span></span>
+<span><span class="co">#&gt; type: string</span></span>
+<span><span class="co">#&gt; title: Unique Identifier</span></span>
+<span><span class="co">#&gt; description: Each uid is composed of 8 random alphanumeric characters.</span></span>
+<span><span class="co">#&gt; [1] "dzwnuts4" "gu1fcw1w" "ex6z10yx" "43lt1nec" "x1a7d2on" "i53fvop3"</span></span></code></pre></div>
 <p>Extract the descriptors as a list using <code>fr_desc</code>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/fr_desc.html">fr_desc</a></span><span class="op">(</span><span class="va">uid</span><span class="op">)</span></span>
@@ -106,20 +107,17 @@
 <span><span class="co">#&gt; [1] "Unique Identifier"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $description</span></span>
-<span><span class="co">#&gt; [1] "Each uid is composed of 8 random alphanumeric characters"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $constraints</span></span>
-<span><span class="co">#&gt; list()</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "Each uid is composed of 8 random alphanumeric characters."</span></span></code></pre></div>
 <p><code>fr_field</code> objects can be used anywhere that the underlying vector in <code>@value</code> can be used. Because <code>uid</code>’s Frictionless <code>type</code> is <code>string</code>, the underlying vector in this case is a character vector.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"[[:alnum:]]"</span>, <span class="va">uid</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] TRUE TRUE TRUE TRUE TRUE TRUE</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">uid</span>, collapse <span class="op">=</span> <span class="st">"-"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "hhlr674m-dni5khza-c6vvmw94-aq5pce85-j3x36r0n-rmujb9jm"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "dzwnuts4-gu1fcw1w-ex6z10yx-43lt1nec-x1a7d2on-i53fvop3"</span></span></code></pre></div>
 <p>Explicitly drop the Frictionless attributes and extract just the underlying vector that contains the data vector with <code><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector()</a></code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="va">uid</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "hhlr674m" "dni5khza" "c6vvmw94" "aq5pce85" "j3x36r0n" "rmujb9jm"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "dzwnuts4" "gu1fcw1w" "ex6z10yx" "43lt1nec" "x1a7d2on" "i53fvop3"</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="frictionless-tabular-data-resource">Frictionless Tabular-Data-Resource<a class="anchor" aria-label="anchor" href="#frictionless-tabular-data-resource"></a>
@@ -216,7 +214,7 @@
 <span><span class="co">#&gt;  @ title      : chr(0) </span></span>
 <span><span class="co">#&gt;  @ homepage   : chr(0) </span></span>
 <span><span class="co">#&gt;  @ description: chr "The mtcars dataset included with R"</span></span></code></pre></div>
-<p>TODO After conversion, set field-level descriptors:</p>
+<p>TODO After conversion, set field-level descriptors: Make <code>$</code> accessor work on <code>fr_tdr</code> as it does on tibble or data frame?</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d_fr</span><span class="op">@</span><span class="va">value</span><span class="op">$</span><span class="va">mpg</span><span class="op">@</span><span class="va">title</span> <span class="op">&lt;-</span> <span class="st">"Miles Per Gallon"</span></span></code></pre></div>
 </div>

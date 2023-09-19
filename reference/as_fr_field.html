@@ -93,25 +93,43 @@ vectors into <code><a href="fr-package.html">fr_field</a></code> objects</h1>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">as_fr_field</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="st">"example_integer"</span><span class="op">)</span> <span class="co"># -&gt; frictionless numeric</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> example_integer (numeric)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> name: example_integer</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> type: numeric</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> title:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> description:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  1  2  3  4  5  6  7  8  9 10</span>
 <span class="r-in"><span><span class="fu">as_fr_field</span><span class="op">(</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span> <span class="op">*</span> <span class="fl">0.1</span>, <span class="st">"example_double"</span><span class="op">)</span> <span class="co"># -&gt; frictionless numeric</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> example_double (numeric)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> name: example_double</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> type: numeric</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> title:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> description:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0</span>
 <span class="r-in"><span><span class="fu">as_fr_field</span><span class="op">(</span><span class="va">letters</span>, <span class="st">"example_character"</span><span class="op">)</span> <span class="co"># -&gt; frictionless string</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> example_character (string)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> name: example_character</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> type: string</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> title:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> description:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [20] "t" "u" "v" "w" "x" "y" "z"</span>
 <span class="r-in"><span><span class="fu">as_fr_field</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">letters</span><span class="op">)</span>, <span class="st">"example_factor"</span><span class="op">)</span> <span class="co"># -&gt; frictionless string with enum constraints</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> example_factor (string)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   *with constraints*</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> name: example_factor</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> type: string</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> title:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> description:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> constraints: abcdefghijklmnopqrstuvwxyz</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] a b c d e f g h i j k l m n o p q r s t u v w x y z</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Levels: a b c d e f g h i j k l m n o p q r s t u v w x y z</span>
 <span class="r-in"><span><span class="fu">as_fr_field</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span>, <span class="st">"example_logical"</span><span class="op">)</span> <span class="co"># -&gt; frictionless boolean</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> example_logical (boolean)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> name: example_logical</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> type: boolean</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> title:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> description:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]  TRUE FALSE  TRUE</span>
 <span class="r-in"><span><span class="fu">as_fr_field</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2023-04-23"</span>, <span class="st">"2004-12-31"</span><span class="op">)</span><span class="op">)</span>, <span class="st">"example_date"</span><span class="op">)</span> <span class="co"># -&gt; frictionless date</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> example_date (date)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> name: example_date</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> type: date</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> title:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> description:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2023-04-23" "2004-12-31"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># an example `fr_field` object</span></span></span>
@@ -129,18 +147,19 @@ vectors into <code><a href="fr-package.html">fr_field</a></code> objects</h1>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># inspect properties of the `fr_field`</span></span></span>
 <span class="r-in"><span><span class="va">uid</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> uid (string)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Unique Identifier </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Consists of 8 random characters from (a-z) and (0-9) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "obq3p5hh" "ajb84s98" "sd61uk2p" "yiq2rte2" "39wwy09p" "crsx5is9"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "vrw10pbo" "p0232jjk" "p5v7z7lc" "k669z9zm" "p9ex8per" "hrtnjjxw"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "fhlc7ys4" "y7zqc484" "252l3pbm" "i7e69g95" "2k9ttnh5" "cxjw5gqp"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "rgs2lttx" "abaq5saa" "efas6q26" "b4769hpj" "gkbasgcm" "0mvb06sw"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "r6fwqxyg" "64rm533m" "1a8v3k8e" "apj1cnwe" "la3o8gho" "iy410s23"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "1yekp65p" "ma2kh5zr" "t8mekjae" "n35s3gp2"</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> name: uid</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> type: string</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> title: Unique Identifier</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> description: Consists of 8 random characters from (a-z) and (0-9)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "2gvk6lji" "r3409dc6" "lfodj1hc" "gfpqvxuz" "48edorzi" "c42bhsnl"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "lrvlh6gc" "mah7b0fb" "cg0vkety" "eilw1gj0" "um9wx3sw" "i063th6g"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "jou7z4e8" "n0vn8tiz" "01w3dkme" "nksta251" "fao7aekt" "wpabixhl"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "jfh7qa7o" "t97wmay7" "i10dd5t5" "9odx1ans" "bptam8k7" "olfzafu8"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "2ors568x" "im6bn2jx" "zz89zuzs" "8jxl4ooo" "1dstgwnj" "ie5arpdg"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "5to8pv51" "x3wfoyen" "motvcvtt" "pn8f5gqb"</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">uid</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;fr_field&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ value      : chr [1:34] "obq3p5hh" "ajb84s98" "sd61uk2p" "yiq2rte2" "39wwy09p" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  @ value      : chr [1:34] "2gvk6lji" "r3409dc6" "lfodj1hc" "gfpqvxuz" "48edorzi" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  @ name       : chr "uid"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  @ type       : chr "string"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  @ title      : chr "Unique Identifier"</span>
