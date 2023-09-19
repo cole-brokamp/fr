@@ -1,17 +1,5 @@
-#' Test if an object is a [`fr_field`][fr::fr-package] object
-#' @param x an object to test
-#' @return `TRUE` if object is a [fr_field][fr::fr-package] object, `FALSE` otherwise
-#' @examples
-#' is_fr_field(letters)
-#' is_fr_field(as_fr_field(letters, "letters"))
-#' @export
-is_fr_field <- function(x) {
-  inherits(x, "fr::fr_field")
-}
-
 fr_field <- S7::new_class(
   "fr_field",
-  package = "fr",
   properties = list(
     value = S7::class_vector,
     name = S7::class_character,
@@ -33,8 +21,8 @@ fr_field <- S7::new_class(
 
 #' Coerce `character`, `factor`, `numeric`, `logical`, and `Date`
 #' vectors into [`fr_field`][fr::fr-package] objects
-#' 
-#' The supported classes of `R` objects are converted to the corresponding frictionless `type`:  
+#'
+#' The supported classes of `R` objects are converted to the corresponding frictionless `type`:
 #' | **`R` class**   | **`fr` type**   |
 #' |:-----------------|:-------------|
 #' | `character()`, `factor()` | `string`* |
@@ -97,13 +85,44 @@ S7::method(print, fr_field) <- function(x, ...) {
   print(x@value)
 }
 
-#' Coerce a [`fr_field`][fr::fr-package] object into a vector
-#' @param x a [`fr_field`][fr::fr-package] object
-#' @param ... ignored
-#' @return depending on the `type` property of the object, a `character`, `factor`, `numeric`, `logical`, or `Date` vector
+#' Test if an object is a [`fr_field`][fr::fr-package] object
+#' @param x an object to test
+#' @return `TRUE` if object is a [fr_field][fr::fr-package] object, `FALSE` otherwise
+#' @examples
+#' is_fr_field(letters)
+#' is_fr_field(as_fr_field(letters, "letters"))
 #' @export
-as_vector <- S7::new_generic("as_vector", "x")
+is_fr_field <- function(x) {
+  inherits(x, "fr_field")
+}
 
-S7::method(as_vector, fr_field) <- function(x) {
+## #' Coerce a [`fr_field`][fr::fr-package] object into a vector
+## #' @param x a [`fr_field`][fr::fr-package] object
+## #' @param ... ignored
+## #' @return depending on the `type` property of the object, a `character`, `factor`, `numeric`, `logical`, or `Date` vector
+## #' @export
+## as_vector <- S7::new_generic("as_vector", "x")
+
+S7::method(as.vector, fr_field) <- function(x, ...) {
   x@value
+}
+
+S7::method(print, fr_field) <- function(x, ...) {
+  cat(x@name, " (", x@type, ")\n", sep = "")
+  if (length(x@title) > 0) {
+    cat(x@title, "\n")
+  }
+  if (length(x@description) > 0) {
+    cat(x@description, "\n")
+  }
+  if (length(x@constraints) > 0) {
+    cat("  *with constraints*\n")
+  }
+  print(x@value, ...)
+}
+
+S7::method(fr_desc, fr_field) <- function(x, ...) {
+  fr_field_desc <- S7::props(x)
+  fr_field_desc$value <- NULL
+  return(fr_field_desc)
 }

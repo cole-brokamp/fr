@@ -3,7 +3,7 @@
 export(as_fr_field)
 export(as_fr_tdr)
 export(as_tbl_df)
-export(as_vector)
+export(fr_desc)
 export(is_fr_field)
 importFrom(cli,cli_warn)
 importFrom(purrr,imap)

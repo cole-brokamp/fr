@@ -13,7 +13,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-
 # fr
 
 <!-- badges: start -->
@@ -39,30 +38,57 @@ pak::pak("cole-brokamp/fr")
 library(fr)
 ```
 
-Convert R vectors to a frictionless field (i.e., `fr_field` object):
+### Frictionless Field
+
+Convert an R vector to a frictionless field (i.e., `fr_field` object), while specifying the [field descriptors](https://specs.frictionlessdata.io/table-schema/#field-descriptors):
 
 ```{r}
 uid <-
-  replicate(34, paste0(sample(c(letters, 0:9), 8, TRUE), collapse = "")) |>
+  replicate(6, paste0(sample(c(letters, 0:9), 8, TRUE), collapse = "")) |>
   as_fr_field(name = "uid",
               title = "Unique Identifier",
               description = "Each uid is composed of 8 random alphanumeric characters")
 ```
 
-TODO Printing and other operations proceed as if `uid` were still a character:
-
-```{r, eval = FALSE}
-grep("[0-9]", uid)
-```
-
-To drop the Frictionless attributes and coerce a `fr_field` object back to a vector, use `as_vector()`:
+Printing works as usual except that `fr_field` objects prepend an extra line including the `name` and `type` Frictionless attributes:
 
 ```{r}
-as_vector(uid)
+uid
 ```
 
-Inspect [field descriptors](https://specs.frictionlessdata.io/table-schema/#field-descriptors) using `fr_descriptors()`:
+Extract the descriptors as a list using `fr_desc`:
 
 ```{r}
-## fr_descriptors(uid)
+fr_desc(uid)
+```
+
+`fr_field` objects can be used anywhere that the underlying vector in `@value` can be used. Because `uid`'s Frictionless `type` is `string`, the underlying vector in this case is a character vector.
+
+```{r}
+grepl("[[:alnum:]]", uid)
+paste(uid, collapse = "-")
+```
+
+Explicitly drop the Frictionless attributes and extract just the underlying vector that contains the data vector with `as.vector()`:
+
+```{r}
+as.vector(uid)
+```
+
+### Frictionless Tabular-Data-Resource
+
+Convert a data frame into a frictionless tabular-data-resource (i.e., `fr_tdr` object) with `as_fr_tdr()`.  An `fr_tdr` object is essentially a list of `fr_field`s with table-specific metadata descriptors.
+
+```{r}
+d_fr <-
+  mtcars |>
+  as_fr_tdr(name = "mtcars", description = "The mtcars dataset included with R")
+
+d_fr
+```
+
+TODO After conversion, set field-level descriptors:
+
+```{r}
+d_fr@value$mpg@title <- "Miles Per Gallon"
 ```

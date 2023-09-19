@@ -1,6 +1,5 @@
 fr_tdr <- S7::new_class(
   "fr_tdr",
-  package = "fr",
   properties = list(
     value = S7::class_list,
     name = S7::class_character,
@@ -52,4 +51,4 @@ S7::method(as_fr_tdr, S7::class_data.frame) <- function(x, name = NULL, ...) {
 #' @export
 as_tbl_df <- S7::new_generic("as_tbl_df", "x")
 
-S7::method(as_tbl_df, fr_tdr) <- function(x) tibble::as_tibble(sapply(x@value, as_vector))
+S7::method(as_tbl_df, fr_tdr) <- function(x) tibble::as_tibble(sapply(x@value, as.vector))

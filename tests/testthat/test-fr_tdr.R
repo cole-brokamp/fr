@@ -1,7 +1,8 @@
 test_that("fr_tdr works", {
+
   # empty tdr
   fr_tdr(value = list(), name = "empty_tdr") |>
-    expect_s3_class("fr::fr_tdr")
+    expect_s3_class("fr_tdr")
 
   list(
     id = as_fr_field(letters, name = "id"),
@@ -12,10 +13,10 @@ test_that("fr_tdr works", {
     )
   ) |>
     fr_tdr(name = "my_dataset", homepage = "https://example.com") |>
-    expect_s3_class("fr::fr_tdr")
+    expect_s3_class("fr_tdr")
 
   as_fr_tdr(x = mtcars, name = "my_mtcars", description = "the cars thing") |>
-    expect_s3_class("fr::fr_tdr") |>
+    expect_s3_class("fr_tdr") |>
     S7::prop("name") |>
     expect_identical("my_mtcars")
 
@@ -26,7 +27,7 @@ test_that("fr_tdr works", {
 
   # works without supplying name
   as_fr_tdr(mtcars) |>
-    expect_s3_class("fr::fr_tdr") |>
+    expect_s3_class("fr_tdr") |>
     expect_warning()
 
   as_fr_tdr(mtcars) |>
