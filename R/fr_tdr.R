@@ -37,6 +37,13 @@ S7::method(as_fr_tdr, S7::class_data.frame) <- function(x, name = NULL, ...) {
     ))
     name <- deparse(substitute(x))
   }
+  if (tibble::has_rownames(x)) {
+    cli::cli_warn(c(
+      "!" = "row.names will be dropped",
+      "i" = "convert row.names to a new column with {.code tibble::rowid_to_column}",
+      "i" = "remove row.names with {.code tibble::remove_rownames}"
+    ))
+  }
   fr_tdr(
     value = purrr::imap(x, as_fr_field),
     name = name,
@@ -44,11 +51,33 @@ S7::method(as_fr_tdr, S7::class_data.frame) <- function(x, name = NULL, ...) {
   )
 }
 
-#' Coerce a [`fr_tdr`][fr::fr-package] object into a data frame
-#' @param x a [`fr_tdr`][fr::fr-package]
-#' @param ... ignored
-#' @return a tibble
-#' @export
-as_tbl_df <- S7::new_generic("as_tbl_df", "x")
+S7::method(as.data.frame, fr_tdr) <- function(x, ...) {
+  as.data.frame(sapply(x@value, as.vector))
+}
 
-S7::method(as_tbl_df, fr_tdr) <- function(x) tibble::as_tibble(sapply(x@value, as.vector))
+# TODO how to extend tibble::as_tibble() ??
+## S7::method(tibble::as_tibble, fr_tdr) <- function(x, ...) {
+##   tibble::as_tibble(as.data.frame(fr_tdr))
+## }
+
+
+S7::method(print, fr_tdr) <- function(x, ...) {
+  c(
+    ## "type" = "{.obj_type_friendly {x}}",
+    "name" = "{.pkg {x@name}}",
+    "path" = "{.path {x@path}}",
+    "version" = "{.field {x@version}}",
+    "title" = "{.field {x@title}}",
+    "homepage" = "{.url {x@homepage}}",
+    "description" = "{.field {x@description}}"
+  ) |>
+    cli::cli_dl()
+  print(tibble::as_tibble(as.data.frame(x)), ...)
+}
+
+
+S7::method(fr_desc, fr_tdr) <- function(x, ...) {
+  fr_tdr_desc <- S7::props(x)
+  fr_tdr_desc$value <- NULL
+  return(fr_tdr_desc)
+}
