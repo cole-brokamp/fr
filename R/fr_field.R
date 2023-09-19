@@ -80,11 +80,6 @@ S7::method(as_fr_field, S7::class_Date) <- function(x, name, ...) {
   fr_field(value = x, name = name, type = "date", ...)
 }
 
-S7::method(print, fr_field) <- function(x, ...) {
-  cat(x@name, " (", x@type, ")", "\n", sep = "")
-  print(x@value)
-}
-
 #' Test if an object is a [`fr_field`][fr::fr-package] object
 #' @param x an object to test
 #' @return `TRUE` if object is a [fr_field][fr::fr-package] object, `FALSE` otherwise
@@ -96,20 +91,25 @@ is_fr_field <- function(x) {
   inherits(x, "fr_field")
 }
 
-## #' Coerce a [`fr_field`][fr::fr-package] object into a vector
-## #' @param x a [`fr_field`][fr::fr-package] object
-## #' @param ... ignored
-## #' @return depending on the `type` property of the object, a `character`, `factor`, `numeric`, `logical`, or `Date` vector
-## #' @export
-## as_vector <- S7::new_generic("as_vector", "x")
-
 S7::method(as.vector, fr_field) <- function(x, ...) {
   x@value
 }
 
+#' Coerce a [`fr_field`][fr::fr-package] object into a vector
+#' @details equivalent to `as.vector()`
+#' @param x a [`fr_field`][fr::fr-package] object
+#' @param ... ignored
+#' @return depending on the `type` property of the object, a `character`, `factor`, `numeric`, `logical`, or `Date` vector
+#' @export
+as_vector <- S7::new_generic("as_vector", "x")
+
+S7::method(as_vector, fr_field) <- function(x, ...) {
+  as.vector(x)
+}
+
 S7::method(print, fr_field) <- function(x, ...) {
   cli::cli_dl(fr_desc(x))
-  print(as.vector(x), ...)
+  print(as_vector(x), ...)
 }
 
 S7::method(fr_desc, fr_field) <- function(x, ...) {

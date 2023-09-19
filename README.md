@@ -40,6 +40,7 @@ vector and specifying named [field
 descriptors](https://specs.frictionlessdata.io/table-schema/#field-descriptors):
 
 ``` r
+set.seed(1)
 uid <-
   replicate(6, paste0(sample(c(letters, 0:9), 8, TRUE), collapse = "")) |>
   as_fr_field(name = "uid",
@@ -56,7 +57,7 @@ uid
 #> type: string
 #> title: Unique Identifier
 #> description: Each uid is composed of 8 random alphanumeric characters.
-#> [1] "dzwnuts4" "gu1fcw1w" "ex6z10yx" "43lt1nec" "x1a7d2on" "i53fvop3"
+#> [1] "da7wnr6u" "ujgiouy7" "yo6t8fjt" "1twfyffx" "5nbrvnaf" "wfkq9myy"
 ```
 
 Extract the descriptors as a list using `fr_desc`:
@@ -84,7 +85,7 @@ the underlying vector in this case is a character vector.
 grepl("[[:alnum:]]", uid)
 #> [1] TRUE TRUE TRUE TRUE TRUE TRUE
 paste(uid, collapse = "-")
-#> [1] "dzwnuts4-gu1fcw1w-ex6z10yx-43lt1nec-x1a7d2on-i53fvop3"
+#> [1] "da7wnr6u-ujgiouy7-yo6t8fjt-1twfyffx-5nbrvnaf-wfkq9myy"
 ```
 
 Explicitly drop the Frictionless attributes and extract just the
@@ -92,7 +93,7 @@ underlying vector that contains the data vector with `as.vector()`:
 
 ``` r
 as.vector(uid)
-#> [1] "dzwnuts4" "gu1fcw1w" "ex6z10yx" "43lt1nec" "x1a7d2on" "i53fvop3"
+#> [1] "da7wnr6u" "ujgiouy7" "yo6t8fjt" "1twfyffx" "5nbrvnaf" "wfkq9myy"
 ```
 
 ### Frictionless Tabular-Data-Resource
@@ -105,93 +106,31 @@ list of `fr_field`s with table-specific metadata descriptors.
 d_fr <-
   mtcars |>
   as_fr_tdr(name = "mtcars", description = "The mtcars dataset included with R")
+#> Warning: ! row.names will be dropped
+#> ℹ convert row.names to a new column with `tibble::rowid_to_column`
+#> ℹ remove row.names with `tibble::remove_rownames`
 
 d_fr
-#> <fr_tdr>
-#>  @ value      :List of 11
-#>  .. $ mpg : <fr_field>
-#>  ..  ..@ value      : num [1:32] 21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
-#>  ..  ..@ name       : chr "mpg"
-#>  ..  ..@ type       : chr "numeric"
-#>  ..  ..@ title      : chr(0) 
-#>  ..  ..@ description: chr(0) 
-#>  ..  ..@ constraints: list()
-#>  .. $ cyl : <fr_field>
-#>  ..  ..@ value      : num [1:32] 6 6 4 6 8 6 8 4 4 6 ...
-#>  ..  ..@ name       : chr "cyl"
-#>  ..  ..@ type       : chr "numeric"
-#>  ..  ..@ title      : chr(0) 
-#>  ..  ..@ description: chr(0) 
-#>  ..  ..@ constraints: list()
-#>  .. $ disp: <fr_field>
-#>  ..  ..@ value      : num [1:32] 160 160 108 258 360 ...
-#>  ..  ..@ name       : chr "disp"
-#>  ..  ..@ type       : chr "numeric"
-#>  ..  ..@ title      : chr(0) 
-#>  ..  ..@ description: chr(0) 
-#>  ..  ..@ constraints: list()
-#>  .. $ hp  : <fr_field>
-#>  ..  ..@ value      : num [1:32] 110 110 93 110 175 105 245 62 95 123 ...
-#>  ..  ..@ name       : chr "hp"
-#>  ..  ..@ type       : chr "numeric"
-#>  ..  ..@ title      : chr(0) 
-#>  ..  ..@ description: chr(0) 
-#>  ..  ..@ constraints: list()
-#>  .. $ drat: <fr_field>
-#>  ..  ..@ value      : num [1:32] 3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
-#>  ..  ..@ name       : chr "drat"
-#>  ..  ..@ type       : chr "numeric"
-#>  ..  ..@ title      : chr(0) 
-#>  ..  ..@ description: chr(0) 
-#>  ..  ..@ constraints: list()
-#>  .. $ wt  : <fr_field>
-#>  ..  ..@ value      : num [1:32] 2.62 2.88 2.32 3.21 3.44 ...
-#>  ..  ..@ name       : chr "wt"
-#>  ..  ..@ type       : chr "numeric"
-#>  ..  ..@ title      : chr(0) 
-#>  ..  ..@ description: chr(0) 
-#>  ..  ..@ constraints: list()
-#>  .. $ qsec: <fr_field>
-#>  ..  ..@ value      : num [1:32] 16.5 17 18.6 19.4 17 ...
-#>  ..  ..@ name       : chr "qsec"
-#>  ..  ..@ type       : chr "numeric"
-#>  ..  ..@ title      : chr(0) 
-#>  ..  ..@ description: chr(0) 
-#>  ..  ..@ constraints: list()
-#>  .. $ vs  : <fr_field>
-#>  ..  ..@ value      : num [1:32] 0 0 1 1 0 1 0 1 1 1 ...
-#>  ..  ..@ name       : chr "vs"
-#>  ..  ..@ type       : chr "numeric"
-#>  ..  ..@ title      : chr(0) 
-#>  ..  ..@ description: chr(0) 
-#>  ..  ..@ constraints: list()
-#>  .. $ am  : <fr_field>
-#>  ..  ..@ value      : num [1:32] 1 1 1 0 0 0 0 0 0 0 ...
-#>  ..  ..@ name       : chr "am"
-#>  ..  ..@ type       : chr "numeric"
-#>  ..  ..@ title      : chr(0) 
-#>  ..  ..@ description: chr(0) 
-#>  ..  ..@ constraints: list()
-#>  .. $ gear: <fr_field>
-#>  ..  ..@ value      : num [1:32] 4 4 4 3 3 3 3 4 4 4 ...
-#>  ..  ..@ name       : chr "gear"
-#>  ..  ..@ type       : chr "numeric"
-#>  ..  ..@ title      : chr(0) 
-#>  ..  ..@ description: chr(0) 
-#>  ..  ..@ constraints: list()
-#>  .. $ carb: <fr_field>
-#>  ..  ..@ value      : num [1:32] 4 4 1 1 2 1 4 2 2 4 ...
-#>  ..  ..@ name       : chr "carb"
-#>  ..  ..@ type       : chr "numeric"
-#>  ..  ..@ title      : chr(0) 
-#>  ..  ..@ description: chr(0) 
-#>  ..  ..@ constraints: list()
-#>  @ name       : chr "mtcars"
-#>  @ path       : chr(0) 
-#>  @ version    : chr(0) 
-#>  @ title      : chr(0) 
-#>  @ homepage   : chr(0) 
-#>  @ description: chr "The mtcars dataset included with R"
+#> name: mtcars
+#> path:
+#> version:
+#> title:
+#> homepage: <>
+#> description: The mtcars dataset included with R
+#> # A tibble: 32 × 11
+#>      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+#>    <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+#>  1  21       6  160    110  3.9   2.62  16.5     0     1     4     4
+#>  2  21       6  160    110  3.9   2.88  17.0     0     1     4     4
+#>  3  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1
+#>  4  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1
+#>  5  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2
+#>  6  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1
+#>  7  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4
+#>  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2
+#>  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2
+#> 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4
+#> # ℹ 22 more rows
 ```
 
 TODO After conversion, set field-level descriptors: Make `$` accessor

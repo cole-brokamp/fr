@@ -43,6 +43,7 @@ library(fr)
 Create a frictionless field (i.e., `fr_field` object) by converting an R vector and specifying named [field descriptors](https://specs.frictionlessdata.io/table-schema/#field-descriptors):
 
 ```{r}
+set.seed(1)
 uid <-
   replicate(6, paste0(sample(c(letters, 0:9), 8, TRUE), collapse = "")) |>
   as_fr_field(name = "uid",

@@ -55,6 +55,18 @@ S7::method(as.data.frame, fr_tdr) <- function(x, ...) {
   as.data.frame(sapply(x@value, as.vector))
 }
 
+#' Coerce a [`fr_tdr`][fr::fr-package] object into a data frame
+#' @details equivalent to `as.data.frame()`
+#' @param x a [`fr_tdr`][fr::fr-package] object
+#' @param ... ignored
+#' @return a data frame
+#' @export
+as_data_frame <- S7::new_generic("as_data_frame", "x")
+
+S7::method(as_data_frame, fr_tdr) <- function(x, ...) {
+  as.data.frame(x)
+}
+
 # TODO how to extend tibble::as_tibble() ??
 ## S7::method(tibble::as_tibble, fr_tdr) <- function(x, ...) {
 ##   tibble::as_tibble(as.data.frame(fr_tdr))
@@ -72,7 +84,7 @@ S7::method(print, fr_tdr) <- function(x, ...) {
     "description" = "{.field {x@description}}"
   ) |>
     cli::cli_dl()
-  print(tibble::as_tibble(as.data.frame(x)), ...)
+  print(tibble::as_tibble(as_data_frame(x)), ...)
 }
 
 
