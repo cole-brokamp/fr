@@ -127,13 +127,13 @@
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d_fr</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">mtcars</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">remove_rownames</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># to prevent a warning</span></span>
+<span>  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/as_fr_tdr.html">as_fr_tdr</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"mtcars"</span>,</span>
 <span>            version <span class="op">=</span> <span class="st">"0.9.1"</span>,</span>
 <span>            title <span class="op">=</span> <span class="st">"Motor Trend Car Road Tests"</span>,</span>
 <span>            homepage <span class="op">=</span> <span class="st">"https://rdrr.io/r/datasets/mtcars.html"</span>,</span>
 <span>            description <span class="op">=</span> <span class="st">"The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models)."</span><span class="op">)</span></span></code></pre></div>
-<p>Print the <code>fr_tdr</code> object to view all of the metadata descriptors and the underlying data frame (or tibble):</p>
+<p>Print the <code>fr_tdr</code> object to view all of the table-specific metadata descriptors and the underlying data frame:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d_fr</span></span>
 <span><span class="co">#&gt; name: mtcars</span></span>
@@ -160,266 +160,67 @@
 <span><span class="co">#&gt; # ℹ 22 more rows</span></span></code></pre></div>
 <p>Add a <code>name</code> metadata descriptor for each field in the <code>fr_tdr</code> object by using the <code>@</code> accessor</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">d_fr</span></span>
-<span><span class="co">#&gt; name: mtcars</span></span>
-<span><span class="co">#&gt; path:</span></span>
-<span><span class="co">#&gt; version: 0.9.1</span></span>
-<span><span class="co">#&gt; title: Motor Trend Car Road Tests</span></span>
-<span><span class="co">#&gt; homepage: &lt;https://rdrr.io/r/datasets/mtcars.html&gt;</span></span>
-<span><span class="co">#&gt; description: The data was extracted from the 1974 Motor Trend US magazine, and</span></span>
-<span><span class="co">#&gt; comprises fuel consumption and 10 aspects of automobile design and performance</span></span>
-<span><span class="co">#&gt; for 32 automobiles (1973–74 models).</span></span>
-<span><span class="co">#&gt; # A tibble: 32 × 11</span></span>
-<span><span class="co">#&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb</span></span>
-<span><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1  21       6  160    110  3.9   2.62  16.5     0     1     4     4</span></span>
-<span><span class="co">#&gt;  2  21       6  160    110  3.9   2.88  17.0     0     1     4     4</span></span>
-<span><span class="co">#&gt;  3  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1</span></span>
-<span><span class="co">#&gt;  4  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1</span></span>
-<span><span class="co">#&gt;  5  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2</span></span>
-<span><span class="co">#&gt;  6  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1</span></span>
-<span><span class="co">#&gt;  7  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4</span></span>
-<span><span class="co">#&gt;  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2</span></span>
-<span><span class="co">#&gt;  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2</span></span>
-<span><span class="co">#&gt; 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4</span></span>
-<span><span class="co">#&gt; # ℹ 22 more rows</span></span>
-<span></span>
-<span><span class="fu"><a href="reference/fr_desc.html">fr_desc</a></span><span class="op">(</span><span class="va">d_fr</span><span class="op">)</span></span>
-<span><span class="co">#&gt; $name</span></span>
-<span><span class="co">#&gt; [1] "mtcars"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $path</span></span>
-<span><span class="co">#&gt; character(0)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $version</span></span>
-<span><span class="co">#&gt; [1] "0.9.1"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $title</span></span>
-<span><span class="co">#&gt; [1] "Motor Trend Car Road Tests"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $homepage</span></span>
-<span><span class="co">#&gt; [1] "https://rdrr.io/r/datasets/mtcars.html"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $description</span></span>
-<span><span class="co">#&gt; [1] "The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models)."</span></span>
-<span></span>
-<span><span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">d_fr</span><span class="op">@</span><span class="va">value</span>, <span class="va">fr_desc</span><span class="op">)</span></span>
-<span><span class="co">#&gt; $mpg</span></span>
-<span><span class="co">#&gt; $mpg$name</span></span>
-<span><span class="co">#&gt; [1] "mpg"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $mpg$type</span></span>
-<span><span class="co">#&gt; [1] "numeric"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $mpg$title</span></span>
-<span><span class="co">#&gt; character(0)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $mpg$description</span></span>
-<span><span class="co">#&gt; character(0)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $cyl</span></span>
-<span><span class="co">#&gt; $cyl$name</span></span>
-<span><span class="co">#&gt; [1] "cyl"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $cyl$type</span></span>
-<span><span class="co">#&gt; [1] "numeric"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $cyl$title</span></span>
-<span><span class="co">#&gt; character(0)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $cyl$description</span></span>
-<span><span class="co">#&gt; character(0)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $disp</span></span>
-<span><span class="co">#&gt; $disp$name</span></span>
-<span><span class="co">#&gt; [1] "disp"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $disp$type</span></span>
-<span><span class="co">#&gt; [1] "numeric"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $disp$title</span></span>
-<span><span class="co">#&gt; character(0)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $disp$description</span></span>
-<span><span class="co">#&gt; character(0)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $hp</span></span>
-<span><span class="co">#&gt; $hp$name</span></span>
-<span><span class="co">#&gt; [1] "hp"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $hp$type</span></span>
-<span><span class="co">#&gt; [1] "numeric"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $hp$title</span></span>
-<span><span class="co">#&gt; character(0)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $hp$description</span></span>
-<span><span class="co">#&gt; character(0)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $drat</span></span>
-<span><span class="co">#&gt; $drat$name</span></span>
-<span><span class="co">#&gt; [1] "drat"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $drat$type</span></span>
-<span><span class="co">#&gt; [1] "numeric"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $drat$title</span></span>
-<span><span class="co">#&gt; character(0)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $drat$description</span></span>
-<span><span class="co">#&gt; character(0)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $wt</span></span>
-<span><span class="co">#&gt; $wt$name</span></span>
-<span><span class="co">#&gt; [1] "wt"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $wt$type</span></span>
-<span><span class="co">#&gt; [1] "numeric"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $wt$title</span></span>
-<span><span class="co">#&gt; character(0)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $wt$description</span></span>
-<span><span class="co">#&gt; character(0)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $qsec</span></span>
-<span><span class="co">#&gt; $qsec$name</span></span>
-<span><span class="co">#&gt; [1] "qsec"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $qsec$type</span></span>
-<span><span class="co">#&gt; [1] "numeric"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $qsec$title</span></span>
-<span><span class="co">#&gt; character(0)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $qsec$description</span></span>
-<span><span class="co">#&gt; character(0)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $vs</span></span>
-<span><span class="co">#&gt; $vs$name</span></span>
-<span><span class="co">#&gt; [1] "vs"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $vs$type</span></span>
-<span><span class="co">#&gt; [1] "numeric"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $vs$title</span></span>
-<span><span class="co">#&gt; character(0)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $vs$description</span></span>
-<span><span class="co">#&gt; character(0)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $am</span></span>
-<span><span class="co">#&gt; $am$name</span></span>
-<span><span class="co">#&gt; [1] "am"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $am$type</span></span>
-<span><span class="co">#&gt; [1] "numeric"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $am$title</span></span>
-<span><span class="co">#&gt; character(0)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $am$description</span></span>
-<span><span class="co">#&gt; character(0)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $gear</span></span>
-<span><span class="co">#&gt; $gear$name</span></span>
-<span><span class="co">#&gt; [1] "gear"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $gear$type</span></span>
-<span><span class="co">#&gt; [1] "numeric"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $gear$title</span></span>
-<span><span class="co">#&gt; character(0)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $gear$description</span></span>
-<span><span class="co">#&gt; character(0)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $carb</span></span>
-<span><span class="co">#&gt; $carb$name</span></span>
-<span><span class="co">#&gt; [1] "carb"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $carb$type</span></span>
-<span><span class="co">#&gt; [1] "numeric"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $carb$title</span></span>
-<span><span class="co">#&gt; character(0)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $carb$description</span></span>
-<span><span class="co">#&gt; character(0)</span></span></code></pre></div>
-<p>Add another descriptor, but just for one of the fields:</p>
+<code class="sourceCode R"><span><span class="co"># TODO</span></span></code></pre></div>
+<p>Add another descriptor, but just for some of the fields:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">d_fr</span><span class="op">$</span><span class="va">disp</span><span class="op">@</span><span class="va">description</span></span>
-<span><span class="co">#&gt; character(0)</span></span></code></pre></div>
-<p>Use <code><a href="reference/fr_schema.html">fr_schema()</a></code> to extract the metadata for each field as a list:</p>
+<code class="sourceCode R"><span><span class="co"># TODO</span></span>
+<span><span class="co">## d_fr$disp@description</span></span></code></pre></div>
+<p>Use <code><a href="reference/fr_schema.html">fr_schema()</a></code> to extract the metadata for each field in a tibble:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/fr_schema.html">fr_schema</a></span><span class="op">(</span><span class="va">d_fr</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; List of 11</span></span>
-<span><span class="co">#&gt;  $ mpg :List of 4</span></span>
-<span><span class="co">#&gt;   ..$ name       : chr "mpg"</span></span>
-<span><span class="co">#&gt;   ..$ type       : chr "numeric"</span></span>
-<span><span class="co">#&gt;   ..$ title      : chr(0) </span></span>
-<span><span class="co">#&gt;   ..$ description: chr(0) </span></span>
-<span><span class="co">#&gt;  $ cyl :List of 4</span></span>
-<span><span class="co">#&gt;   ..$ name       : chr "cyl"</span></span>
-<span><span class="co">#&gt;   ..$ type       : chr "numeric"</span></span>
-<span><span class="co">#&gt;   ..$ title      : chr(0) </span></span>
-<span><span class="co">#&gt;   ..$ description: chr(0) </span></span>
-<span><span class="co">#&gt;  $ disp:List of 4</span></span>
-<span><span class="co">#&gt;   ..$ name       : chr "disp"</span></span>
-<span><span class="co">#&gt;   ..$ type       : chr "numeric"</span></span>
-<span><span class="co">#&gt;   ..$ title      : chr(0) </span></span>
-<span><span class="co">#&gt;   ..$ description: chr(0) </span></span>
-<span><span class="co">#&gt;  $ hp  :List of 4</span></span>
-<span><span class="co">#&gt;   ..$ name       : chr "hp"</span></span>
-<span><span class="co">#&gt;   ..$ type       : chr "numeric"</span></span>
-<span><span class="co">#&gt;   ..$ title      : chr(0) </span></span>
-<span><span class="co">#&gt;   ..$ description: chr(0) </span></span>
-<span><span class="co">#&gt;  $ drat:List of 4</span></span>
-<span><span class="co">#&gt;   ..$ name       : chr "drat"</span></span>
-<span><span class="co">#&gt;   ..$ type       : chr "numeric"</span></span>
-<span><span class="co">#&gt;   ..$ title      : chr(0) </span></span>
-<span><span class="co">#&gt;   ..$ description: chr(0) </span></span>
-<span><span class="co">#&gt;  $ wt  :List of 4</span></span>
-<span><span class="co">#&gt;   ..$ name       : chr "wt"</span></span>
-<span><span class="co">#&gt;   ..$ type       : chr "numeric"</span></span>
-<span><span class="co">#&gt;   ..$ title      : chr(0) </span></span>
-<span><span class="co">#&gt;   ..$ description: chr(0) </span></span>
-<span><span class="co">#&gt;  $ qsec:List of 4</span></span>
-<span><span class="co">#&gt;   ..$ name       : chr "qsec"</span></span>
-<span><span class="co">#&gt;   ..$ type       : chr "numeric"</span></span>
-<span><span class="co">#&gt;   ..$ title      : chr(0) </span></span>
-<span><span class="co">#&gt;   ..$ description: chr(0) </span></span>
-<span><span class="co">#&gt;  $ vs  :List of 4</span></span>
-<span><span class="co">#&gt;   ..$ name       : chr "vs"</span></span>
-<span><span class="co">#&gt;   ..$ type       : chr "numeric"</span></span>
-<span><span class="co">#&gt;   ..$ title      : chr(0) </span></span>
-<span><span class="co">#&gt;   ..$ description: chr(0) </span></span>
-<span><span class="co">#&gt;  $ am  :List of 4</span></span>
-<span><span class="co">#&gt;   ..$ name       : chr "am"</span></span>
-<span><span class="co">#&gt;   ..$ type       : chr "numeric"</span></span>
-<span><span class="co">#&gt;   ..$ title      : chr(0) </span></span>
-<span><span class="co">#&gt;   ..$ description: chr(0) </span></span>
-<span><span class="co">#&gt;  $ gear:List of 4</span></span>
-<span><span class="co">#&gt;   ..$ name       : chr "gear"</span></span>
-<span><span class="co">#&gt;   ..$ type       : chr "numeric"</span></span>
-<span><span class="co">#&gt;   ..$ title      : chr(0) </span></span>
-<span><span class="co">#&gt;   ..$ description: chr(0) </span></span>
-<span><span class="co">#&gt;  $ carb:List of 4</span></span>
-<span><span class="co">#&gt;   ..$ name       : chr "carb"</span></span>
-<span><span class="co">#&gt;   ..$ type       : chr "numeric"</span></span>
-<span><span class="co">#&gt;   ..$ title      : chr(0) </span></span>
-<span><span class="co">#&gt;   ..$ description: chr(0)</span></span></code></pre></div>
+<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">name</th>
+<th align="left">type</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">mpg</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="even">
+<td align="left">cyl</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="odd">
+<td align="left">disp</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="even">
+<td align="left">hp</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="odd">
+<td align="left">drat</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="even">
+<td align="left">wt</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="odd">
+<td align="left">qsec</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="even">
+<td align="left">vs</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="odd">
+<td align="left">am</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="even">
+<td align="left">gear</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="odd">
+<td align="left">carb</td>
+<td align="left">numeric</td>
+</tr>
+</tbody>
+</table>
 <p>Accessor functions work as they do with data frames and tibbles, but return a <code>fr_field</code> or <code>td_tdr</code> object:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d_fr</span><span class="op">[[</span><span class="st">"disp"</span><span class="op">]</span><span class="op">]</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="op">)</span></span>
