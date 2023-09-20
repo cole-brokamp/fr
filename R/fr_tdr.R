@@ -1,7 +1,7 @@
 fr_tdr <- S7::new_class(
   "fr_tdr",
   properties = list(
-    value = S7::class_list,
+    fields = S7::class_list,
     name = S7::class_character,
     path = S7::class_character,
     version = S7::class_character,
@@ -9,12 +9,10 @@ fr_tdr <- S7::new_class(
     homepage = S7::class_character,
     description = S7::class_character
   ),
-  # TODO automatically create the schema and fields property for fr_tdr based on value
-  # no, this really only needs to be done when casting from fr_tdr to list of schema
   validator = function(self) {
-    x <- self@value
+    x <- self@fields
     if (!all(sapply(x, is_fr_field))) {
-      "all items in @value should be fr_field objects"
+      "all items in @fields should be fr_field objects"
     } else if (length(self@name) != 1) {
       "@name must be length 1"
     }
@@ -45,14 +43,14 @@ S7::method(as_fr_tdr, S7::class_data.frame) <- function(x, name = NULL, ...) {
     ))
   }
   fr_tdr(
-    value = purrr::imap(x, as_fr_field),
+    fields = purrr::imap(x, as_fr_field),
     name = name,
     ...
   )
 }
 
 S7::method(as.data.frame, fr_tdr) <- function(x, ...) {
-  as.data.frame(sapply(x@value, as.vector))
+  as.data.frame(sapply(x@fields, as.vector))
 }
 
 #' Coerce a [`fr_tdr`][fr::fr-package] object into a data frame
@@ -86,23 +84,23 @@ S7::method(print, fr_tdr) <- function(x, ...) {
 
 S7::method(fr_desc, fr_tdr) <- function(x, ...) {
   fr_tdr_desc <- S7::props(x)
-  fr_tdr_desc$value <- NULL
+  fr_tdr_desc$fields <- NULL
   return(fr_tdr_desc)
 }
 
 S7::method(`$`, fr_tdr) <- function(x, name, ...) {
-  x@value[[name]]
+  x@fields[[name]]
 }
 
 S7::method(`[[`, fr_tdr) <- function(x, name, ...) {
-  x@value[[name]]
+  x@fields[[name]]
 }
 
 S7::method(`[`, fr_tdr) <- function(x, name, ...) {
-  x@value <- list(x@value[[name]])
+  x@fields <- list(x@fields[[name]])
   return(x)
 }
 
 S7::method(fr_schema, fr_tdr) <- function(x, ...) {
-  lapply(x@value, fr_desc)
+  lapply(x@fields, fr_desc)
 }

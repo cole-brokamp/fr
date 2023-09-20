@@ -2,7 +2,7 @@
 % Please edit documentation in R/fr_schema.R
 \name{fr_schema}
 \alias{fr_schema}
-\title{extract the schema from a \code{fr_tdr} as a tibble}
+\title{extract the schema from a \code{fr_tdr} as a list}
 \usage{
 fr_schema(x, ...)
 }
@@ -12,9 +12,9 @@ fr_schema(x, ...)
 \item{...}{ignored}
 }
 \value{
-a tibble where each column is a field-specific metadata
-descriptor and each row is one field
+a list with one item per field, where each
+item is a list of field-specific metadata descriptors
 }
 \description{
-extract the schema from a \code{fr_tdr} as a tibble
+extract the schema from a \code{fr_tdr} as a list
 }

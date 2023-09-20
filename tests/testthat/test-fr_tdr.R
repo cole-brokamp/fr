@@ -1,7 +1,7 @@
 test_that("fr_tdr works", {
 
   # empty tdr
-  fr_tdr(value = list(), name = "empty_tdr") |>
+  fr_tdr(fields = list(), name = "empty_tdr") |>
     expect_s3_class("fr_tdr")
 
   withr::with_seed(1, {

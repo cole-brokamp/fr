@@ -110,11 +110,17 @@ Add another descriptor, but just for some of the fields:
 ## d_fr$disp@description
 ```
 
-Use `fr_schema()` to extract the metadata for each field in a tibble:
+Using `str()` provides a useful overview of the structure of a `fr_tdr` object, including all field-specific metadata, table-specific metadata, and the underlying `@value` data vector:
 
-```{r, results = "asis"}
+```{r}
+str(d_fr)
+```
+
+Use `fr_schema()` to extract the metadata for each field in a list. Pair this with [listviewer](https://cran.r-project.org/package=listviewer) for an interactive list viewer:
+
+```{r, eval = FALSE}
 fr_schema(d_fr) |>
-  knitr::kable()
+    listviewer::jsonedit(mode = "view")
 ```
 
 Accessor functions work as they do with data frames and tibbles, but return a `fr_field` or `td_tdr` object:
