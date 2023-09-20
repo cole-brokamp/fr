@@ -165,64 +165,100 @@
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># TODO</span></span>
 <span><span class="co">## d_fr$disp@description</span></span></code></pre></div>
-<p>Use <code><a href="reference/fr_schema.html">fr_schema()</a></code> to extract the metadata for each field in a tibble:</p>
+<p>Using <code><a href="https://rdrr.io/r/utils/str.html" class="external-link">str()</a></code> provides a useful overview of the structure of a <code>fr_tdr</code> object, including all field-specific metadata, table-specific metadata, and the underlying <code>@value</code> data vector:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/fr_schema.html">fr_schema</a></span><span class="op">(</span><span class="va">d_fr</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<table class="table">
-<thead><tr class="header">
-<th align="left">name</th>
-<th align="left">type</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left">mpg</td>
-<td align="left">numeric</td>
-</tr>
-<tr class="even">
-<td align="left">cyl</td>
-<td align="left">numeric</td>
-</tr>
-<tr class="odd">
-<td align="left">disp</td>
-<td align="left">numeric</td>
-</tr>
-<tr class="even">
-<td align="left">hp</td>
-<td align="left">numeric</td>
-</tr>
-<tr class="odd">
-<td align="left">drat</td>
-<td align="left">numeric</td>
-</tr>
-<tr class="even">
-<td align="left">wt</td>
-<td align="left">numeric</td>
-</tr>
-<tr class="odd">
-<td align="left">qsec</td>
-<td align="left">numeric</td>
-</tr>
-<tr class="even">
-<td align="left">vs</td>
-<td align="left">numeric</td>
-</tr>
-<tr class="odd">
-<td align="left">am</td>
-<td align="left">numeric</td>
-</tr>
-<tr class="even">
-<td align="left">gear</td>
-<td align="left">numeric</td>
-</tr>
-<tr class="odd">
-<td align="left">carb</td>
-<td align="left">numeric</td>
-</tr>
-</tbody>
-</table>
-<p>Accessor functions work as they do with data frames and tibbles, but return a <code>fr_field</code> or <code>td_tdr</code> object:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">d_fr</span><span class="op">)</span></span>
+<span><span class="co">#&gt; &lt;fr_tdr&gt;</span></span>
+<span><span class="co">#&gt;  @ fields     :List of 11</span></span>
+<span><span class="co">#&gt;  .. $ mpg : &lt;fr_field&gt;</span></span>
+<span><span class="co">#&gt;  ..  ..@ value      : num [1:32] 21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...</span></span>
+<span><span class="co">#&gt;  ..  ..@ name       : chr "mpg"</span></span>
+<span><span class="co">#&gt;  ..  ..@ type       : chr "numeric"</span></span>
+<span><span class="co">#&gt;  ..  ..@ title      : chr(0) </span></span>
+<span><span class="co">#&gt;  ..  ..@ description: chr(0) </span></span>
+<span><span class="co">#&gt;  ..  ..@ constraints: list()</span></span>
+<span><span class="co">#&gt;  .. $ cyl : &lt;fr_field&gt;</span></span>
+<span><span class="co">#&gt;  ..  ..@ value      : num [1:32] 6 6 4 6 8 6 8 4 4 6 ...</span></span>
+<span><span class="co">#&gt;  ..  ..@ name       : chr "cyl"</span></span>
+<span><span class="co">#&gt;  ..  ..@ type       : chr "numeric"</span></span>
+<span><span class="co">#&gt;  ..  ..@ title      : chr(0) </span></span>
+<span><span class="co">#&gt;  ..  ..@ description: chr(0) </span></span>
+<span><span class="co">#&gt;  ..  ..@ constraints: list()</span></span>
+<span><span class="co">#&gt;  .. $ disp: &lt;fr_field&gt;</span></span>
+<span><span class="co">#&gt;  ..  ..@ value      : num [1:32] 160 160 108 258 360 ...</span></span>
+<span><span class="co">#&gt;  ..  ..@ name       : chr "disp"</span></span>
+<span><span class="co">#&gt;  ..  ..@ type       : chr "numeric"</span></span>
+<span><span class="co">#&gt;  ..  ..@ title      : chr(0) </span></span>
+<span><span class="co">#&gt;  ..  ..@ description: chr(0) </span></span>
+<span><span class="co">#&gt;  ..  ..@ constraints: list()</span></span>
+<span><span class="co">#&gt;  .. $ hp  : &lt;fr_field&gt;</span></span>
+<span><span class="co">#&gt;  ..  ..@ value      : num [1:32] 110 110 93 110 175 105 245 62 95 123 ...</span></span>
+<span><span class="co">#&gt;  ..  ..@ name       : chr "hp"</span></span>
+<span><span class="co">#&gt;  ..  ..@ type       : chr "numeric"</span></span>
+<span><span class="co">#&gt;  ..  ..@ title      : chr(0) </span></span>
+<span><span class="co">#&gt;  ..  ..@ description: chr(0) </span></span>
+<span><span class="co">#&gt;  ..  ..@ constraints: list()</span></span>
+<span><span class="co">#&gt;  .. $ drat: &lt;fr_field&gt;</span></span>
+<span><span class="co">#&gt;  ..  ..@ value      : num [1:32] 3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...</span></span>
+<span><span class="co">#&gt;  ..  ..@ name       : chr "drat"</span></span>
+<span><span class="co">#&gt;  ..  ..@ type       : chr "numeric"</span></span>
+<span><span class="co">#&gt;  ..  ..@ title      : chr(0) </span></span>
+<span><span class="co">#&gt;  ..  ..@ description: chr(0) </span></span>
+<span><span class="co">#&gt;  ..  ..@ constraints: list()</span></span>
+<span><span class="co">#&gt;  .. $ wt  : &lt;fr_field&gt;</span></span>
+<span><span class="co">#&gt;  ..  ..@ value      : num [1:32] 2.62 2.88 2.32 3.21 3.44 ...</span></span>
+<span><span class="co">#&gt;  ..  ..@ name       : chr "wt"</span></span>
+<span><span class="co">#&gt;  ..  ..@ type       : chr "numeric"</span></span>
+<span><span class="co">#&gt;  ..  ..@ title      : chr(0) </span></span>
+<span><span class="co">#&gt;  ..  ..@ description: chr(0) </span></span>
+<span><span class="co">#&gt;  ..  ..@ constraints: list()</span></span>
+<span><span class="co">#&gt;  .. $ qsec: &lt;fr_field&gt;</span></span>
+<span><span class="co">#&gt;  ..  ..@ value      : num [1:32] 16.5 17 18.6 19.4 17 ...</span></span>
+<span><span class="co">#&gt;  ..  ..@ name       : chr "qsec"</span></span>
+<span><span class="co">#&gt;  ..  ..@ type       : chr "numeric"</span></span>
+<span><span class="co">#&gt;  ..  ..@ title      : chr(0) </span></span>
+<span><span class="co">#&gt;  ..  ..@ description: chr(0) </span></span>
+<span><span class="co">#&gt;  ..  ..@ constraints: list()</span></span>
+<span><span class="co">#&gt;  .. $ vs  : &lt;fr_field&gt;</span></span>
+<span><span class="co">#&gt;  ..  ..@ value      : num [1:32] 0 0 1 1 0 1 0 1 1 1 ...</span></span>
+<span><span class="co">#&gt;  ..  ..@ name       : chr "vs"</span></span>
+<span><span class="co">#&gt;  ..  ..@ type       : chr "numeric"</span></span>
+<span><span class="co">#&gt;  ..  ..@ title      : chr(0) </span></span>
+<span><span class="co">#&gt;  ..  ..@ description: chr(0) </span></span>
+<span><span class="co">#&gt;  ..  ..@ constraints: list()</span></span>
+<span><span class="co">#&gt;  .. $ am  : &lt;fr_field&gt;</span></span>
+<span><span class="co">#&gt;  ..  ..@ value      : num [1:32] 1 1 1 0 0 0 0 0 0 0 ...</span></span>
+<span><span class="co">#&gt;  ..  ..@ name       : chr "am"</span></span>
+<span><span class="co">#&gt;  ..  ..@ type       : chr "numeric"</span></span>
+<span><span class="co">#&gt;  ..  ..@ title      : chr(0) </span></span>
+<span><span class="co">#&gt;  ..  ..@ description: chr(0) </span></span>
+<span><span class="co">#&gt;  ..  ..@ constraints: list()</span></span>
+<span><span class="co">#&gt;  .. $ gear: &lt;fr_field&gt;</span></span>
+<span><span class="co">#&gt;  ..  ..@ value      : num [1:32] 4 4 4 3 3 3 3 4 4 4 ...</span></span>
+<span><span class="co">#&gt;  ..  ..@ name       : chr "gear"</span></span>
+<span><span class="co">#&gt;  ..  ..@ type       : chr "numeric"</span></span>
+<span><span class="co">#&gt;  ..  ..@ title      : chr(0) </span></span>
+<span><span class="co">#&gt;  ..  ..@ description: chr(0) </span></span>
+<span><span class="co">#&gt;  ..  ..@ constraints: list()</span></span>
+<span><span class="co">#&gt;  .. $ carb: &lt;fr_field&gt;</span></span>
+<span><span class="co">#&gt;  ..  ..@ value      : num [1:32] 4 4 1 1 2 1 4 2 2 4 ...</span></span>
+<span><span class="co">#&gt;  ..  ..@ name       : chr "carb"</span></span>
+<span><span class="co">#&gt;  ..  ..@ type       : chr "numeric"</span></span>
+<span><span class="co">#&gt;  ..  ..@ title      : chr(0) </span></span>
+<span><span class="co">#&gt;  ..  ..@ description: chr(0) </span></span>
+<span><span class="co">#&gt;  ..  ..@ constraints: list()</span></span>
+<span><span class="co">#&gt;  @ name       : chr "mtcars"</span></span>
+<span><span class="co">#&gt;  @ path       : chr(0) </span></span>
+<span><span class="co">#&gt;  @ version    : chr "0.9.1"</span></span>
+<span><span class="co">#&gt;  @ title      : chr "Motor Trend Car Road Tests"</span></span>
+<span><span class="co">#&gt;  @ homepage   : chr "https://rdrr.io/r/datasets/mtcars.html"</span></span>
+<span><span class="co">#&gt;  @ description: chr "The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of "| __truncated__</span></span></code></pre></div>
+<p>Use <code><a href="reference/fr_schema.html">fr_schema()</a></code> to extract the metadata for each field in a list. Pair this with <a href="https://cran.r-project.org/package=listviewer" class="external-link">listviewer</a> for an interactive list viewer:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/fr_schema.html">fr_schema</a></span><span class="op">(</span><span class="va">d_fr</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">listviewer</span><span class="fu">::</span><span class="fu">jsonedit</span><span class="op">(</span>mode <span class="op">=</span> <span class="st">"view"</span><span class="op">)</span></span></code></pre></div>
+<p>Accessor functions work as they do with data frames and tibbles, but return a <code>fr_field</code> or <code>td_tdr</code> object:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d_fr</span><span class="op">[[</span><span class="st">"disp"</span><span class="op">]</span><span class="op">]</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "fr_field"  "S7_object"</span></span>
 <span></span>
@@ -232,7 +268,7 @@
 <span><span class="va">d_fr</span><span class="op">[</span><span class="st">"disp"</span><span class="op">]</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "fr_tdr"    "S7_object"</span></span></code></pre></div>
 <p><code>fr_field</code> objects can be used mostly anywhere that the underlying data frame can be used.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">disp</span> <span class="op">+</span> <span class="va">wt</span>, data <span class="op">=</span> <span class="va">d_fr</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Call:</span></span>
@@ -242,7 +278,7 @@
 <span><span class="co">#&gt; (Intercept)          cyl         disp           wt  </span></span>
 <span><span class="co">#&gt;   41.107678    -1.784944     0.007473    -3.635677</span></span></code></pre></div>
 <p>Explicitly drop the Frictionless attributes and extract just the underlying data frame with <code><a href="reference/as_data_frame.html">as_data_frame()</a></code> or <code>as_tibble()</code>:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">d_fr</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 32 × 11</span></span>
 <span><span class="co">#&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb</span></span>
