@@ -35,8 +35,10 @@ test_that("fr_tdr works", {
       description = "This is the super fake dataset that was generated just for the purposes of illustrating the {fr} R package."
     ))
 
-  example_fr_tdr |>
-    expect_snapshot()
+  withr::with_options(list(width = 80), {
+    example_fr_tdr |>
+      expect_snapshot()
+  })
 
   as_fr_tdr(x = mtcars, name = "my_mtcars", description = "the cars thing") |>
     expect_s3_class("fr_tdr") |>

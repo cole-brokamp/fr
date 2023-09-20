@@ -19,8 +19,10 @@ test_that("fr_schema works", {
       )
   })
 
-  example_fr_tdr |>
-    fr_schema() |>
-    expect_snapshot()
+  withr::with_options(list(width = 80), {
+    example_fr_tdr |>
+      fr_schema() |>
+      expect_snapshot()
+  })
 
 })
