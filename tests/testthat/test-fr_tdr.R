@@ -8,7 +8,7 @@ test_that("fr_tdr works", {
     example_fr_tdr <<-
       list(
         id = as_fr_field(letters, name = "id"),
-        score = as_fr_field(rnorm(26), name = "score"),
+        score = as_fr_field(round(rnorm(26), 4), name = "score"),
         case = as_fr_field(sample(c(TRUE, FALSE), 26, replace = TRUE),
           name = "case",
           description = "true if this person was a case"
