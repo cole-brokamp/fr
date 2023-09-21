@@ -60,7 +60,50 @@ uid
 #> [1] "da7wnr6u" "ujgiouy7" "yo6t8fjt" "1twfyffx" "5nbrvnaf" "wfkq9myy"
 ```
 
-Extract the descriptors as a list using `fr_desc`:
+Use `str()` (or `pillar::glimpse()`) to view the entire structure of the
+`fr_field` object:
+
+``` r
+str(uid)
+#> <fr_field>
+#>  @ value      : chr [1:6] "da7wnr6u" "ujgiouy7" "yo6t8fjt" "1twfyffx" "5nbrvnaf" ...
+#>  @ name       : chr "uid"
+#>  @ type       : chr "string"
+#>  @ title      : chr "Unique Identifier"
+#>  @ description: chr "Each uid is composed of 8 random alphanumeric characters."
+#>  @ constraints: list()
+```
+
+Extract a single descriptor using the `@` or `S7::prop` accessor
+functions from the {[S7](https://github.com/RConsortium/S7)} package.
+
+``` r
+uid@title
+#> [1] "Unique Identifier"
+S7::prop(uid, "description")
+#> [1] "Each uid is composed of 8 random alphanumeric characters."
+```
+
+This also works to set descriptors:
+
+``` r
+
+uid@title <- "Random Unique Identifier"
+
+S7::prop(uid, "description") <- "Each identifier is randomly generated to be 8 random alphanumeric characters."
+
+str(uid)
+#> <fr_field>
+#>  @ value      : chr [1:6] "da7wnr6u" "ujgiouy7" "yo6t8fjt" "1twfyffx" "5nbrvnaf" ...
+#>  @ name       : chr "uid"
+#>  @ type       : chr "string"
+#>  @ title      : chr "Random Unique Identifier"
+#>  @ description: chr "Each identifier is randomly generated to be 8 random alphanumeric characters."
+#>  @ constraints: list()
+```
+
+Extract just the descriptors that have a value as a list using
+`fr_desc`:
 
 ``` r
 fr_desc(uid)
@@ -71,10 +114,10 @@ fr_desc(uid)
 #> [1] "string"
 #> 
 #> $title
-#> [1] "Unique Identifier"
+#> [1] "Random Unique Identifier"
 #> 
 #> $description
-#> [1] "Each uid is composed of 8 random alphanumeric characters."
+#> [1] "Each identifier is randomly generated to be 8 random alphanumeric characters."
 ```
 
 `fr_field` objects can be used anywhere that the underlying vector in

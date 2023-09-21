@@ -57,7 +57,32 @@ Printing works as usual except that `fr_field` objects prepend extra lines for t
 uid
 ```
 
-Extract the descriptors as a list using `fr_desc`:
+Use `str()` (or `pillar::glimpse()`) to view the entire structure of the `fr_field` object:
+
+```{r}
+str(uid)
+```
+
+Extract a single descriptor using the `@` or `S7::prop` accessor functions from the {[S7](https://github.com/RConsortium/S7)} package.
+
+```{r}
+uid@title
+S7::prop(uid, "description")
+```
+
+This also works to set descriptors:
+
+```{r}
+
+uid@title <- "Random Unique Identifier"
+
+S7::prop(uid, "description") <- "Each identifier is randomly generated to be 8 random alphanumeric characters."
+
+str(uid)
+
+```
+
+Extract just the descriptors that have a value as a list using `fr_desc`:
 
 ```{r}
 fr_desc(uid)
