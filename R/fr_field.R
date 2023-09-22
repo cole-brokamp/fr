@@ -1,7 +1,6 @@
 fr_field <- S7::new_class(
   "fr_field",
   properties = list(
-    value = S7::class_vector,
     name = S7::class_character,
     type = S7::class_character,
     title = S7::class_character,
@@ -61,23 +60,23 @@ fr_field <- S7::new_class(
 as_fr_field <- S7::new_generic("as_fr_field", "x")
 
 S7::method(as_fr_field, S7::class_numeric) <- function(x, name, ...) {
-  fr_field(value = x, name = name, type = "numeric", ...)
+  fr_field(name = name, type = "numeric", ...)
 }
 
 S7::method(as_fr_field, S7::class_character) <- function(x, name, ...) {
-  fr_field(value = x, name = name, type = "string", ...)
+  fr_field(name = name, type = "string", ...)
 }
 
 S7::method(as_fr_field, S7::class_factor) <- function(x, name, ...) {
-  fr_field(value = x, name = name, type = "string", ..., constraints = list(enum = levels(x)))
+  fr_field(name = name, type = "string", ..., constraints = list(enum = levels(x)))
 }
 
 S7::method(as_fr_field, S7::class_logical) <- function(x, name, ...) {
-  fr_field(value = x, name = name, type = "boolean", ...)
+  fr_field(name = name, type = "boolean", ...)
 }
 
 S7::method(as_fr_field, S7::class_Date) <- function(x, name, ...) {
-  fr_field(value = x, name = name, type = "date", ...)
+  fr_field(name = name, type = "date", ...)
 }
 
 #' Test if an object is a [`fr_field`][fr::fr-package] object
@@ -91,30 +90,3 @@ is_fr_field <- function(x) {
   inherits(x, "fr_field")
 }
 
-S7::method(as.vector, fr_field) <- function(x, ...) {
-  x@value
-}
-
-#' Coerce a [`fr_field`][fr::fr-package] object into a vector
-#' @details equivalent to `as.vector()`
-#' @param x a [`fr_field`][fr::fr-package] object
-#' @param ... ignored
-#' @return depending on the `type` property of the object, a `character`, `factor`, `numeric`, `logical`, or `Date` vector
-#' @export
-as_vector <- S7::new_generic("as_vector", "x")
-
-S7::method(as_vector, fr_field) <- function(x, ...) {
-  as.vector(x)
-}
-
-S7::method(print, fr_field) <- function(x, ...) {
-  cli::cli_dl(fr_desc(x))
-  print(as_vector(x), ...)
-}
-
-S7::method(fr_desc, fr_field) <- function(x, ...) {
-  fr_field_desc <- S7::props(x)
-  fr_field_desc$value <- NULL
-  if (length(fr_field_desc$constraints) == 0) fr_field_desc$constraints <- NULL
-  return(fr_field_desc)
-}
