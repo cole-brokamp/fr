@@ -142,9 +142,8 @@ as_vector(uid)
 ### Frictionless Tabular-Data-Resource
 
 Convert a data frame into a frictionless tabular-data-resource (i.e.,
-`fr_tdr` object) with `as_fr_tdr()`. An `fr_tdr` object is essentially a
-list of `fr_field`s with table-specific metadata descriptors. Here, we
-create some metadata based on `?mtcars`:
+`fr_tdr` object) with `as_fr_tdr()`. Here, we create some metadata based
+on `?mtcars`:
 
 ``` r
 d_fr <-
@@ -186,26 +185,11 @@ d_fr
 #> # ℹ 22 more rows
 ```
 
-Add a `name` metadata descriptor for each field in the `fr_tdr` object
-by using the `@` accessor
+Use `str()` or `pillar::glimpse()` to view all field- and table-specific
+descriptors:
 
 ``` r
-# TODO
-```
-
-Add another descriptor, but just for some of the fields:
-
-``` r
-# TODO
-## d_fr$disp@description
-```
-
-Using `str()` provides a useful overview of the structure of a `fr_tdr`
-object, including all field-specific metadata, table-specific metadata,
-and the underlying `@value` data vector:
-
-``` r
-str(d_fr)
+pillar::glimpse(d_fr)
 #> <fr_tdr>
 #>  @ fields     :List of 11
 #>  .. $ mpg : <fr_field>
@@ -276,6 +260,231 @@ str(d_fr)
 #>  ..  ..@ name       : chr "gear"
 #>  ..  ..@ type       : chr "numeric"
 #>  ..  ..@ title      : chr(0) 
+#>  ..  ..@ description: chr(0) 
+#>  ..  ..@ constraints: list()
+#>  .. $ carb: <fr_field>
+#>  ..  ..@ value      : num [1:32] 4 4 1 1 2 1 4 2 2 4 ...
+#>  ..  ..@ name       : chr "carb"
+#>  ..  ..@ type       : chr "numeric"
+#>  ..  ..@ title      : chr(0) 
+#>  ..  ..@ description: chr(0) 
+#>  ..  ..@ constraints: list()
+#>  @ name       : chr "mtcars"
+#>  @ path       : chr(0) 
+#>  @ version    : chr "0.9.1"
+#>  @ title      : chr "Motor Trend Car Road Tests"
+#>  @ homepage   : chr "https://rdrr.io/r/datasets/mtcars.html"
+#>  @ description: chr "The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of "| __truncated__
+str(d_fr, max.level = 1)
+#> <fr_tdr>
+#>  @ fields     :List of 11
+#>  @ name       : chr "mtcars"
+#>  @ path       : chr(0) 
+#>  @ version    : chr "0.9.1"
+#>  @ title      : chr "Motor Trend Car Road Tests"
+#>  @ homepage   : chr "https://rdrr.io/r/datasets/mtcars.html"
+#>  @ description: chr "The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of "| __truncated__
+```
+
+Use `fr_desc()` to get a list of descriptors, excluding the list of
+`fields`:
+
+``` r
+fr_desc(d_fr)
+#> $name
+#> [1] "mtcars"
+#> 
+#> $path
+#> character(0)
+#> 
+#> $version
+#> [1] "0.9.1"
+#> 
+#> $title
+#> [1] "Motor Trend Car Road Tests"
+#> 
+#> $homepage
+#> [1] "https://rdrr.io/r/datasets/mtcars.html"
+#> 
+#> $description
+#> [1] "The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models)."
+```
+
+Add a metadata descriptor for one of the fields in the tabular data
+resource by using the `@` or `S7::prop` accessor functions from the
+{[S7](https://github.com/RConsortium/S7)} package:
+
+``` r
+d_fr@fields$cyl@title <- "Number of cylinders"
+S7::prop(d_fr@fields$gear, "title") <- "Number of forward gears"
+
+d_fr@fields[c("cyl", "gear")]
+#> $cyl
+#> name: cyl
+#> type: numeric
+#> title: Number of cylinders
+#> description:
+#>  [1] 6 6 4 6 8 6 8 4 4 6 6 8 8 8 8 8 8 4 4 4 4 8 8 8 8 4 4 4 8 6 8 4
+#> 
+#> $gear
+#> name: gear
+#> type: numeric
+#> title: Number of forward gears
+#> description:
+#>  [1] 4 4 4 3 3 3 3 4 4 4 4 3 3 3 3 3 3 4 4 4 3 3 3 3 3 4 5 5 5 5 5 4
+
+## d_fr[c("cyl", "gear")]
+```
+
+Add a `name` metadata descriptor for each field in the `fr_tdr` object
+
+``` r
+# TODO
+
+the_tdr <- c(fr_desc(d_fr), list(fields = lapply(d_fr@fields, fr_desc)))
+
+str(the_tdr)
+#> List of 7
+#>  $ name       : chr "mtcars"
+#>  $ path       : chr(0) 
+#>  $ version    : chr "0.9.1"
+#>  $ title      : chr "Motor Trend Car Road Tests"
+#>  $ homepage   : chr "https://rdrr.io/r/datasets/mtcars.html"
+#>  $ description: chr "The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of "| __truncated__
+#>  $ fields     :List of 11
+#>   ..$ mpg :List of 4
+#>   .. ..$ name       : chr "mpg"
+#>   .. ..$ type       : chr "numeric"
+#>   .. ..$ title      : chr(0) 
+#>   .. ..$ description: chr(0) 
+#>   ..$ cyl :List of 4
+#>   .. ..$ name       : chr "cyl"
+#>   .. ..$ type       : chr "numeric"
+#>   .. ..$ title      : chr "Number of cylinders"
+#>   .. ..$ description: chr(0) 
+#>   ..$ disp:List of 4
+#>   .. ..$ name       : chr "disp"
+#>   .. ..$ type       : chr "numeric"
+#>   .. ..$ title      : chr(0) 
+#>   .. ..$ description: chr(0) 
+#>   ..$ hp  :List of 4
+#>   .. ..$ name       : chr "hp"
+#>   .. ..$ type       : chr "numeric"
+#>   .. ..$ title      : chr(0) 
+#>   .. ..$ description: chr(0) 
+#>   ..$ drat:List of 4
+#>   .. ..$ name       : chr "drat"
+#>   .. ..$ type       : chr "numeric"
+#>   .. ..$ title      : chr(0) 
+#>   .. ..$ description: chr(0) 
+#>   ..$ wt  :List of 4
+#>   .. ..$ name       : chr "wt"
+#>   .. ..$ type       : chr "numeric"
+#>   .. ..$ title      : chr(0) 
+#>   .. ..$ description: chr(0) 
+#>   ..$ qsec:List of 4
+#>   .. ..$ name       : chr "qsec"
+#>   .. ..$ type       : chr "numeric"
+#>   .. ..$ title      : chr(0) 
+#>   .. ..$ description: chr(0) 
+#>   ..$ vs  :List of 4
+#>   .. ..$ name       : chr "vs"
+#>   .. ..$ type       : chr "numeric"
+#>   .. ..$ title      : chr(0) 
+#>   .. ..$ description: chr(0) 
+#>   ..$ am  :List of 4
+#>   .. ..$ name       : chr "am"
+#>   .. ..$ type       : chr "numeric"
+#>   .. ..$ title      : chr(0) 
+#>   .. ..$ description: chr(0) 
+#>   ..$ gear:List of 4
+#>   .. ..$ name       : chr "gear"
+#>   .. ..$ type       : chr "numeric"
+#>   .. ..$ title      : chr "Number of forward gears"
+#>   .. ..$ description: chr(0) 
+#>   ..$ carb:List of 4
+#>   .. ..$ name       : chr "carb"
+#>   .. ..$ type       : chr "numeric"
+#>   .. ..$ title      : chr(0) 
+#>   .. ..$ description: chr(0)
+```
+
+Using `str()` provides a useful overview of the structure of a `fr_tdr`
+object, including all field-specific metadata, table-specific metadata,
+and the underlying `@value` data vector:
+
+``` r
+str(d_fr)
+#> <fr_tdr>
+#>  @ fields     :List of 11
+#>  .. $ mpg : <fr_field>
+#>  ..  ..@ value      : num [1:32] 21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
+#>  ..  ..@ name       : chr "mpg"
+#>  ..  ..@ type       : chr "numeric"
+#>  ..  ..@ title      : chr(0) 
+#>  ..  ..@ description: chr(0) 
+#>  ..  ..@ constraints: list()
+#>  .. $ cyl : <fr_field>
+#>  ..  ..@ value      : num [1:32] 6 6 4 6 8 6 8 4 4 6 ...
+#>  ..  ..@ name       : chr "cyl"
+#>  ..  ..@ type       : chr "numeric"
+#>  ..  ..@ title      : chr "Number of cylinders"
+#>  ..  ..@ description: chr(0) 
+#>  ..  ..@ constraints: list()
+#>  .. $ disp: <fr_field>
+#>  ..  ..@ value      : num [1:32] 160 160 108 258 360 ...
+#>  ..  ..@ name       : chr "disp"
+#>  ..  ..@ type       : chr "numeric"
+#>  ..  ..@ title      : chr(0) 
+#>  ..  ..@ description: chr(0) 
+#>  ..  ..@ constraints: list()
+#>  .. $ hp  : <fr_field>
+#>  ..  ..@ value      : num [1:32] 110 110 93 110 175 105 245 62 95 123 ...
+#>  ..  ..@ name       : chr "hp"
+#>  ..  ..@ type       : chr "numeric"
+#>  ..  ..@ title      : chr(0) 
+#>  ..  ..@ description: chr(0) 
+#>  ..  ..@ constraints: list()
+#>  .. $ drat: <fr_field>
+#>  ..  ..@ value      : num [1:32] 3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
+#>  ..  ..@ name       : chr "drat"
+#>  ..  ..@ type       : chr "numeric"
+#>  ..  ..@ title      : chr(0) 
+#>  ..  ..@ description: chr(0) 
+#>  ..  ..@ constraints: list()
+#>  .. $ wt  : <fr_field>
+#>  ..  ..@ value      : num [1:32] 2.62 2.88 2.32 3.21 3.44 ...
+#>  ..  ..@ name       : chr "wt"
+#>  ..  ..@ type       : chr "numeric"
+#>  ..  ..@ title      : chr(0) 
+#>  ..  ..@ description: chr(0) 
+#>  ..  ..@ constraints: list()
+#>  .. $ qsec: <fr_field>
+#>  ..  ..@ value      : num [1:32] 16.5 17 18.6 19.4 17 ...
+#>  ..  ..@ name       : chr "qsec"
+#>  ..  ..@ type       : chr "numeric"
+#>  ..  ..@ title      : chr(0) 
+#>  ..  ..@ description: chr(0) 
+#>  ..  ..@ constraints: list()
+#>  .. $ vs  : <fr_field>
+#>  ..  ..@ value      : num [1:32] 0 0 1 1 0 1 0 1 1 1 ...
+#>  ..  ..@ name       : chr "vs"
+#>  ..  ..@ type       : chr "numeric"
+#>  ..  ..@ title      : chr(0) 
+#>  ..  ..@ description: chr(0) 
+#>  ..  ..@ constraints: list()
+#>  .. $ am  : <fr_field>
+#>  ..  ..@ value      : num [1:32] 1 1 1 0 0 0 0 0 0 0 ...
+#>  ..  ..@ name       : chr "am"
+#>  ..  ..@ type       : chr "numeric"
+#>  ..  ..@ title      : chr(0) 
+#>  ..  ..@ description: chr(0) 
+#>  ..  ..@ constraints: list()
+#>  .. $ gear: <fr_field>
+#>  ..  ..@ value      : num [1:32] 4 4 4 3 3 3 3 4 4 4 ...
+#>  ..  ..@ name       : chr "gear"
+#>  ..  ..@ type       : chr "numeric"
+#>  ..  ..@ title      : chr "Number of forward gears"
 #>  ..  ..@ description: chr(0) 
 #>  ..  ..@ constraints: list()
 #>  .. $ carb: <fr_field>
@@ -376,4 +585,14 @@ summary(as_data_frame(d_fr))
 #>  Mean   :0.4062   Mean   :3.688   Mean   :2.812  
 #>  3rd Qu.:1.0000   3rd Qu.:4.000   3rd Qu.:4.000  
 #>  Max.   :1.0000   Max.   :5.000   Max.   :8.000
+```
+
+An `fr_tdr` object is essentially a list of `fr_field`s with
+table-specific metadata descriptors.
+
+Create a list of `fr_fields` using `fr_field()` and use it to create a
+`fr_tdr` object:
+
+``` r
+# TODO add example for list approach
 ```

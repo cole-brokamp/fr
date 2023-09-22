@@ -12,7 +12,7 @@ RoxygenNote: 7.2.3
 Imports: 
     cli,
     purrr,
-    S7,
+    S7 (>= 0.1.1),
     tibble,
     tidyr
 Suggests: 

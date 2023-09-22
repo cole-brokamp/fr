@@ -103,7 +103,7 @@ as_vector(uid)
 
 ### Frictionless Tabular-Data-Resource
 
-Convert a data frame into a frictionless tabular-data-resource (i.e., `fr_tdr` object) with `as_fr_tdr()`.  An `fr_tdr` object is essentially a list of `fr_field`s with table-specific metadata descriptors. Here, we create some metadata based on `?mtcars`:
+Convert a data frame into a frictionless tabular-data-resource (i.e., `fr_tdr` object) with `as_fr_tdr()`.  Here, we create some metadata based on `?mtcars`:
 
 ```{r}
 d_fr <-
@@ -122,17 +122,40 @@ Print the `fr_tdr` object to view all of the table-specific metadata descriptors
 d_fr
 ```
 
-Add a `name` metadata descriptor for each field in the `fr_tdr` object by using the `@` accessor
+Use `str()` or `pillar::glimpse()` to view all field- and table-specific descriptors:
 
 ```{r}
-# TODO
+pillar::glimpse(d_fr)
+str(d_fr, max.level = 1)
 ```
 
-Add another descriptor, but just for some of the fields:
+Use `fr_desc()` to get a list of descriptors, excluding the list of `fields`:
+
+```{r}
+fr_desc(d_fr)
+```
+
+Add a metadata descriptor for one of the fields in the tabular data resource by using the `@` or `S7::prop` accessor functions from the {[S7](https://github.com/RConsortium/S7)} package:
+
+```{r}
+d_fr@fields$cyl@title <- "Number of cylinders"
+S7::prop(d_fr@fields$gear, "title") <- "Number of forward gears"
+
+d_fr@fields[c("cyl", "gear")]
+
+## d_fr[c("cyl", "gear")]
+
+```
+
+Add a `name` metadata descriptor for each field in the `fr_tdr` object 
 
 ```{r}
 # TODO
-## d_fr$disp@description
+
+the_tdr <- c(fr_desc(d_fr), list(fields = lapply(d_fr@fields, fr_desc)))
+
+str(the_tdr)
+
 ```
 
 Using `str()` provides a useful overview of the structure of a `fr_tdr` object, including all field-specific metadata, table-specific metadata, and the underlying `@value` data vector:
@@ -172,4 +195,12 @@ tibble::as_tibble(d_fr)
 summary(d_fr)
 
 summary(as_data_frame(d_fr))
+```
+
+An `fr_tdr` object is essentially a list of `fr_field`s with table-specific metadata descriptors.
+
+Create a list of `fr_fields` using `fr_field()` and use it to create a `fr_tdr` object:
+
+```{r}
+# TODO add example for list approach
 ```
