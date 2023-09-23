@@ -64,29 +64,31 @@ S7::method(as_data_frame, fr_tdr) <- function(x, ...) {
   as.data.frame(x)
 }
 
-## S7::method(print, fr_tdr) <- function(x, ...) {
-##   c(
-##     ## "type" = "{.obj_type_friendly {x}}",
-##     "name" = "{.pkg {x@name}}",
-##     "path" = "{.path {x@path}}",
-##     "version" = "{.field {x@version}}",
-##     "title" = "{.field {x@title}}",
-##     "homepage" = "{.url {x@homepage}}",
-##     "description" = "{.field {x@description}}"
-##   ) |>
-##     cli::cli_dl()
-##   print(tibble::as_tibble(x), ...)
-## }
 
-## S7::method(`$`, fr_tdr) <- function(x, name, ...) {
-##   x@fields[[name]]
-## }
+S7::method(print, fr_tdr) <- function(x, ...) {
+  cli::cli_div(theme = list(
+    span.fr_desc = list(color = "lightgrey"),
+    "span.fr_desc" = list(before = "• "),
+    "span.fr_desc" = list(after = "")))
+  cli::cli_text(c(" " = "── {.pkg {x@name}} ──"))
+  if (length(x@version) > 0) cli::cli_text("{.fr_desc version: {x@version}}")
+  if (length(x@title) > 0) cli::cli_text("{.fr_desc title: {x@title}}")
+  if (length(x@homepage) > 0) cli::cli_text("{.fr_desc homepage: {.url {x@homepage}}}")
+  if (length(x@description) > 0) cli::cli_text("{.fr_desc description: {x@description}}")
+  cli::cli_end()
+  print(tibble::as_tibble(x), ...)
+}
 
-## S7::method(`[[`, fr_tdr) <- function(x, name, ...) {
-##   x@fields[[name]]
-## }
+S7::method(`$`, fr_tdr) <- function(x, name, ...) {
+  x@data[[name]]
+}
+
+S7::method(`[[`, fr_tdr) <- function(x, name, ...) {
+  x@data[[name]]
+}
 
 ## S7::method(`[`, fr_tdr) <- function(x, name, ...) {
-##   x@fields <- list(x@fields[[name]])
+##   x@data <- x@data[[name]]
+##   x@schema@fields <- x@schema@fields[[name]]
 ##   return(x)
 ## }
