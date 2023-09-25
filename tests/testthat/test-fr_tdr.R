@@ -1,5 +1,4 @@
 test_that("fr_tdr works", {
-
   fr_tdr(
     name = "my_example_dataset",
     version = "0.1.0",
@@ -41,18 +40,32 @@ test_that("fr_tdr works", {
   d_fr <-
     mtcars |>
     tibble::as_tibble() |>
-    as_fr_tdr(name = "mtcars",
-              version = "0.9.1",
-              title = "Motor Trend Car Road Tests",
-              homepage = "https://rdrr.io/r/datasets/mtcars.html",
-              description = "The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models).")
+    dplyr::mutate(cyl = as.factor(cyl)) |>
+    as_fr_tdr(
+      name = "mtcars",
+      version = "0.9.1",
+      title = "Motor Trend Car Road Tests",
+      homepage = "https://rdrr.io/r/datasets/mtcars.html",
+      description = "The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models)."
+    )
 
-    withr::with_options(list(width = 80), {
-      d_fr |>
-        expect_snapshot()
+  withr::with_options(list(width = 80), {
+    d_fr |>
+      expect_snapshot()
 
-      as_fr_tdr(mtcars, name = "mtcars") |>
-        expect_snapshot()
-    })
-            
+    as_fr_tdr(mtcars, name = "mtcars") |>
+      expect_snapshot()
+  })
+
+  # extractors
+  expect_identical(d_fr$cyl, as.factor(mtcars$cyl))
+  expect_identical(d_fr$mpg, mtcars$mpg)
+  expect_identical(d_fr[["mpg"]], mtcars$mpg)
+  expect_identical(d_fr["mpg"], mtcars$mpg)
+
+  withr::with_options(list(width = 80), {
+    d_fr |>
+      as_list() |>
+      expect_snapshot()
+  })
 })

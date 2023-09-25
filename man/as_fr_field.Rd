@@ -18,14 +18,15 @@ a \link[=fr-package]{fr_field} object
 \description{
 The supported classes of \code{R} objects are converted to the corresponding frictionless \code{type}:\tabular{ll}{
    \strong{\code{R} class} \tab \strong{\code{fr} type} \cr
-   \code{character()}, \code{factor()} \tab \code{string}* \cr
+   \code{character()} \tab \code{string}* \cr
+   \code{factor()} \tab \code{string} (with \code{enum(constraints = levels(x))}) \cr
    \code{numeric()}, \code{integer()} \tab \code{number} \cr
    \code{logical()} \tab \code{boolean} \cr
    \code{Date} \tab \code{date} \cr
 }
 }
 \details{
-*If a \code{factor()}, the \code{enum} \code{constraint} is set to the levels of the factor in R.
+Use \code{as_fr_field()} on an existing \code{fr_field} object to \emph{update} its properties
 }
 \examples{
 as_fr_field(1:10, "example_integer") # -> frictionless numeric
@@ -34,20 +35,4 @@ as_fr_field(letters, "example_character") # -> frictionless string
 as_fr_field(factor(letters), "example_factor") # -> frictionless string with enum constraints
 as_fr_field(c(TRUE, FALSE, TRUE), "example_logical") # -> frictionless boolean
 as_fr_field(as.Date(c("2023-04-23", "2004-12-31")), "example_date") # -> frictionless date
-
-# an example `fr_field` object
-uid <-
-  replicate(34, paste0(sample(c(letters, 0:9), 8, TRUE), collapse = "")) |>
-  as_fr_field(
-    name = "uid",
-    title = "Unique Identifier",
-  )
-
-# set properties of the `fr_field`
-S7::prop(uid, "description")
-uid@description <- "Consists of 8 random characters from (a-z) and (0-9)"
-
-# inspect properties of the `fr_field`
-uid
-str(uid)
 }

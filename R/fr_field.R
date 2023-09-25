@@ -24,12 +24,13 @@ fr_field <- S7::new_class(
 #' The supported classes of `R` objects are converted to the corresponding frictionless `type`:
 #' | **`R` class**   | **`fr` type**   |
 #' |:-----------------|:-------------|
-#' | `character()`, `factor()` | `string`* |
+#' | `character()`| `string`* |
+#' | `factor()` | `string` (with `enum(constraints = levels(x))`) |
 #' | `numeric()`, `integer()` | `number` |
 #' | `logical()` | `boolean` |
 #' | `Date` | `date` |
 #'
-#' *If a `factor()`, the `enum` `constraint` is set to the levels of the factor in R.
+#' Use `as_fr_field()` on an existing `fr_field` object to *update* its properties
 #' @param x a character, factor, numeric, integer, logical, or Date vector
 #' @param ... `name`, `title`, or `description` property ([`name` is required](https://specs.frictionlessdata.io/table-schema/#name))
 #' @return a [fr_field][fr::fr-package] object
@@ -40,24 +41,13 @@ fr_field <- S7::new_class(
 #' as_fr_field(factor(letters), "example_factor") # -> frictionless string with enum constraints
 #' as_fr_field(c(TRUE, FALSE, TRUE), "example_logical") # -> frictionless boolean
 #' as_fr_field(as.Date(c("2023-04-23", "2004-12-31")), "example_date") # -> frictionless date
-#'
-#' # an example `fr_field` object
-#' uid <-
-#'   replicate(34, paste0(sample(c(letters, 0:9), 8, TRUE), collapse = "")) |>
-#'   as_fr_field(
-#'     name = "uid",
-#'     title = "Unique Identifier",
-#'   )
-#'
-#' # set properties of the `fr_field`
-#' S7::prop(uid, "description")
-#' uid@description <- "Consists of 8 random characters from (a-z) and (0-9)"
-#'
-#' # inspect properties of the `fr_field`
-#' uid
-#' str(uid)
 #' @export
 as_fr_field <- S7::new_generic("as_fr_field", "x")
+
+S7::method(as_fr_field, fr_field) <- function(x, ...) {
+  S7::props(x) <- purrr::list_modify(S7::props(x), ...)
+  return(x)
+}
 
 S7::method(as_fr_field, S7::class_numeric) <- function(x, name, ...) {
   fr_field(name = name, type = "numeric", ...)

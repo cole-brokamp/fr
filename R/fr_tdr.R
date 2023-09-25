@@ -64,6 +64,26 @@ S7::method(as_data_frame, fr_tdr) <- function(x, ...) {
   as.data.frame(x)
 }
 
+S7::method(as.list, fr_tdr) <- function(x, ...) {
+  out <- S7::props(x)
+  out$data <- NULL
+  out$schema <- S7::props(out$schema)
+  out$schema$fields <- lapply(out$schema$fields, S7::props)
+  return(out)
+}
+
+#' Coerce a [`fr_tdr`][fr::fr-package] object into a list
+#'
+#' equivalent to `as.list()`
+#' @param x a [`fr_tdr`][fr::fr-package] object
+#' @param ... ignored
+#' @return a list representing the frictionless metadata descriptor
+#' @export
+as_list <- S7::new_generic("as_list", "x")
+
+S7::method(as_list, fr_tdr) <- function(x, ...) {
+  as.list(x)
+}
 
 S7::method(print, fr_tdr) <- function(x, ...) {
   cli::cli_div(theme = list(
@@ -87,8 +107,6 @@ S7::method(`[[`, fr_tdr) <- function(x, name, ...) {
   x@data[[name]]
 }
 
-## S7::method(`[`, fr_tdr) <- function(x, name, ...) {
-##   x@data <- x@data[[name]]
-##   x@schema@fields <- x@schema@fields[[name]]
-##   return(x)
-## }
+S7::method(`[`, fr_tdr) <- function(x, name, ...) {
+  x@data[[name]]
+}

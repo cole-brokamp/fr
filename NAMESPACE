@@ -3,6 +3,7 @@
 export(as_data_frame)
 export(as_fr_field)
 export(as_fr_tdr)
+export(as_list)
 export(is_fr_field)
 importFrom(cli,cli_warn)
 importFrom(purrr,imap)
