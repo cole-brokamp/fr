@@ -1,20 +1,22 @@
 fr_tdr <- S7::new_class(
   "fr_tdr",
   properties = list(
-    fields = S7::class_list,
     name = S7::class_character,
     path = S7::class_character,
     version = S7::class_character,
     title = S7::class_character,
     homepage = S7::class_character,
-    description = S7::class_character
+    description = S7::class_character,
+    schema = fr_schema,
+    data = S7::class_data.frame
   ),
   validator = function(self) {
-    x <- self@fields
-    if (!all(sapply(x, is_fr_field))) {
-      "all items in @fields should be fr_field objects"
-    } else if (length(self@name) != 1) {
+    if (length(self@name) != 1) {
       "@name must be length 1"
+    } else if (!all(names(self@schema@fields) %in% names(self@data))) {
+      "not all fields in the schema are columns in the data frame"
+    } else if (!all(names(self@data) %in% names(self@schema@fields))) {
+      "not all columns in the data frame are fields in the schema"
     }
   }
 )
@@ -35,29 +37,22 @@ S7::method(as_fr_tdr, S7::class_data.frame) <- function(x, name = NULL, ...) {
     ))
     name <- deparse(substitute(x))
   }
-  if (tibble::has_rownames(x)) {
-    cli::cli_warn(c(
-      "!" = "row.names will be dropped",
-      "i" = "convert row.names to a new column with {.code tibble::rowid_to_column}",
-      "i" = "remove row.names with {.code tibble::remove_rownames}"
-    ))
-  }
   fr_tdr(
-    fields = purrr::imap(x, as_fr_field),
+    schema = fr_schema(fields = purrr::imap(x, as_fr_field)),
     name = name,
+    data = tibble::as_tibble(x),
     ...
   )
 }
 
 S7::method(as.data.frame, fr_tdr) <- function(x, ...) {
-  as.data.frame(sapply(x@fields, as.vector))
+  as.data.frame(x@data)
 }
 
 #' Coerce a [`fr_tdr`][fr::fr-package] object into a data frame
 #'
-#' - equivalent to `as.data.frame()`
-#' - `tibble::as_tibble()` also works because its input is first
-#' coerced with `as.data.frame()`
+#' Equivalent to `as.data.frame()`; directly using `tibble::as_tibble()`
+#' also works because its input is first coerced with `as.data.frame()`
 #' @param x a [`fr_tdr`][fr::fr-package] object
 #' @param ... ignored
 #' @return a data frame
@@ -68,39 +63,49 @@ S7::method(as_data_frame, fr_tdr) <- function(x, ...) {
   as.data.frame(x)
 }
 
+S7::method(as.list, fr_tdr) <- function(x, ...) {
+  out <- S7::props(x)
+  out$data <- NULL
+  out$schema <- S7::props(out$schema)
+  out$schema$fields <- lapply(out$schema$fields, S7::props)
+  return(out)
+}
+
+#' Coerce a [`fr_tdr`][fr::fr-package] object into a list
+#'
+#' equivalent to `as.list()`
+#' @param x a [`fr_tdr`][fr::fr-package] object
+#' @param ... ignored
+#' @return a list representing the frictionless metadata descriptor
+#' @export
+as_list <- S7::new_generic("as_list", "x")
+
+S7::method(as_list, fr_tdr) <- function(x, ...) {
+  as.list(x)
+}
+
 S7::method(print, fr_tdr) <- function(x, ...) {
-  c(
-    ## "type" = "{.obj_type_friendly {x}}",
-    "name" = "{.pkg {x@name}}",
-    "path" = "{.path {x@path}}",
-    "version" = "{.field {x@version}}",
-    "title" = "{.field {x@title}}",
-    "homepage" = "{.url {x@homepage}}",
-    "description" = "{.field {x@description}}"
-  ) |>
-    cli::cli_dl()
+  cli::cli_div(theme = list(
+    span.fr_desc = list(color = "lightgrey"),
+    "span.fr_desc" = list(before = "• "),
+    "span.fr_desc" = list(after = "")))
+  cli::cli_text(c(" " = "── {.pkg {x@name}} ──"))
+  if (length(x@version) > 0) cli::cli_text("{.fr_desc version: {x@version}}")
+  if (length(x@title) > 0) cli::cli_text("{.fr_desc title: {x@title}}")
+  if (length(x@homepage) > 0) cli::cli_text("{.fr_desc homepage: {.url {x@homepage}}}")
+  if (length(x@description) > 0) cli::cli_text("{.fr_desc description: {x@description}}")
+  cli::cli_end()
   print(tibble::as_tibble(x), ...)
 }
 
-S7::method(fr_desc, fr_tdr) <- function(x, ...) {
-  fr_tdr_desc <- S7::props(x)
-  fr_tdr_desc$fields <- NULL
-  return(fr_tdr_desc)
-}
-
 S7::method(`$`, fr_tdr) <- function(x, name, ...) {
-  x@fields[[name]]
+  x@data[[name]]
 }
 
 S7::method(`[[`, fr_tdr) <- function(x, name, ...) {
-  x@fields[[name]]
+  x@data[[name]]
 }
 
 S7::method(`[`, fr_tdr) <- function(x, name, ...) {
-  x@fields <- list(x@fields[[name]])
-  return(x)
-}
-
-S7::method(fr_schema, fr_tdr) <- function(x, ...) {
-  lapply(x@fields, fr_desc)
+  x@data[[name]]
 }

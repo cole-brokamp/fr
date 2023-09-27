@@ -1,66 +1,64 @@
+test_that("fr_field works", {
+  fr_field(name = "example_factor", type = "string",
+           constraints = list(enum = c("ab", "cd", "ef"))) |>
+    expect_s3_class("fr_field") |>
+    S7::prop("constraints") |>
+    expect_equal(list(enum = c("ab", "cd", "ef")))
+})
+
 test_that("as_fr_field works", {
-  as_fr_field(factor(c("a", "b", "c")), name = "example_factor") |>
+  as_fr_field(factor(c("ab", "cd", "ef", "ef")), name = "example_factor") |>
     expect_s3_class("fr_field") |>
-    as.vector() |>
-    expect_s3_class("factor")
+    S7::prop("constraints") |>
+    expect_equal(list(enum = c("ab", "cd", "ef")))
 
-  as_fr_field(LETTERS, name = "example_string") |>
+  as_fr_field(1:10, name = "example_integer") |>
     expect_s3_class("fr_field") |>
-    as.vector() |>
-    expect_type("character")
+    S7::prop("type") |>
+    expect_equal("number")
 
-  as_fr_field(1:26, name = "example_numbers") |>
+  as_fr_field(0.1*(1:10), name = "example_numeric") |>
     expect_s3_class("fr_field") |>
-    as.vector() |>
-    expect_type("integer")
+    S7::prop("type") |>
+    expect_equal("number")
 
-  as_fr_field(c(1.23, 1.44, 4.55), name = "example_numbers") |>
+  as_fr_field(letters, name = "example_character") |>
     expect_s3_class("fr_field") |>
-    as.vector() |>
-    expect_type("double")
+    S7::prop("type") |>
+    expect_equal("string")
 
   as_fr_field(c(TRUE, FALSE, TRUE), name = "example_logical") |>
     expect_s3_class("fr_field") |>
-    as.vector() |>
-    expect_type("logical")
+    S7::prop("type") |>
+    expect_equal("boolean")
 
-  as_fr_field(as.Date(c("2013-08-15", "1986-04-29", "1986-06-10")), name = "example_date") |>
+  as_fr_field(as.Date(c("2023-09-23", "2011-11-19")), name = "example_date") |>
     expect_s3_class("fr_field") |>
-    as.vector() |>
-    as.Date() |>
-    expect_s3_class("Date")
+    S7::prop("type") |>
+    expect_equal("date")
 
-  expect_identical(
-    as.vector(as_fr_field(factor(letters), "example_factor")),
-    factor(letters)
-  )
+})
 
-  as_fr_field(Sys.time(), name = "time") |>
-    expect_error("Can't find method for")
+test_that("updating fr_field descriptors works", {
+
+  as_fr_field(as.Date(c("2023-09-23", "2011-11-19")), name = "example_date") |>
+    as_fr_field(description = "my updated description") |>
+    as_fr_field(description = "my other description") |>
+    S7::prop("description") |>
+    expect_identical("my other description")
+
+  })
+
+test_that("fr_field from a list works", {
+  as_fr_field(list(name = "example_factor", type = "string",
+                constraints = list(enum = c("ab", "cd", "ef")))) |>
+    expect_s3_class("fr_field") |>
+    S7::prop("constraints") |>
+    expect_equal(list(enum = c("ab", "cd", "ef")))
 })
 
 test_that("is_fr_field works", {
-  expect_true(is_fr_field(as_fr_field(letters, "letters")))
+  expect_true(is_fr_field(fr_field(name = "letters", type = "string")))
   expect_false(is_fr_field(letters))
 })
 
-test_that("printing fr_field", {
-  as_fr_field(letters, name = "letters") |>
-    expect_snapshot()
-  as_fr_field(letters, name = "letters", title = "Letters") |>
-    expect_snapshot()
-  as_fr_field(letters, name = "letters", description = "Those things in the alphabet.") |>
-    expect_snapshot()
-  as_fr_field(letters,
-    name = "letters",
-    title = "Letters",
-    description = "Those things in the alphabet."
-    ) |>
-    expect_snapshot()
-  as_fr_field(factor(letters),
-    name = "letters",
-    title = "Letters",
-    description = "Those things in the alphabet."
-    ) |>
-    expect_snapshot()
-})

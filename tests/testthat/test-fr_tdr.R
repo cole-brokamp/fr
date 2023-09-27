@@ -1,76 +1,71 @@
 test_that("fr_tdr works", {
-
-  # empty tdr
-  fr_tdr(fields = list(), name = "empty_tdr") |>
+  fr_tdr(
+    name = "my_example_dataset",
+    version = "0.1.0",
+    title = "My Example Dataset",
+    homepage = "https://example.com",
+    description = "This is the super fake dataset that was generated just for the purposes of illustrating the {fr} R package.",
+    data = tibble::tibble(
+      id = c("28f9j", "2ifne", "2foie"),
+      cohort = factor(c("A", "B", "A"), levels = c("A", "B", "C")),
+      score = c(1.2, 2.3, 2.1),
+      case = c(TRUE, FALSE, TRUE)
+    ),
+    schema =
+      fr_schema(
+        fields = list(
+          id = fr_field(name = "id", type = "string"),
+          cohort = fr_field(
+            name = "cohort", type = "string",
+            constraints = list(enum = c("A", "B", "C"))
+          ),
+          score = fr_field(name = "score", type = "number"),
+          case = fr_field(
+            name = "case", type = "boolean",
+            description = "True if this person was a case."
+          )
+        )
+      ),
+  ) |>
     expect_s3_class("fr_tdr")
 
-  withr::with_seed(1, {
-    example_fr_tdr <<-
-      list(
-        id = as_fr_field(letters, name = "id"),
-        score = as_fr_field(round(rnorm(26), 4), name = "score"),
-        case = as_fr_field(sample(c(TRUE, FALSE), 26, replace = TRUE),
-          name = "case",
-          description = "true if this person was a case"
-        )
-      ) |>
-      fr_tdr(
-        name = "my_example_dataset",
-        version = "0.1.0",
-        title = "My Example Dataset",
-        homepage = "https://example.com",
-        description = "This is the super fake dataset that was generated just for the purposes of illustrating the {fr} R package."
-      )
-  })
-
-  expect_s3_class(example_fr_tdr, "fr_tdr")
-
-  fr_desc(example_fr_tdr) |>
-    expect_identical(list(
-      name = "my_example_dataset",
-      path = character(0),
-      version = "0.1.0",
-      title = "My Example Dataset",
-      homepage = "https://example.com",
-      description = "This is the super fake dataset that was generated just for the purposes of illustrating the {fr} R package."
-    ))
-
-  withr::with_options(list(width = 80), {
-    example_fr_tdr |>
-      expect_snapshot()
-  })
-
-  as_fr_tdr(x = mtcars, name = "my_mtcars", description = "the cars thing") |>
-    expect_s3_class("fr_tdr") |>
-    S7::prop("name") |>
-    expect_identical("my_mtcars") |>
-    expect_warning("row.names will be dropped")
-
-  as_fr_tdr(mtcars, "mtcars") |>
-    expect_warning("row.names will be dropped")
-
-  no_row_names_mtcars <- tibble::remove_rownames(mtcars)
-
-  as_fr_tdr(no_row_names_mtcars, "mtcars") |>
+  as_fr_tdr(mtcars, name = "mtcars") |>
     as.data.frame() |>
-    expect_identical(no_row_names_mtcars)
+    expect_identical(tibble::remove_rownames(mtcars))
 
-  as_fr_tdr(no_row_names_mtcars) |>
-    expect_s3_class("fr_tdr") |>
-    expect_warning("was not supplied")
-
-  as_fr_tdr(no_row_names_mtcars) |>
-    S7::prop("name") |>
-    expect_identical("no_row_names_mtcars") |>
-    expect_warning("was not supplied")
-
-  # tibble removes row.names, so no concern there
-  as_fr_tdr(tibble::as_tibble(mtcars), "mtcars") |>
+  as_fr_tdr(mtcars, name = "mtcars") |>
     tibble::as_tibble() |>
     expect_identical(tibble::as_tibble(mtcars))
 
-  as_fr_tdr(tibble::as_tibble(mtcars)) |>
-    S7::prop("name") |>
-    expect_identical("tibble::as_tibble(mtcars)") |>
-    expect_warning()
+  d_fr <-
+    mtcars |>
+    tibble::as_tibble() |>
+    dplyr::mutate(cyl = as.factor(cyl)) |>
+    as_fr_tdr(
+      name = "mtcars",
+      version = "0.9.1",
+      title = "Motor Trend Car Road Tests",
+      homepage = "https://rdrr.io/r/datasets/mtcars.html",
+      description = "The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models)."
+    )
+
+  withr::with_options(list(width = 80), {
+    d_fr |>
+      expect_snapshot()
+
+    as_fr_tdr(mtcars, name = "mtcars") |>
+      expect_snapshot()
+  })
+
+  # extractors
+  expect_identical(d_fr$cyl, as.factor(mtcars$cyl))
+  expect_identical(d_fr$mpg, mtcars$mpg)
+  expect_identical(d_fr[["mpg"]], mtcars$mpg)
+  expect_identical(d_fr["mpg"], mtcars$mpg)
+
+  withr::with_options(list(width = 80), {
+    d_fr |>
+      as_list() |>
+      expect_snapshot()
+  })
 })

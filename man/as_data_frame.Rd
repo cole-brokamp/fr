@@ -15,9 +15,6 @@ as_data_frame(x, ...)
 a data frame
 }
 \description{
-\itemize{
-\item equivalent to \code{as.data.frame()}
-\item \code{tibble::as_tibble()} also works because its input is first
-coerced with \code{as.data.frame()}
-}
+Equivalent to \code{as.data.frame()}; directly using \code{tibble::as_tibble()}
+also works because its input is first coerced with \code{as.data.frame()}
 }
