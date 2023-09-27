@@ -17,8 +17,9 @@ write_fr_tdr <- function(x, dir = getwd()) {
   tdr_csv <- fs::path(tdr_dir, tdr_name, ext = "csv")
   readr::write_csv(tibble::as_tibble(x), tdr_csv)
   x@path <- fs::path_rel(tdr_csv, start = tdr_dir)
-  ## x@profile <- "tabular-data-resource"
-  cat(yaml::as.yaml(as_list(x)),
+  tdr_md <- as_list(x)
+  tdr_md <- append(tdr_md, values = list(profile = "tabular-data-resource"), after = 0)
+  cat(yaml::as.yaml(tdr_md),
       file = fs::path(tdr_dir, "tabular-data-resource.yaml"))
   return(invisible(x))
 }

@@ -5,3 +5,4 @@ test_that("write_fr_tdr works", {
     expect_snapshot_file(fs::path("my_mtcars", "tabular-data-resource.yaml"))
   })
 })
+

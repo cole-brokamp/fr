@@ -1,3 +1,4 @@
+profile: tabular-data-resource
 name: my_mtcars
 path: my_mtcars.csv
 version: []

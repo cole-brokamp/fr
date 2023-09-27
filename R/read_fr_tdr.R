@@ -6,6 +6,10 @@
 #' @export
 read_fr_tdr <- function(x, ...) {
   fr_descs <- yaml::read_yaml(x)
+  profile <- purrr::pluck(fr_descs, "profile", .default = NA)
+  if (is.na(profile) || {profile != "tabular-data-resource"}) {
+    stop("profile must be 'tabular-data-resource' but is ", profile, call. = FALSE)
+    }
   fr_csv_path <- fs::path(fs::path_dir(x), fr_descs$path)
 
   flds <- purrr::pluck(fr_descs, "schema", "fields")
