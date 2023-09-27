@@ -27,10 +27,11 @@ The supported classes of \code{R} objects are converted to the corresponding fri
 }
 \details{
 Use \code{as_fr_field()} on an existing \code{fr_field} object to \emph{update} its properties
+Use \code{as_fr_field()} with a list of named values corresponding to the ... properties
 }
 \examples{
-as_fr_field(1:10, "example_integer") # -> frictionless numeric
-as_fr_field((1:10) * 0.1, "example_double") # -> frictionless numeric
+as_fr_field(1:10, "example_integer") # -> frictionless number
+as_fr_field((1:10) * 0.1, "example_double") # -> frictionless number
 as_fr_field(letters, "example_character") # -> frictionless string
 as_fr_field(factor(letters), "example_factor") # -> frictionless string with enum constraints
 as_fr_field(c(TRUE, FALSE, TRUE), "example_logical") # -> frictionless boolean

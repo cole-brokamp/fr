@@ -78,7 +78,7 @@
       [1] "mpg"
       
       $schema$fields$mpg$type
-      [1] "numeric"
+      [1] "number"
       
       $schema$fields$mpg$title
       character(0)
@@ -114,7 +114,7 @@
       [1] "disp"
       
       $schema$fields$disp$type
-      [1] "numeric"
+      [1] "number"
       
       $schema$fields$disp$title
       character(0)
@@ -131,7 +131,7 @@
       [1] "hp"
       
       $schema$fields$hp$type
-      [1] "numeric"
+      [1] "number"
       
       $schema$fields$hp$title
       character(0)
@@ -148,7 +148,7 @@
       [1] "drat"
       
       $schema$fields$drat$type
-      [1] "numeric"
+      [1] "number"
       
       $schema$fields$drat$title
       character(0)
@@ -165,7 +165,7 @@
       [1] "wt"
       
       $schema$fields$wt$type
-      [1] "numeric"
+      [1] "number"
       
       $schema$fields$wt$title
       character(0)
@@ -182,7 +182,7 @@
       [1] "qsec"
       
       $schema$fields$qsec$type
-      [1] "numeric"
+      [1] "number"
       
       $schema$fields$qsec$title
       character(0)
@@ -199,7 +199,7 @@
       [1] "vs"
       
       $schema$fields$vs$type
-      [1] "numeric"
+      [1] "number"
       
       $schema$fields$vs$title
       character(0)
@@ -216,7 +216,7 @@
       [1] "am"
       
       $schema$fields$am$type
-      [1] "numeric"
+      [1] "number"
       
       $schema$fields$am$title
       character(0)
@@ -233,7 +233,7 @@
       [1] "gear"
       
       $schema$fields$gear$type
-      [1] "numeric"
+      [1] "number"
       
       $schema$fields$gear$title
       character(0)
@@ -250,7 +250,7 @@
       [1] "carb"
       
       $schema$fields$carb$type
-      [1] "numeric"
+      [1] "number"
       
       $schema$fields$carb$title
       character(0)

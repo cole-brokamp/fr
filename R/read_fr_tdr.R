@@ -1,10 +1,10 @@
 #' read a tabular-data-resource into R
 #'
-#' @param tdr_file path to a `tabular-data-resource.yaml` file
+#' @param x path to a `tabular-data-resource.yaml` file
 #' @param ... additional options passed onto `readr::read_csv()`
 #' @return fr_tdr object
 #' @export
-read_tdr_csv <- function(x, ...) {
+read_fr_tdr <- function(x, ...) {
   fr_descs <- yaml::read_yaml(x)
   fr_csv_path <- fs::path(fs::path_dir(x), fr_descs$path)
 
@@ -20,12 +20,6 @@ read_tdr_csv <- function(x, ...) {
 
   col_names <- names(flds)
   col_classes <- type_class_cw[purrr::map_chr(flds, "type")]
-
-  lvls <-
-    purrr::map(flds, "constraints", "enum") |>
-    purrr::compact()
-
-  if (length(lvls) > 0) col_classes[[names(lvls)]] <- "f"
 
   the_data <-
     readr::read_csv(
@@ -43,28 +37,27 @@ read_tdr_csv <- function(x, ...) {
       ...,
     )
 
-  # TODO need rlang things here?
+  lvls <-
+    purrr::map(flds, "constraints", "enum") |>
+    purrr::compact()
+
   if (length(lvls) > 0) {
     for (lvl in names(lvls)) {
-      out <- dplyr::mutate(
-        out,
-        {{ lvl }} := forcats::fct_expand(
-          dplyr::pull(out, {{ lvl }}),
-          as.character(lvls[[lvl]])
-        )
-      )
+      the_data[[lvl]] <- factor(the_data[[lvl]], levels = lvls[[lvl]]$enum)
     }
   }
 
+  pluck_char <- function(x, y) purrr::pluck(x, y, .default = character())
+
   out <-
-    fr_tdr(name = fr_descs$name,
-           path = fr_descs$path,
-           version = fr_descs$version,
-           title = fr_descs$title,
-           schema = 
-             fr_schema(fields = lapply(fr_descs$schema$fields, as_fr_field)),
+    fr_tdr(name = pluck_char(fr_descs, "name"),
+           path = pluck_char(fr_descs, "path"),
+           version = pluck_char(fr_descs, "version"),
+           title = pluck_char(fr_descs, "title"),
+           homepage = pluck_char(fr_descs, "homepage"),
+           description = pluck_char(fr_descs, "description"),
+           schema = fr_schema(fields = lapply(fr_descs$schema$fields, as_fr_field)),
            data = the_data)
 
   return(out)
 }
-

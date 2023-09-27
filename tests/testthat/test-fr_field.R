@@ -15,12 +15,12 @@ test_that("as_fr_field works", {
   as_fr_field(1:10, name = "example_integer") |>
     expect_s3_class("fr_field") |>
     S7::prop("type") |>
-    expect_equal("numeric")
+    expect_equal("number")
 
   as_fr_field(0.1*(1:10), name = "example_numeric") |>
     expect_s3_class("fr_field") |>
     S7::prop("type") |>
-    expect_equal("numeric")
+    expect_equal("number")
 
   as_fr_field(letters, name = "example_character") |>
     expect_s3_class("fr_field") |>
@@ -48,6 +48,14 @@ test_that("updating fr_field descriptors works", {
     expect_identical("my other description")
 
   })
+
+test_that("fr_field from a list works", {
+  as_fr_field(list(name = "example_factor", type = "string",
+                constraints = list(enum = c("ab", "cd", "ef")))) |>
+    expect_s3_class("fr_field") |>
+    S7::prop("constraints") |>
+    expect_equal(list(enum = c("ab", "cd", "ef")))
+})
 
 test_that("is_fr_field works", {
   expect_true(is_fr_field(fr_field(name = "letters", type = "string")))

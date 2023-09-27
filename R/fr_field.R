@@ -12,8 +12,8 @@ fr_field <- S7::new_class(
       "@name must be length 1"
     } else if (length(self@type) != 1) {
       "@type must be length 1"
-    } else if (!(self@type) %in% c("numeric", "string", "boolean", "date")) {
-      "@type must be one of 'numeric', 'string', 'boolean', or 'date'"
+    } else if (!(self@type) %in% c("number", "string", "boolean", "date", "integer")) {
+      "@type must be one of 'number', 'string', 'boolean', 'date', or 'integer'"
     }
   }
 )
@@ -31,12 +31,13 @@ fr_field <- S7::new_class(
 #' | `Date` | `date` |
 #'
 #' Use `as_fr_field()` on an existing `fr_field` object to *update* its properties
+#' Use `as_fr_field()` with a list of named values corresponding to the ... properties
 #' @param x a character, factor, numeric, integer, logical, or Date vector
 #' @param ... `name`, `title`, or `description` property ([`name` is required](https://specs.frictionlessdata.io/table-schema/#name))
 #' @return a [fr_field][fr::fr-package] object
 #' @examples
-#' as_fr_field(1:10, "example_integer") # -> frictionless numeric
-#' as_fr_field((1:10) * 0.1, "example_double") # -> frictionless numeric
+#' as_fr_field(1:10, "example_integer") # -> frictionless number
+#' as_fr_field((1:10) * 0.1, "example_double") # -> frictionless number
 #' as_fr_field(letters, "example_character") # -> frictionless string
 #' as_fr_field(factor(letters), "example_factor") # -> frictionless string with enum constraints
 #' as_fr_field(c(TRUE, FALSE, TRUE), "example_logical") # -> frictionless boolean
@@ -49,8 +50,12 @@ S7::method(as_fr_field, fr_field) <- function(x, ...) {
   return(x)
 }
 
+S7::method(as_fr_field, S7::class_list) <- function(x) {
+  do.call("fr_field", x)
+  }
+
 S7::method(as_fr_field, S7::class_numeric) <- function(x, name, ...) {
-  fr_field(name = name, type = "numeric", ...)
+  fr_field(name = name, type = "number", ...)
 }
 
 S7::method(as_fr_field, S7::class_character) <- function(x, name, ...) {

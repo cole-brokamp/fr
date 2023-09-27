@@ -1,8 +1,7 @@
 # read_fr_tdr works
 
     Code
-      read_tdr_csv(x = test_path("hamilton_poverty_2020",
-        "tabular-data-resource.yaml"))
+      read_fr_tdr(x = test_path("hamilton_poverty_2020", "tabular-data-resource.yaml"))
     Message <cliMessage>
       ── hamilton_poverty_2020 ──
       • version: 0.0.1
