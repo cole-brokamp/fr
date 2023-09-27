@@ -24,14 +24,14 @@ fr_field <- S7::new_class(
 #' The supported classes of `R` objects are converted to the corresponding frictionless `type`:
 #' | **`R` class**   | **`fr` type**   |
 #' |:-----------------|:-------------|
-#' | `character()`| `string`* |
+#' | `character()`| `string` |
 #' | `factor()` | `string` (with `enum(constraints = levels(x))`) |
 #' | `numeric()`, `integer()` | `number` |
 #' | `logical()` | `boolean` |
 #' | `Date` | `date` |
 #'
-#' Use `as_fr_field()` on an existing `fr_field` object to *update* its properties
-#' Use `as_fr_field()` with a list of named values corresponding to the ... properties
+#' - Use `as_fr_field()` on an existing `fr_field` object to *update* its properties
+#' - Use `as_fr_field()` with a list of named values corresponding to the ... properties
 #' @param x a character, factor, numeric, integer, logical, or Date vector
 #' @param ... `name`, `title`, or `description` property ([`name` is required](https://specs.frictionlessdata.io/table-schema/#name))
 #' @return a [fr_field][fr::fr-package] object

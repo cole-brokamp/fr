@@ -2,7 +2,7 @@
 #'
 #' @param x path to a `tabular-data-resource.yaml` file
 #' @param ... additional options passed onto `readr::read_csv()`
-#' @return fr_tdr object
+#' @return a [fr_tdr][fr::fr-package] object
 #' @export
 read_fr_tdr <- function(x, ...) {
   fr_descs <- yaml::read_yaml(x)

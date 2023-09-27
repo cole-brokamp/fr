@@ -18,7 +18,7 @@ a \link[=fr-package]{fr_field} object
 \description{
 The supported classes of \code{R} objects are converted to the corresponding frictionless \code{type}:\tabular{ll}{
    \strong{\code{R} class} \tab \strong{\code{fr} type} \cr
-   \code{character()} \tab \code{string}* \cr
+   \code{character()} \tab \code{string} \cr
    \code{factor()} \tab \code{string} (with \code{enum(constraints = levels(x))}) \cr
    \code{numeric()}, \code{integer()} \tab \code{number} \cr
    \code{logical()} \tab \code{boolean} \cr
@@ -26,8 +26,10 @@ The supported classes of \code{R} objects are converted to the corresponding fri
 }
 }
 \details{
-Use \code{as_fr_field()} on an existing \code{fr_field} object to \emph{update} its properties
-Use \code{as_fr_field()} with a list of named values corresponding to the ... properties
+\itemize{
+\item Use \code{as_fr_field()} on an existing \code{fr_field} object to \emph{update} its properties
+\item Use \code{as_fr_field()} with a list of named values corresponding to the ... properties
+}
 }
 \examples{
 as_fr_field(1:10, "example_integer") # -> frictionless number

@@ -12,7 +12,7 @@ read_fr_tdr(x, ...)
 \item{...}{additional options passed onto \code{readr::read_csv()}}
 }
 \value{
-fr_tdr object
+a \link[=fr-package]{fr_tdr} object
 }
 \description{
 read a tabular-data-resource into R

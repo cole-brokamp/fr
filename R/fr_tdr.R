@@ -51,9 +51,8 @@ S7::method(as.data.frame, fr_tdr) <- function(x, ...) {
 
 #' Coerce a [`fr_tdr`][fr::fr-package] object into a data frame
 #'
-#' - equivalent to `as.data.frame()`
-#' - `tibble::as_tibble()` also works because its input is first
-#' coerced with `as.data.frame()`
+#' Equivalent to `as.data.frame()`; directly using `tibble::as_tibble()`
+#' also works because its input is first coerced with `as.data.frame()`
 #' @param x a [`fr_tdr`][fr::fr-package] object
 #' @param ... ignored
 #' @return a data frame

@@ -6,7 +6,7 @@
 #'├── my_data.csv
 #'└── tabular-data-resource.yaml
 #' ```
-#' @param x a fr_tdr object
+#' @param x [fr_tdr][fr::fr-package] object
 #' @param dir path to directory where tabular-data-resource folder will be created
 #' @return x (invisibly)
 #' @export
