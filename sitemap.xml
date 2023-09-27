@@ -25,21 +25,21 @@
     <loc>https://cole-brokamp.github.io/fr/reference/as_fr_tdr.html</loc>
   </url>
   <url>
-    <loc>https://cole-brokamp.github.io/fr/reference/as_vector.html</loc>
+    <loc>https://cole-brokamp.github.io/fr/reference/as_list.html</loc>
   </url>
   <url>
     <loc>https://cole-brokamp.github.io/fr/reference/fr-package.html</loc>
-  </url>
-  <url>
-    <loc>https://cole-brokamp.github.io/fr/reference/fr_desc.html</loc>
-  </url>
-  <url>
-    <loc>https://cole-brokamp.github.io/fr/reference/fr_schema.html</loc>
   </url>
   <url>
     <loc>https://cole-brokamp.github.io/fr/reference/index.html</loc>
   </url>
   <url>
     <loc>https://cole-brokamp.github.io/fr/reference/is_fr_field.html</loc>
+  </url>
+  <url>
+    <loc>https://cole-brokamp.github.io/fr/reference/read_fr_tdr.html</loc>
+  </url>
+  <url>
+    <loc>https://cole-brokamp.github.io/fr/reference/write_fr_tdr.html</loc>
   </url>
 </urlset>
