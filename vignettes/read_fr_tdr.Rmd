@@ -1,0 +1,77 @@
+---
+title: "Reading a tabular-data-resource"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Reading a tabular-data-resource}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r}
+library(fr)
+```
+
+The {fr} package comes with an example frictionless tabular-data-resource (tdr) named `hamilton_poverty_2020`.  On disk, a tdr is composed of a folder containing a data CSV file (both named based on the `name` of the tdr) *and* a `tabular-data-resource.yaml` file, which contains the metadata descriptors:
+
+```{r}
+fs::dir_tree(fs::path_package("fr", "hamilton_poverty_2020"), recurse = TRUE)
+```
+
+Read the `hamilton_poverty_2020` tdr into R by specifying the location of the tabular-data-resource file:
+
+```{r}
+d_fr <- read_fr_tdr(
+  fs::path_package(
+    "fr",
+    "hamilton_poverty_2020",
+    "tabular-data-resource.yaml"
+  )
+)
+```
+
+Print the returned `fr_tdr` (frictionless tabular-data-resource) object to view all of the table-specific metadata descriptors and the underlying data frame:
+
+```{r}
+d_fr
+```
+
+Use `str()` or `pillar::glimpse()` to view all field- and table-specific descriptors:
+
+```{r}
+pillar::glimpse(d_fr)
+```
+
+Convert the `fr_tdr` object to a list of metadata attributes for further processing:
+
+```{r}
+as_list(d_fr) |>
+  str()
+```
+
+Accessor functions work as they do with data frames and tibbles:
+
+```{r}
+d_fr$fraction_poverty
+d_fr[["fraction_poverty"]] |> class()
+d_fr["fraction_poverty"] |> class()
+```
+
+`fr_tdr` objects can be used mostly anywhere that the underlying data frame can be used because `as.data.frame` usually is used to coerce objects into data frames and works with `fr_tdr` objects:
+
+```{r}
+lm(fraction_poverty ~ year, data = d_fr)
+```
+
+Explicitly convert the `fr_tdr` object to a tibble by dropping the metadata attributes using `as_tibble`, `as_data_frame`, or `as.data.frame`:
+
+```{r}
+tibble::as_tibble(d_fr)
+```
+

@@ -2,7 +2,6 @@ profile: tabular-data-resource
 name: example_data_with_types
 path: example_data_with_types.csv
 title: Example Data Set with Types
-license: MIT
 schema:
   fields:
     id:

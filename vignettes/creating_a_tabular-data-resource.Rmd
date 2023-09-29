@@ -1,0 +1,95 @@
+---
+title: "Creating a tabular-data-resource"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Creating a tabular-data-resource}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(fr)
+```
+
+Create a short tibble with a lot of different types of fields. Imagine that `rating` is a factor with three possible levels (`good`, `better`, `best`), but only two of them are present in the data:
+
+```{r}
+d <-
+  tibble::tibble(
+    id = c("A01", "A02", "A03"),
+    date = as.Date(c("2022-07-25", "2018-07-10", "2013-08-15")),
+    measure = c(12.8, 13.9, 15.6),
+    rating = factor(c("good", "best", "best"), levels = c("good", "better", "best")),
+    ranking = c(14, 17, 19),
+    impt = c(FALSE, TRUE, TRUE)
+  )
+```
+
+Our example only has three rows, but in reality, any data frame imported, created, or curated using R can be used to create a tabular-data-resource.
+
+We can see that we prepared a tibble with several different types of columns. Each column, or vector, has a native R class associated with it:
+
+```{r}
+sapply(d, class)
+d
+```
+
+Convert the data frame into a `fr_tdr` object and by using `as_fr_tdr()` and specifying some table-specific metadata. `as_fr_tdr()` uses the class of each column in R to automatically create all of the frictionless field-specific metadata (`name`, `type`, `constraints`).
+
+```{r}
+d_tdr <-
+  d |>
+  as_fr_tdr(
+    name = "types_example",
+    version = "0.1.0",
+    title = "Example Data with Types",
+    homepage = "https://geomarker.io",
+    description = "This is used as an example dataset in the {fr} package vignette on `Creating a tabular-data-resource`."
+  )
+
+d_tdr
+```
+
+We can check that the field-specific metadata was included:
+
+```{r}
+str(d_tdr)
+```
+
+Reach in and update field-specific metadata:
+
+```{r}
+d_tdr@schema@fields$id@title <- "Identifier"
+d_tdr@schema@fields$id@description <- "This is a unique identifier for each study participant."
+```
+
+It will complain if a descriptor is not valid:
+
+```{r, error = TRUE}
+d_tdr@schema@fields$id@type <- "foofy"
+```
+
+These are long, but completion makes working with them nice.  Should there be a simpler function to update certain fields?
+
+```{r}
+str(d_tdr)
+```
+
+Write this to disk with `write_fr_tdr`:
+
+```{r}
+write_fr_tdr(d_tdr)
+fs::dir_tree("types_example")
+```
+
+```{r, echo = FALSE}
+fs::dir_delete("types_example")
+```
+
