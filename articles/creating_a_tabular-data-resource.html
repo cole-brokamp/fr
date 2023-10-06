@@ -81,10 +81,10 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cole-brokamp/fr" class="external-link">fr</a></span><span class="op">)</span></span></code></pre></div>
-<p>Create a short tibble with a lot of different types of fields.
-Imagine that <code>rating</code> is a factor with three possible levels
-(<code>good</code>, <code>better</code>, <code>best</code>), but only
-two of them are present in the data:</p>
+<p>To illustrate, we will create a short tibble with a lot of different
+types of fields. Imagine that <code>rating</code> is a factor with three
+possible levels (<code>good</code>, <code>better</code>,
+<code>best</code>), but only two of them are present in the data:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
@@ -105,6 +105,7 @@ it:</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">d</span>, <span class="va">class</span><span class="op">)</span></span>
 <span><span class="co">#&gt;          id        date     measure      rating     ranking        impt </span></span>
 <span><span class="co">#&gt; "character"      "Date"   "numeric"    "factor"   "numeric"   "logical"</span></span>
+<span></span>
 <span><span class="va">d</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 6</span></span></span>
 <span><span class="co">#&gt;   id    date       measure rating ranking impt </span></span>
@@ -112,7 +113,7 @@ it:</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> A01   2022-07-25    12.8 good        14 FALSE</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> A02   2018-07-10    13.9 best        17 TRUE </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> A03   2013-08-15    15.6 best        19 TRUE</span></span></code></pre></div>
-<p>Convert the data frame into a <code>fr_tdr</code> object and by using
+<p>Convert the data frame into a <code>fr_tdr</code> object by using
 <code><a href="../reference/as_fr_tdr.html">as_fr_tdr()</a></code> and specifying some table-specific metadata.
 <code><a href="../reference/as_fr_tdr.html">as_fr_tdr()</a></code> uses the class of each column in R to
 automatically create all of the frictionless field-specific metadata
@@ -209,69 +210,14 @@ automatically create all of the frictionless field-specific metadata
 <code class="sourceCode R"><span><span class="va">d_tdr</span><span class="op">@</span><span class="va">schema</span><span class="op">@</span><span class="va">fields</span><span class="op">$</span><span class="va">id</span><span class="op">@</span><span class="va">type</span> <span class="op">&lt;-</span> <span class="st">"foofy"</span></span>
 <span><span class="co">#&gt; Error: &lt;fr_field&gt; object is invalid:</span></span>
 <span><span class="co">#&gt; - @type must be one of 'number', 'string', 'boolean', 'date', or 'integer'</span></span></code></pre></div>
-<p>These are long, but completion makes working with them nice. Should
-there be a simpler function to update certain fields?</p>
+<p>… or does not exist:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">d_tdr</span><span class="op">)</span></span>
-<span><span class="co">#&gt; &lt;fr_tdr&gt;</span></span>
-<span><span class="co">#&gt;  @ name       : chr "types_example"</span></span>
-<span><span class="co">#&gt;  @ path       : chr(0) </span></span>
-<span><span class="co">#&gt;  @ version    : chr "0.1.0"</span></span>
-<span><span class="co">#&gt;  @ title      : chr "Example Data with Types"</span></span>
-<span><span class="co">#&gt;  @ homepage   : chr "https://geomarker.io"</span></span>
-<span><span class="co">#&gt;  @ description: chr "This is used as an example dataset in the {fr} package vignette on `Creating a tabular-data-resource`."</span></span>
-<span><span class="co">#&gt;  @ schema     : &lt;fr_schema&gt;</span></span>
-<span><span class="co">#&gt;  .. @ fields       :List of 6</span></span>
-<span><span class="co">#&gt;  .. .. $ id     : &lt;fr_field&gt;</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ name       : chr "id"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ type       : chr "string"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ title      : chr "Identifier"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ description: chr "This is a unique identifier for each study participant."</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ constraints: list()</span></span>
-<span><span class="co">#&gt;  .. .. $ date   : &lt;fr_field&gt;</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ name       : chr "date"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ type       : chr "date"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ title      : chr(0) </span></span>
-<span><span class="co">#&gt;  .. ..  ..@ description: chr(0) </span></span>
-<span><span class="co">#&gt;  .. ..  ..@ constraints: list()</span></span>
-<span><span class="co">#&gt;  .. .. $ measure: &lt;fr_field&gt;</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ name       : chr "measure"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ type       : chr "number"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ title      : chr(0) </span></span>
-<span><span class="co">#&gt;  .. ..  ..@ description: chr(0) </span></span>
-<span><span class="co">#&gt;  .. ..  ..@ constraints: list()</span></span>
-<span><span class="co">#&gt;  .. .. $ rating : &lt;fr_field&gt;</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ name       : chr "rating"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ type       : chr "string"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ title      : chr(0) </span></span>
-<span><span class="co">#&gt;  .. ..  ..@ description: chr(0) </span></span>
-<span><span class="co">#&gt;  .. ..  ..@ constraints:List of 1</span></span>
-<span><span class="co">#&gt;  .. .. .. .. $ enum: chr [1:3] "good" "better" "best"</span></span>
-<span><span class="co">#&gt;  .. .. $ ranking: &lt;fr_field&gt;</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ name       : chr "ranking"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ type       : chr "number"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ title      : chr(0) </span></span>
-<span><span class="co">#&gt;  .. ..  ..@ description: chr(0) </span></span>
-<span><span class="co">#&gt;  .. ..  ..@ constraints: list()</span></span>
-<span><span class="co">#&gt;  .. .. $ impt   : &lt;fr_field&gt;</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ name       : chr "impt"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ type       : chr "boolean"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ title      : chr(0) </span></span>
-<span><span class="co">#&gt;  .. ..  ..@ description: chr(0) </span></span>
-<span><span class="co">#&gt;  .. ..  ..@ constraints: list()</span></span>
-<span><span class="co">#&gt;  .. @ missingValues: chr(0) </span></span>
-<span><span class="co">#&gt;  .. @ primaryKey   : chr(0) </span></span>
-<span><span class="co">#&gt;  .. @ foreignKeys  : chr(0) </span></span>
-<span><span class="co">#&gt;  @ data       : tibble [3 × 6] (S3: tbl_df/tbl/data.frame)</span></span>
-<span><span class="co">#&gt;  $ id     : chr [1:3] "A01" "A02" "A03"</span></span>
-<span><span class="co">#&gt;  $ date   : Date[1:3], format: "2022-07-25" "2018-07-10" ...</span></span>
-<span><span class="co">#&gt;  $ measure: num [1:3] 12.8 13.9 15.6</span></span>
-<span><span class="co">#&gt;  $ rating : Factor w/ 3 levels "good","better",..: 1 3 3</span></span>
-<span><span class="co">#&gt;  $ ranking: num [1:3] 14 17 19</span></span>
-<span><span class="co">#&gt;  $ impt   : logi [1:3] FALSE TRUE TRUE</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">d_tdr</span><span class="op">@</span><span class="va">schema</span><span class="op">@</span><span class="va">fields</span><span class="op">$</span><span class="va">id</span><span class="op">@</span><span class="va">the_type</span> <span class="op">&lt;-</span> <span class="st">"string"</span></span>
+<span><span class="co">#&gt; Error: Can't find property &lt;fr_field&gt;@the_type</span></span></code></pre></div>
 <p>Write this to disk with <code>write_fr_tdr</code>:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/write_fr_tdr.html">write_fr_tdr</a></span><span class="op">(</span><span class="va">d_tdr</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/dir_tree.html" class="external-link">dir_tree</a></span><span class="op">(</span><span class="st">"types_example"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">types_example</span></span></span>
 <span><span class="co">#&gt; ├── tabular-data-resource.yaml</span></span>
