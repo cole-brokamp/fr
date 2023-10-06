@@ -30,3 +30,4 @@ pak::pak("cole-brokamp/fr")
 library(fr)
 ```
 
+Using these functions to set attributes in R means we can do so reproducibly and changes to the metadata are tracked alongside the R script that creates the data. This prevents a disconnect between data and metadata, but also allows for computing on the metadata to use it to create richer documentation.
