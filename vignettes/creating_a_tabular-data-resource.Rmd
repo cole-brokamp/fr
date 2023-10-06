@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 library(fr)
 ```
 
-Create a short tibble with a lot of different types of fields. Imagine that `rating` is a factor with three possible levels (`good`, `better`, `best`), but only two of them are present in the data:
+To illustrate, we will create a short tibble with a lot of different types of fields. Imagine that `rating` is a factor with three possible levels (`good`, `better`, `best`), but only two of them are present in the data:
 
 ```{r}
 d <-
@@ -38,10 +38,11 @@ We can see that we prepared a tibble with several different types of columns. Ea
 
 ```{r}
 sapply(d, class)
+
 d
 ```
 
-Convert the data frame into a `fr_tdr` object and by using `as_fr_tdr()` and specifying some table-specific metadata. `as_fr_tdr()` uses the class of each column in R to automatically create all of the frictionless field-specific metadata (`name`, `type`, `constraints`).
+Convert the data frame into a `fr_tdr` object by using `as_fr_tdr()` and specifying some table-specific metadata. `as_fr_tdr()` uses the class of each column in R to automatically create all of the frictionless field-specific metadata (`name`, `type`, `constraints`).
 
 ```{r}
 d_tdr <-
@@ -72,20 +73,23 @@ d_tdr@schema@fields$id@description <- "This is a unique identifier for each stud
 
 It will complain if a descriptor is not valid:
 
-```{r, error = TRUE}
+```{r}
+#| error: true
 d_tdr@schema@fields$id@type <- "foofy"
 ```
 
-These are long, but completion makes working with them nice.  Should there be a simpler function to update certain fields?
+... or does not exist:
 
 ```{r}
-str(d_tdr)
+#| error: true
+d_tdr@schema@fields$id@the_type <- "string"
 ```
 
 Write this to disk with `write_fr_tdr`:
 
 ```{r}
 write_fr_tdr(d_tdr)
+
 fs::dir_tree("types_example")
 ```
 
