@@ -125,10 +125,10 @@ descriptors and the underlying data frame:</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 39061023902           <span style="text-decoration: underline;">2</span>020            0.013</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 39061022301           <span style="text-decoration: underline;">2</span>020            0.247</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 216 more rows</span></span></span></code></pre></div>
-<p>Use <code><a href="https://rdrr.io/r/utils/str.html" class="external-link">str()</a></code> or <code><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">pillar::glimpse()</a></code> to view all
+<p>Use <code><a href="https://rdrr.io/r/utils/str.html" class="external-link">str()</a></code> or <code><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">tibble::glimpse()</a></code> to view all
 field- and table-specific descriptors:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">pillar</span><span class="fu">::</span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">d_fr</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">d_fr</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;fr_tdr&gt;</span></span>
 <span><span class="co">#&gt;  @ name       : chr "hamilton_poverty_2020"</span></span>
 <span><span class="co">#&gt;  @ path       : chr "hamilton_poverty_2020.csv"</span></span>
