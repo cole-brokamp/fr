@@ -7,7 +7,7 @@
 write_fr_tdr(x, dir = getwd())
 }
 \arguments{
-\item{x}{\link[=fr-package]{fr_tdr} object}
+\item{x}{a \link[=fr-package]{fr_tdr} object to write to disk}
 
 \item{dir}{path to directory where tabular-data-resource folder will be created}
 }

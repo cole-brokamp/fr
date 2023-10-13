@@ -6,7 +6,7 @@
 #'├── my_data.csv
 #'└── tabular-data-resource.yaml
 #' ```
-#' @param x [fr_tdr][fr::fr-package] object
+#' @param x a [fr_tdr][fr::fr-package] object to write to disk
 #' @param dir path to directory where tabular-data-resource folder will be created
 #' @return x (invisibly)
 #' @export
@@ -15,7 +15,7 @@ write_fr_tdr <- function(x, dir = getwd()) {
   tdr_dir <- fs::path(dir, tdr_name)
   fs::dir_create(tdr_dir)
   tdr_csv <- fs::path(tdr_dir, tdr_name, ext = "csv")
-  readr::write_csv(tibble::as_tibble(x), tdr_csv)
+  vroom::vroom_write(tibble::as_tibble(x), tdr_csv, delim = ",")
   x@path <- fs::path_rel(tdr_csv, start = tdr_dir)
   tdr_md <- as_list(x)
   tdr_md <- append(tdr_md, values = list(profile = "tabular-data-resource"), after = 0)

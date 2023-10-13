@@ -3,18 +3,20 @@ has_tdr_yaml <- function(x) grepl("tabular-data-resource.yaml", x)
 
 #' read a tabular-data-resource into R
 #'
-#' @param x path to a `tabular-data-resource.yaml` file
-#' @param ... additional options passed onto `readr::read_csv()`
+#' @inheritParams vroom::vroom
 #' @return a [fr_tdr][fr::fr-package] object
+#' @details A file path (or url) representing a folder
+#' that contains a "tabular-data-resource.yaml" can
+#' be used in `file`.
 #' @export
-read_fr_tdr <- function(x, ...) {
-  if (has_tdr_yaml(x)) {
-    tdr_path <- x
+read_fr_tdr <- function(file) {
+  if (has_tdr_yaml(file)) {
+    tdr_path <- file
   } else {
-    if (is_url(x)) {
-      tdr_path <- paste0(x, "/tabular-data-resource.yaml")
+    if (is_url(file)) {
+      tdr_path <- paste0(file, "/tabular-data-resource.yaml")
     } else {
-      tdr_path <- fs::path(x, "tabular-data-resource.yaml")
+      tdr_path <- fs::path(file, "tabular-data-resource.yaml")
     }
   }
 
@@ -26,17 +28,17 @@ read_fr_tdr <- function(x, ...) {
     stop("profile must be 'tabular-data-resource' but is ", profile, call. = FALSE)
   }
 
-  if (has_tdr_yaml(x)) {
-    if (is_url(x)) {
-      fr_csv_path <- sub("tabular-data-resource.yaml", fr_descs$path, x, fixed = TRUE)
+  if (has_tdr_yaml(file)) {
+    if (is_url(file)) {
+      fr_csv_path <- sub("tabular-data-resource.yaml", fr_descs$path, file, fixed = TRUE)
     } else {
-      fr_csv_path <- fs::path(fs::path_dir(x), fr_descs$path)
+      fr_csv_path <- fs::path(fs::path_dir(file), fr_descs$path)
     }
   } else {
-    if (is_url(x)) {
-      fr_csv_path <- paste0(x, "/", fr_descs$path)
+    if (is_url(file)) {
+      fr_csv_path <- paste0(file, "/", fr_descs$path)
     } else {
-      fr_csv_path <- fs::path(x, fr_descs$path)
+      fr_csv_path <- fs::path(file, fr_descs$path)
     }
   }
 
@@ -54,19 +56,18 @@ read_fr_tdr <- function(x, ...) {
   col_classes <- type_class_cw[purrr::map_chr(flds, "type")]
 
   the_data <-
-    readr::read_csv(
+    vroom::vroom(
       file = fr_csv_path,
-      col_names = TRUE,
-      col_types = paste(col_classes, collapse = ""),
+      delim = ",",
       col_select = tidyselect::all_of({{ col_names }}),
-      locale = readr::locale(
+      col_types = paste(col_classes, collapse = ""),
+      locale = vroom::locale(
         encoding = "UTF-8",
         decimal_mark = ".",
         grouping_mark = ""
       ),
-      name_repair = "check_unique",
-      na = c("NA", ""),
-      ...,
+      .name_repair = "check_unique",
+      na = c("", "NA")
     )
 
   lvls <-

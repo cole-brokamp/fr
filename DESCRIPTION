@@ -12,7 +12,7 @@ RoxygenNote: 7.2.3
 Imports: 
     cli,
     purrr,
-    readr,
+    vroom,
     S7 (>= 0.1.1),
     tibble,
     tidyselect,
