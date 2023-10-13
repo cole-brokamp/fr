@@ -66,8 +66,8 @@ S7::method(as_data_frame, fr_tdr) <- function(x, ...) {
 S7::method(as.list, fr_tdr) <- function(x, ...) {
   out <- S7::props(x)
   out$data <- NULL
-  out$schema <- S7::props(out$schema)
-  out$schema$fields <- lapply(out$schema$fields, S7::props)
+  out$schema <- purrr::compact(S7::props(out$schema))
+  out$schema$fields <- lapply(out$schema$fields, \(x) purrr::compact(S7::props(x)))
   return(out)
 }
 

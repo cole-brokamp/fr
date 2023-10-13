@@ -1,78 +1,38 @@
 profile: tabular-data-resource
 name: my_mtcars
 path: my_mtcars.csv
-version: []
-title: []
-homepage: []
-description: []
 schema:
   fields:
     mpg:
       name: mpg
       type: number
-      title: []
-      description: []
-      constraints: []
     cyl:
       name: cyl
       type: number
-      title: []
-      description: []
-      constraints: []
     disp:
       name: disp
       type: number
-      title: []
-      description: []
-      constraints: []
     hp:
       name: hp
       type: number
-      title: []
-      description: []
-      constraints: []
     drat:
       name: drat
       type: number
-      title: []
-      description: []
-      constraints: []
     wt:
       name: wt
       type: number
-      title: []
-      description: []
-      constraints: []
     qsec:
       name: qsec
       type: number
-      title: []
-      description: []
-      constraints: []
     vs:
       name: vs
       type: number
-      title: []
-      description: []
-      constraints: []
     am:
       name: am
       type: number
-      title: []
-      description: []
-      constraints: []
     gear:
       name: gear
       type: number
-      title: []
-      description: []
-      constraints: []
     carb:
       name: carb
       type: number
-      title: []
-      description: []
-      constraints: []
-  missingValues: []
-  primaryKey: []
-  foreignKeys: []

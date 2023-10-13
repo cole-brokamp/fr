@@ -80,15 +80,6 @@
       $schema$fields$mpg$type
       [1] "number"
       
-      $schema$fields$mpg$title
-      character(0)
-      
-      $schema$fields$mpg$description
-      character(0)
-      
-      $schema$fields$mpg$constraints
-      list()
-      
       
       $schema$fields$cyl
       $schema$fields$cyl$name
@@ -96,12 +87,6 @@
       
       $schema$fields$cyl$type
       [1] "string"
-      
-      $schema$fields$cyl$title
-      character(0)
-      
-      $schema$fields$cyl$description
-      character(0)
       
       $schema$fields$cyl$constraints
       $schema$fields$cyl$constraints$enum
@@ -116,15 +101,6 @@
       $schema$fields$disp$type
       [1] "number"
       
-      $schema$fields$disp$title
-      character(0)
-      
-      $schema$fields$disp$description
-      character(0)
-      
-      $schema$fields$disp$constraints
-      list()
-      
       
       $schema$fields$hp
       $schema$fields$hp$name
@@ -132,15 +108,6 @@
       
       $schema$fields$hp$type
       [1] "number"
-      
-      $schema$fields$hp$title
-      character(0)
-      
-      $schema$fields$hp$description
-      character(0)
-      
-      $schema$fields$hp$constraints
-      list()
       
       
       $schema$fields$drat
@@ -150,15 +117,6 @@
       $schema$fields$drat$type
       [1] "number"
       
-      $schema$fields$drat$title
-      character(0)
-      
-      $schema$fields$drat$description
-      character(0)
-      
-      $schema$fields$drat$constraints
-      list()
-      
       
       $schema$fields$wt
       $schema$fields$wt$name
@@ -166,15 +124,6 @@
       
       $schema$fields$wt$type
       [1] "number"
-      
-      $schema$fields$wt$title
-      character(0)
-      
-      $schema$fields$wt$description
-      character(0)
-      
-      $schema$fields$wt$constraints
-      list()
       
       
       $schema$fields$qsec
@@ -184,15 +133,6 @@
       $schema$fields$qsec$type
       [1] "number"
       
-      $schema$fields$qsec$title
-      character(0)
-      
-      $schema$fields$qsec$description
-      character(0)
-      
-      $schema$fields$qsec$constraints
-      list()
-      
       
       $schema$fields$vs
       $schema$fields$vs$name
@@ -200,15 +140,6 @@
       
       $schema$fields$vs$type
       [1] "number"
-      
-      $schema$fields$vs$title
-      character(0)
-      
-      $schema$fields$vs$description
-      character(0)
-      
-      $schema$fields$vs$constraints
-      list()
       
       
       $schema$fields$am
@@ -218,15 +149,6 @@
       $schema$fields$am$type
       [1] "number"
       
-      $schema$fields$am$title
-      character(0)
-      
-      $schema$fields$am$description
-      character(0)
-      
-      $schema$fields$am$constraints
-      list()
-      
       
       $schema$fields$gear
       $schema$fields$gear$name
@@ -234,15 +156,6 @@
       
       $schema$fields$gear$type
       [1] "number"
-      
-      $schema$fields$gear$title
-      character(0)
-      
-      $schema$fields$gear$description
-      character(0)
-      
-      $schema$fields$gear$constraints
-      list()
       
       
       $schema$fields$carb
@@ -252,25 +165,7 @@
       $schema$fields$carb$type
       [1] "number"
       
-      $schema$fields$carb$title
-      character(0)
       
-      $schema$fields$carb$description
-      character(0)
-      
-      $schema$fields$carb$constraints
-      list()
-      
-      
-      
-      $schema$missingValues
-      character(0)
-      
-      $schema$primaryKey
-      character(0)
-      
-      $schema$foreignKeys
-      character(0)
       
       
 

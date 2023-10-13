@@ -19,6 +19,7 @@ write_fr_tdr <- function(x, dir = getwd()) {
   x@path <- fs::path_rel(tdr_csv, start = tdr_dir)
   tdr_md <- as_list(x)
   tdr_md <- append(tdr_md, values = list(profile = "tabular-data-resource"), after = 0)
+  tdr_md <- purrr::compact(tdr_md)
   cat(yaml::as.yaml(tdr_md),
       file = fs::path(tdr_dir, "tabular-data-resource.yaml"))
   return(invisible(x))
