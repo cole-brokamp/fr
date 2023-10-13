@@ -109,3 +109,4 @@ S7::method(`[[`, fr_tdr) <- function(x, name, ...) {
 S7::method(`[`, fr_tdr) <- function(x, name, ...) {
   x@data[[name]]
 }
+
