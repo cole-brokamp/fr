@@ -23,26 +23,23 @@ fr_tdr <- S7::new_class(
 
 #' Coerce a data frame into a [`fr_tdr`][fr::fr-package] object
 #' @param x a data.frame
-#' @param name the `name` property
-#' @param ... optional [tabular-data-resource properties](https://specs.frictionlessdata.io/data-resource/#descriptor) (e.g., `path`, `version`, `title`, `homepage`, `description`)
+#' @param ... required (`name`) and optional [tabular-data-resource properties](https://specs.frictionlessdata.io/data-resource/#descriptor) (e.g., `path`, `version`, `title`, `homepage`, `description`)
 #' @return a [fr_tdr][fr::fr-package] object
 #' @export
 as_fr_tdr <- S7::new_generic("as_fr_tdr", "x")
 
-S7::method(as_fr_tdr, S7::class_data.frame) <- function(x, name = NULL, ...) {
-  if (is.null(name)) {
+S7::method(as_fr_tdr, S7::class_data.frame) <- function(x, ...) {
+  dots <- list(...)
+  if (is.null(dots$name)) {
     cli::cli_warn(c(
       "!" = "{.arg name} was not supplied, but was guessed",
       "i" = "instead, specify the {.arg name} argument"
     ))
-    name <- deparse(substitute(x))
+    dots$name <- deparse(substitute(x))
   }
-  fr_tdr(
-    schema = fr_schema(fields = purrr::imap(x, as_fr_field)),
-    name = name,
-    data = tibble::as_tibble(x),
-    ...
-  )
+  dots$schema <- fr_schema(fields = purrr::imap(x, as_fr_field))
+  dots$data <- tibble::as_tibble(x)
+  do.call(fr_tdr, dots)
 }
 
 S7::method(as.data.frame, fr_tdr) <- function(x, ...) {

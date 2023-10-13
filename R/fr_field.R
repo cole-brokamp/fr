@@ -30,8 +30,8 @@ fr_field <- S7::new_class(
 #' | `logical()` | `boolean` |
 #' | `Date` | `date` |
 #'
-#' - Use `as_fr_field()` on an existing `fr_field` object to *update* its properties
 #' - Use `as_fr_field()` with a list of named values corresponding to the ... properties
+#' - 
 #' @param x a character, factor, numeric, integer, logical, or Date vector
 #' @param ... `name`, `title`, or `description` property ([`name` is required](https://specs.frictionlessdata.io/table-schema/#name))
 #' @return a [fr_field][fr::fr-package] object
@@ -45,14 +45,9 @@ fr_field <- S7::new_class(
 #' @export
 as_fr_field <- S7::new_generic("as_fr_field", "x")
 
-S7::method(as_fr_field, fr_field) <- function(x, ...) {
-  S7::props(x) <- purrr::list_modify(S7::props(x), ...)
-  return(x)
-}
-
 S7::method(as_fr_field, S7::class_list) <- function(x) {
   do.call("fr_field", x)
-  }
+}
 
 S7::method(as_fr_field, S7::class_numeric) <- function(x, name, ...) {
   fr_field(name = name, type = "number", ...)

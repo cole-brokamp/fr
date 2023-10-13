@@ -2,7 +2,7 @@
 % Please edit documentation in R/update_field.R
 \name{update_field}
 \alias{update_field}
-\title{update field-specific metadata in a fr_tdr object}
+\title{add or update field-specific metadata in a fr_tdr object}
 \usage{
 update_field(x, field, ...)
 }
@@ -17,7 +17,7 @@ update_field(x, field, ...)
 an \code{\link[=fr-package]{fr_tdr}} object containing the updated field
 }
 \description{
-update field-specific metadata in a fr_tdr object
+add or update field-specific metadata in a fr_tdr object
 }
 \examples{
 my_mtcars <-

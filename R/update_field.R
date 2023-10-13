@@ -1,4 +1,4 @@
-#' update field-specific metadata in a fr_tdr object
+#' add or update field-specific metadata in a fr_tdr object
 #' @param x a [`fr_tdr`][fr::fr-package] object
 #' @param field character name of field in x to update
 #' @param ... [table schema field descriptors](https://specs.frictionlessdata.io/table-schema/#field-descriptors) (e.g., `title`, `description`)
@@ -22,7 +22,10 @@ update_field <- function(x, field, ...) {
     stop("Can't find field ", field, " in x", call. = FALSE)
   }
 
-  x@schema@fields[[field]] <- as_fr_field(S7::prop(S7::prop(x, "schema"), "fields")[[field]], ...)
+  dots <- list(...)
+  dots_new <- purrr::list_modify(S7::props(x@schema@fields[[field]]), !!!dots)
+
+  x@schema@fields[[field]] <- as_fr_field(dots_new)
 
   return(x)
-  }
+}

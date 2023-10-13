@@ -39,16 +39,6 @@ test_that("as_fr_field works", {
 
 })
 
-test_that("updating fr_field descriptors works", {
-
-  as_fr_field(as.Date(c("2023-09-23", "2011-11-19")), name = "example_date") |>
-    as_fr_field(description = "my updated description") |>
-    as_fr_field(description = "my other description") |>
-    S7::prop("description") |>
-    expect_identical("my other description")
-
-  })
-
 test_that("fr_field from a list works", {
   as_fr_field(list(name = "example_factor", type = "string",
                 constraints = list(enum = c("ab", "cd", "ef")))) |>

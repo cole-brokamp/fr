@@ -87,7 +87,7 @@ test_that("fr_tdr works", {
 
 
   mtcars |>
-    as_fr_tdr("mtcars") |>
+    as_fr_tdr("mtcars", name = "mtcars") |>
     as_data_frame() |>
     expect_identical(tibble::remove_rownames(mtcars))
 

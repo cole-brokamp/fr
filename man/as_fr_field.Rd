@@ -27,8 +27,8 @@ The supported classes of \code{R} objects are converted to the corresponding fri
 }
 \details{
 \itemize{
-\item Use \code{as_fr_field()} on an existing \code{fr_field} object to \emph{update} its properties
 \item Use \code{as_fr_field()} with a list of named values corresponding to the ... properties
+\item 
 }
 }
 \examples{
