@@ -86,7 +86,7 @@ S7::method(as_list, fr_tdr) <- function(x, ...) {
 
 S7::method(print, fr_tdr) <- function(x, ...) {
   cli::cli_div(theme = list(
-    span.fr_desc = list(color = "lightgrey"),
+    span.fr_desc = list(color = "darkgrey"),
     "span.fr_desc" = list(before = "• "),
     "span.fr_desc" = list(after = "")))
   cli::cli_text(c(" " = "── {.pkg {x@name}} ──"))
