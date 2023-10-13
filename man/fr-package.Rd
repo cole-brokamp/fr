@@ -6,7 +6,7 @@
 \alias{fr-package}
 \title{fr: Frictionless Standards in R}
 \description{
-Classes for Frictionless table and field schema as well as tabular-data-resource are provided. Tools for creating, curating, writing, and reading tabular-data-resources are also available.
+Tools for creating, curating, writing, and reading Frictionless tabular-data-resources.
 }
 \seealso{
 Useful links:

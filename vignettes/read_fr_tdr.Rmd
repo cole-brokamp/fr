@@ -42,7 +42,7 @@ Print the returned `fr_tdr` (frictionless tabular-data-resource) object to view 
 d_fr
 ```
 
-Use `str()` or `tibble::glimpse()` to view all field- and table-specific descriptors:
+Use `str()` (or `tibble::glimpse()`) to view all field- and table-specific metadata:
 
 ```{r}
 tibble::glimpse(d_fr)

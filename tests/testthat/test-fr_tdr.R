@@ -37,6 +37,11 @@ test_that("fr_tdr works", {
     tibble::as_tibble() |>
     expect_identical(tibble::as_tibble(mtcars))
 
+  })
+
+test_that("print methods for fr_tdr", {
+  skip_on_ci()
+
   d_fr <-
     mtcars |>
     tibble::as_tibble() |>
@@ -49,10 +54,6 @@ test_that("fr_tdr works", {
       description = "The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models)."
     )
 
-  })
-
-test_that("print methods for fr_tdr", {
-  skip_on_ci()
   withr::with_options(list(width = 80), {
     d_fr |>
       expect_snapshot()

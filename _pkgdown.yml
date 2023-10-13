@@ -19,6 +19,7 @@ reference:
 - title: Create and modify `fr_tdr` objects
   contents:
   - as_fr_tdr
+  - update_field
   - as_list
   - as_data_frame
 - title: Create and modify `fr_field` objects

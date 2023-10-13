@@ -9,7 +9,7 @@ as_fr_tdr(x, ...)
 \arguments{
 \item{x}{a data.frame}
 
-\item{...}{optional \href{https://specs.frictionlessdata.io/data-resource/#descriptor}{tabular-data-resource properties} (e.g., \code{path}, \code{version}, \code{title}, \code{homepage}, \code{description}}
+\item{...}{optional \href{https://specs.frictionlessdata.io/data-resource/#descriptor}{tabular-data-resource properties} (e.g., \code{path}, \code{version}, \code{title}, \code{homepage}, \code{description})}
 
 \item{name}{the \code{name} property}
 }

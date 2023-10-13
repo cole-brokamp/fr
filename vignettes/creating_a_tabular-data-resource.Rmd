@@ -58,7 +58,13 @@ d_tdr <-
 d_tdr
 ```
 
-We can check that the field-specific metadata was included:
+Print the `fr_tdr` object to view any table-specific metadata:
+
+```{r}
+d_tdr
+```
+
+Use `str()` (or `tibble::glimpse()`) to view all field- and table-specific metadata:
 
 ```{r}
 str(d_tdr)
@@ -67,22 +73,27 @@ str(d_tdr)
 Reach in and update field-specific metadata:
 
 ```{r}
-d_tdr@schema@fields$id@title <- "Identifier"
-d_tdr@schema@fields$id@description <- "This is a unique identifier for each study participant."
+d_tdr <-
+  d_tdr |>
+  update_field("id",
+               title = "Identifier",
+               description = "This is a unique identifier for each study participant.")
 ```
 
-It will complain if a descriptor is not valid:
+It will complain if the descriptor is not valid:
 
 ```{r}
 #| error: true
-d_tdr@schema@fields$id@type <- "foofy"
+d_tdr |>
+  update_field("id", foofy = "Identifier")
 ```
 
-... or does not exist:
+... or the field is not found:
 
 ```{r}
 #| error: true
-d_tdr@schema@fields$id@the_type <- "string"
+d_tdr |>
+  update_field("foofy", title = "My foofy")
 ```
 
 Write this to disk with `write_fr_tdr`:

@@ -24,7 +24,7 @@ fr_tdr <- S7::new_class(
 #' Coerce a data frame into a [`fr_tdr`][fr::fr-package] object
 #' @param x a data.frame
 #' @param name the `name` property
-#' @param ... optional [tabular-data-resource properties](https://specs.frictionlessdata.io/data-resource/#descriptor) (e.g., `path`, `version`, `title`, `homepage`, `description`
+#' @param ... optional [tabular-data-resource properties](https://specs.frictionlessdata.io/data-resource/#descriptor) (e.g., `path`, `version`, `title`, `homepage`, `description`)
 #' @return a [fr_tdr][fr::fr-package] object
 #' @export
 as_fr_tdr <- S7::new_generic("as_fr_tdr", "x")
@@ -87,9 +87,9 @@ S7::method(as_list, fr_tdr) <- function(x, ...) {
 S7::method(print, fr_tdr) <- function(x, ...) {
   cli::cli_div(theme = list(
     span.fr_desc = list(color = "darkgrey"),
-    "span.fr_desc" = list(before = "• "),
+    "span.fr_desc" = list(before = "# "),
     "span.fr_desc" = list(after = "")))
-  cli::cli_text(c(" " = "── {.pkg {x@name}} ──"))
+  cli::cli_text(c(" " = "# name: {.pkg {x@name}}"))
   if (length(x@version) > 0) cli::cli_text("{.fr_desc version: {x@version}}")
   if (length(x@title) > 0) cli::cli_text("{.fr_desc title: {x@title}}")
   if (length(x@homepage) > 0) cli::cli_text("{.fr_desc homepage: {.url {x@homepage}}}")
