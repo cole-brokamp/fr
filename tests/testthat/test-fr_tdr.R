@@ -97,6 +97,7 @@ test_that("fr_tdr works", {
 })
 
 test_that("print methods for fr_tdr", {
+  skip_on_ci()
   d_fr <-
     mtcars |>
     tibble::as_tibble() |>
@@ -110,10 +111,8 @@ test_that("print methods for fr_tdr", {
     )
 
   withr::with_options(list(width = 80), {
-    skip_on_ci()
     d_fr |>
       expect_snapshot()
-    skip_on_ci()
     as_fr_tdr(mtcars, name = "mtcars") |>
       expect_snapshot()
   })
