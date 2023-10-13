@@ -4,7 +4,7 @@ Version: 0.1.0
 Authors@R: 
     person("Cole", "Brokamp", , "cole@colebrokamp.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-0289-3151"))
-Description: Classes for Frictionless table and field schema as well as tabular-data-resource are provided. Tools for creating, curating, writing, and reading tabular-data-resources are also available.
+Description: Tools for creating, curating, writing, and reading Frictionless tabular-data-resources.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
