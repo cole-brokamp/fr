@@ -159,7 +159,7 @@ all field- and table-specific metadata:</p>
 <span><span class="co">#&gt;  .. @ missingValues: chr(0) </span></span>
 <span><span class="co">#&gt;  .. @ primaryKey   : chr(0) </span></span>
 <span><span class="co">#&gt;  .. @ foreignKeys  : chr(0) </span></span>
-<span><span class="co">#&gt;  @ data       : tibble [226 × 3] (S3: tbl_df/tbl/data.frame)</span></span>
+<span><span class="co">#&gt;  @ data       : spc_tbl_ [226 × 3] (S3: spec_tbl_df/tbl_df/tbl/data.frame)</span></span>
 <span><span class="co">#&gt;  $ census_tract_id_2020: chr [1:226] "39061021508" "39061021421" "39061023300" "39061002000" ...</span></span>
 <span><span class="co">#&gt;  $ year                : num [1:226] 2020 2020 2020 2020 2020 2020 2020 2020 2020 2020 ...</span></span>
 <span><span class="co">#&gt;  $ fraction_poverty    : num [1:226] 0.057 0.031 0.03 0.098 0.442 0.603 0.15 0.15 0.013 0.247 ...</span></span>
@@ -167,8 +167,10 @@ all field- and table-specific metadata:</p>
 <span><span class="co">#&gt;   .. cols(</span></span>
 <span><span class="co">#&gt;   ..   census_tract_id_2020 = <span style="color: #BB0000;">col_character()</span>,</span></span>
 <span><span class="co">#&gt;   ..   year = <span style="color: #00BB00;">col_number()</span>,</span></span>
-<span><span class="co">#&gt;   ..   fraction_poverty = <span style="color: #00BB00;">col_number()</span></span></span>
-<span><span class="co">#&gt;   .. )</span></span></code></pre></div>
+<span><span class="co">#&gt;   ..   fraction_poverty = <span style="color: #00BB00;">col_number()</span>,</span></span>
+<span><span class="co">#&gt;   ..   .delim = ","</span></span>
+<span><span class="co">#&gt;   .. )</span></span>
+<span><span class="co">#&gt;  - attr(*, "problems")=&lt;externalptr&gt;</span></span></code></pre></div>
 <p>Convert the <code>fr_tdr</code> object to a list of metadata
 attributes for further processing:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
