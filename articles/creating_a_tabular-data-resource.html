@@ -131,11 +131,11 @@ automatically create all of the frictionless field-specific metadata
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">d_tdr</span></span>
-<span><span class="co">#&gt; ── <span style="color: #0000BB;">types_example</span> ──</span></span>
-<span><span class="co">#&gt; <span style="color: #9E9E9E;">• version: 0.1.0</span></span></span>
-<span><span class="co">#&gt; <span style="color: #9E9E9E;">• title: Example Data with Types</span></span></span>
-<span><span class="co">#&gt; <span style="color: #9E9E9E;">• homepage: </span><span style="color: #0000BB; font-style: italic;">&lt;https://geomarker.io&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #9E9E9E;">• description: This is used as an example dataset in the {fr} package vignette</span></span></span>
+<span><span class="co">#&gt; # name: <span style="color: #0000BB;">types_example</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># version: 0.1.0</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># title: Example Data with Types</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># homepage: </span><span style="color: #0000BB; font-style: italic;">&lt;https://geomarker.io&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># description: This is used as an example dataset in the {fr} package vignette</span></span></span>
 <span><span class="co">#&gt; <span style="color: #9E9E9E;">on `Creating a tabular-data-resource`.</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 6</span></span></span>
 <span><span class="co">#&gt;   id    date       measure rating ranking impt </span></span>
@@ -143,8 +143,25 @@ automatically create all of the frictionless field-specific metadata
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> A01   2022-07-25    12.8 good        14 FALSE</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> A02   2018-07-10    13.9 best        17 TRUE </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> A03   2013-08-15    15.6 best        19 TRUE</span></span></code></pre></div>
-<p>We can check that the field-specific metadata was included:</p>
+<p>Print the <code>fr_tdr</code> object to view any table-specific
+metadata:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">d_tdr</span></span>
+<span><span class="co">#&gt; # name: <span style="color: #0000BB;">types_example</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># version: 0.1.0</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># title: Example Data with Types</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># homepage: </span><span style="color: #0000BB; font-style: italic;">&lt;https://geomarker.io&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># description: This is used as an example dataset in the {fr} package vignette</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;">on `Creating a tabular-data-resource`.</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 6</span></span></span>
+<span><span class="co">#&gt;   id    date       measure rating ranking impt </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> A01   2022-07-25    12.8 good        14 FALSE</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> A02   2018-07-10    13.9 best        17 TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> A03   2013-08-15    15.6 best        19 TRUE</span></span></code></pre></div>
+<p>Use <code><a href="https://rdrr.io/r/utils/str.html" class="external-link">str()</a></code> (or <code><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">tibble::glimpse()</a></code>) to view
+all field- and table-specific metadata:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">d_tdr</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;fr_tdr&gt;</span></span>
 <span><span class="co">#&gt;  @ name       : chr "types_example"</span></span>
@@ -203,20 +220,24 @@ automatically create all of the frictionless field-specific metadata
 <span><span class="co">#&gt;  $ ranking: num [1:3] 14 17 19</span></span>
 <span><span class="co">#&gt;  $ impt   : logi [1:3] FALSE TRUE TRUE</span></span></code></pre></div>
 <p>Reach in and update field-specific metadata:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">d_tdr</span><span class="op">@</span><span class="va">schema</span><span class="op">@</span><span class="va">fields</span><span class="op">$</span><span class="va">id</span><span class="op">@</span><span class="va">title</span> <span class="op">&lt;-</span> <span class="st">"Identifier"</span></span>
-<span><span class="va">d_tdr</span><span class="op">@</span><span class="va">schema</span><span class="op">@</span><span class="va">fields</span><span class="op">$</span><span class="va">id</span><span class="op">@</span><span class="va">description</span> <span class="op">&lt;-</span> <span class="st">"This is a unique identifier for each study participant."</span></span></code></pre></div>
-<p>It will complain if a descriptor is not valid:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">d_tdr</span><span class="op">@</span><span class="va">schema</span><span class="op">@</span><span class="va">fields</span><span class="op">$</span><span class="va">id</span><span class="op">@</span><span class="va">type</span> <span class="op">&lt;-</span> <span class="st">"foofy"</span></span>
-<span><span class="co">#&gt; Error: &lt;fr_field&gt; object is invalid:</span></span>
-<span><span class="co">#&gt; - @type must be one of 'number', 'string', 'boolean', 'date', or 'integer'</span></span></code></pre></div>
-<p>… or does not exist:</p>
+<code class="sourceCode R"><span><span class="va">d_tdr</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">d_tdr</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/update_field.html">update_field</a></span><span class="op">(</span><span class="st">"id"</span>,</span>
+<span>               title <span class="op">=</span> <span class="st">"Identifier"</span>,</span>
+<span>               description <span class="op">=</span> <span class="st">"This is a unique identifier for each study participant."</span><span class="op">)</span></span></code></pre></div>
+<p>It will complain if the descriptor is not valid:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">d_tdr</span><span class="op">@</span><span class="va">schema</span><span class="op">@</span><span class="va">fields</span><span class="op">$</span><span class="va">id</span><span class="op">@</span><span class="va">the_type</span> <span class="op">&lt;-</span> <span class="st">"string"</span></span>
-<span><span class="co">#&gt; Error: Can't find property &lt;fr_field&gt;@the_type</span></span></code></pre></div>
-<p>Write this to disk with <code>write_fr_tdr</code>:</p>
+<code class="sourceCode R"><span><span class="va">d_tdr</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/update_field.html">update_field</a></span><span class="op">(</span><span class="st">"id"</span>, foofy <span class="op">=</span> <span class="st">"Identifier"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error: Can't find property &lt;fr_field&gt;@foofy</span></span></code></pre></div>
+<p>… or the field is not found:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">d_tdr</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/update_field.html">update_field</a></span><span class="op">(</span><span class="st">"foofy"</span>, title <span class="op">=</span> <span class="st">"My foofy"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error: Can't find field foofy in x</span></span></code></pre></div>
+<p>Write this to disk with <code>write_fr_tdr</code>:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/write_fr_tdr.html">write_fr_tdr</a></span><span class="op">(</span><span class="va">d_tdr</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/dir_tree.html" class="external-link">dir_tree</a></span><span class="op">(</span><span class="st">"types_example"</span><span class="op">)</span></span>
