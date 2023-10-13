@@ -14,6 +14,8 @@ test_that("read_fr_tdr works with url", {
   read_fr_tdr("https://raw.githubusercontent.com/cole-brokamp/fr/main/inst/hamilton_poverty_2020/tabular-data-resource.yaml") |>
     expect_s3_class("fr_tdr")
 
+  skip_if_offline()
+  skip_on_ci()
   read_fr_tdr("https://raw.githubusercontent.com/cole-brokamp/fr/main/inst/hamilton_poverty_2020") |>
     expect_s3_class("fr_tdr")
 })
