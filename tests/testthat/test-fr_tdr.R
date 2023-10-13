@@ -37,7 +37,65 @@ test_that("fr_tdr works", {
     tibble::as_tibble() |>
     expect_identical(tibble::as_tibble(mtcars))
 
-  })
+  d_fr <-
+    mtcars |>
+    tibble::as_tibble() |>
+    dplyr::mutate(cyl = as.factor(cyl)) |>
+    as_fr_tdr(
+      name = "mtcars",
+      version = "0.9.1",
+      title = "Motor Trend Car Road Tests",
+      homepage = "https://rdrr.io/r/datasets/mtcars.html",
+      description = "The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models)."
+    )
+
+  # extractors
+  expect_identical(d_fr$cyl, as.factor(mtcars$cyl))
+  expect_identical(d_fr$mpg, mtcars$mpg)
+  expect_identical(d_fr[["mpg"]], mtcars$mpg)
+  expect_identical(d_fr["mpg"], mtcars$mpg)
+
+  # as_list
+  d_fr |>
+    as_list() |>
+    expect_identical(list(
+      name = "mtcars", path = character(0), version = "0.9.1",
+      title = "Motor Trend Car Road Tests", homepage = "https://rdrr.io/r/datasets/mtcars.html",
+      description = "The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models).",
+      schema = list(fields = list(
+        mpg = list(name = "mpg", type = "number"),
+        cyl = list(name = "cyl", type = "string", constraints = list(
+          enum = c("4", "6", "8")
+        )), disp = list(
+          name = "disp",
+          type = "number"
+        ), hp = list(name = "hp", type = "number"),
+        drat = list(name = "drat", type = "number"), wt = list(
+          name = "wt", type = "number"
+        ), qsec = list(
+          name = "qsec",
+          type = "number"
+        ), vs = list(name = "vs", type = "number"),
+        am = list(name = "am", type = "number"), gear = list(
+          name = "gear", type = "number"
+        ), carb = list(
+          name = "carb",
+          type = "number"
+        )
+      ))
+    ))
+
+
+  mtcars |>
+    as_fr_tdr("mtcars") |>
+    as_data_frame() |>
+    expect_identical(tibble::remove_rownames(mtcars))
+
+  d_fr |>
+    tibble::as_tibble() |>
+    expect_identical(dplyr::mutate(tibble::as_tibble(mtcars), cyl = as.factor(cyl)))
+
+})
 
 test_that("print methods for fr_tdr", {
   skip_on_ci()
@@ -58,18 +116,6 @@ test_that("print methods for fr_tdr", {
     d_fr |>
       expect_snapshot()
     as_fr_tdr(mtcars, name = "mtcars") |>
-      expect_snapshot()
-  })
-
-  # extractors
-  expect_identical(d_fr$cyl, as.factor(mtcars$cyl))
-  expect_identical(d_fr$mpg, mtcars$mpg)
-  expect_identical(d_fr[["mpg"]], mtcars$mpg)
-  expect_identical(d_fr["mpg"], mtcars$mpg)
-
-  withr::with_options(list(width = 80), {
-    d_fr |>
-      as_list() |>
       expect_snapshot()
   })
 })

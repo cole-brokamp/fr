@@ -10,8 +10,8 @@ test_that("read_fr_tdr works", {
 
 test_that("read_fr_tdr works with url", {
   skip_if_offline()
-
-  expect_s3_class("fr_tdr")
+  read_fr_tdr("https://github.com/geomarker-io/curated_violations/releases/download/0.1.2/tabular-data-resource.yaml") |>
+    expect_s3_class("fr_tdr")
 
   read_fr_tdr("https://github.com/geomarker-io/curated_violations/releases/download/0.1.2") |>
     expect_s3_class("fr_tdr")
