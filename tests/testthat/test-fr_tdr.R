@@ -49,10 +49,13 @@ test_that("fr_tdr works", {
       description = "The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models)."
     )
 
+  })
+
+test_that("print methods for fr_tdr", {
+  skip_on_ci()
   withr::with_options(list(width = 80), {
     d_fr |>
       expect_snapshot()
-
     as_fr_tdr(mtcars, name = "mtcars") |>
       expect_snapshot()
   })
