@@ -230,7 +230,7 @@ all field- and table-specific metadata:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d_tdr</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/update_field.html">update_field</a></span><span class="op">(</span><span class="st">"id"</span>, foofy <span class="op">=</span> <span class="st">"Identifier"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error: Can't find property &lt;fr_field&gt;@foofy</span></span></code></pre></div>
+<span><span class="co">#&gt; Error in fr_field(name = "id", type = "string", title = "Identifier", : unused argument (foofy = "Identifier")</span></span></code></pre></div>
 <p>… or the field is not found:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d_tdr</span> <span class="op">|&gt;</span></span>
