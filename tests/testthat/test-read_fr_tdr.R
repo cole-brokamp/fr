@@ -10,11 +10,10 @@ test_that("read_fr_tdr works", {
 
 test_that("read_fr_tdr works with url", {
   skip_if_offline()
-
+  skip_on_ci()
   read_fr_tdr("https://raw.githubusercontent.com/cole-brokamp/fr/main/inst/hamilton_poverty_2020/tabular-data-resource.yaml") |>
     expect_s3_class("fr_tdr")
 
   read_fr_tdr("https://raw.githubusercontent.com/cole-brokamp/fr/main/inst/hamilton_poverty_2020") |>
     expect_s3_class("fr_tdr")
-
 })
