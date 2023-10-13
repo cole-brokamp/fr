@@ -42,10 +42,10 @@ Print the returned `fr_tdr` (frictionless tabular-data-resource) object to view 
 d_fr
 ```
 
-Use `str()` or `pillar::glimpse()` to view all field- and table-specific descriptors:
+Use `str()` or `tibble::glimpse()` to view all field- and table-specific descriptors:
 
 ```{r}
-pillar::glimpse(d_fr)
+tibble::glimpse(d_fr)
 ```
 
 Convert the `fr_tdr` object to a list of metadata attributes for further processing:
