@@ -43,4 +43,9 @@ test_that("update_field works", {
     as_list() |>
     purrr::pluck("schema", "fields", "case", "description") |>
     expect_identical("My new description.")
+
+  update_field(d, "case", !!!list(title = "Case", description = "My new description.")) |>
+    as_list() |>
+    purrr::pluck("schema", "fields", "case", "description") |>
+    expect_identical("My new description.")
 })
