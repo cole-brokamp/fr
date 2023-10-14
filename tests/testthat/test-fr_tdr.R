@@ -96,6 +96,28 @@ test_that("fr_tdr works", {
     expect_identical(dplyr::mutate(tibble::as_tibble(mtcars), cyl = as.factor(cyl)))
 })
 
+test_that("as_fr_tdr works with a .template supplied", {
+
+  d_mtcars <-
+    as_fr_tdr(mtcars, name = "mtcars", title = "Motor Trend Car Road Tests") |>
+    update_field("mpg", title = "Miles per Gallon")
+
+  d <-
+    mtcars |>
+    tibble::as_tibble() |>
+    dplyr::select(mpg, cyl, disp) |>
+    as_fr_tdr(name = "my_mtcars", .template = d_mtcars)
+
+    S7::prop(d, "title") |>
+      expect_identical("Motor Trend Car Road Tests")
+
+    d |>
+      as.list() |>
+      purrr::pluck("schema", "fields", "mpg", "title") |>
+      expect_identical("Miles per Gallon")
+
+})
+
 test_that("print methods for fr_tdr", {
   skip_on_ci()
   d_fr <-

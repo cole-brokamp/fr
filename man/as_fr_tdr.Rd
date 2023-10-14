@@ -10,6 +10,8 @@ as_fr_tdr(x, ...)
 \item{x}{a data.frame}
 
 \item{...}{required (\code{name}) and optional \href{https://specs.frictionlessdata.io/data-resource/#descriptor}{tabular-data-resource properties} (e.g., \code{path}, \code{version}, \code{title}, \code{homepage}, \code{description})}
+
+\item{.template}{a template \code{\link[=fr-package]{fr_tdr}} object from which table- and field-specific metadata will be copied}
 }
 \value{
 a \link[=fr-package]{fr_tdr} object

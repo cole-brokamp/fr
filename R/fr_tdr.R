@@ -24,22 +24,35 @@ fr_tdr <- S7::new_class(
 #' Coerce a data frame into a [`fr_tdr`][fr::fr-package] object
 #' @param x a data.frame
 #' @param ... required (`name`) and optional [tabular-data-resource properties](https://specs.frictionlessdata.io/data-resource/#descriptor) (e.g., `path`, `version`, `title`, `homepage`, `description`)
+#' @param .template a template [`fr_tdr`][fr::fr-package] object from which table- and field-specific metadata will be copied
 #' @return a [fr_tdr][fr::fr-package] object
 #' @export
 as_fr_tdr <- S7::new_generic("as_fr_tdr", "x")
 
-S7::method(as_fr_tdr, S7::class_data.frame) <- function(x, ...) {
-  dots <- list(...)
+S7::method(as_fr_tdr, S7::class_data.frame) <- function(x, ..., .template = NULL) {
+  dots <- rlang::list2(...)
   if (is.null(dots$name)) {
+    dots$name <- deparse(substitute(x))
     cli::cli_warn(c(
       "!" = "{.arg name} was not supplied, but was guessed",
-      "i" = "instead, specify the {.arg name} argument"
+      "i" = "specify with {.code as_fr_tdr({dots$name}, name = \"my_name\")}"
     ))
-    dots$name <- deparse(substitute(x))
   }
   dots$schema <- fr_schema(fields = purrr::imap(x, as_fr_field))
   dots$data <- tibble::as_tibble(x)
-  do.call(fr_tdr, dots)
+  d_tdr <- do.call(fr_tdr, dots)
+  out <- d_tdr
+
+  if (!is.null(.template)) {
+    out <-
+      purrr::reduce2(
+        names(x),
+        as.list(.template)$schema$fields[names(x)],
+        \(accum, xx, yy) fr::update_field(x = accum, field = xx, !!!yy),
+        .init = .template)
+  }
+  
+  return(out)
 }
 
 S7::method(as.data.frame, fr_tdr) <- function(x, ...) {
