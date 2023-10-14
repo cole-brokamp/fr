@@ -16,7 +16,8 @@ Imports:
     S7 (>= 0.1.1),
     tibble,
     tidyselect,
-    yaml
+    yaml,
+    rlang
 Suggests: 
     testthat (>= 3.0.0),
     withr,

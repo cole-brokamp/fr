@@ -22,7 +22,7 @@ update_field <- function(x, field, ...) {
     stop("Can't find field ", field, " in x", call. = FALSE)
   }
 
-  dots <- list(...)
+  dots <- rlang::list2(...)
   dots_new <- purrr::list_modify(S7::props(x@schema@fields[[field]]), !!!dots)
 
   x@schema@fields[[field]] <- as_fr_field(dots_new)
