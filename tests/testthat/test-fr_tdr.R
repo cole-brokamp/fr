@@ -116,6 +116,23 @@ test_that("as_fr_tdr works with a .template supplied", {
       purrr::pluck("schema", "fields", "mpg", "title") |>
       expect_identical("Miles per Gallon")
 
+  dd <-
+    mtcars |>
+    tibble::as_tibble() |>
+    dplyr::select(mpg, cyl, disp) |>
+    dplyr::rename(foofy = cyl) |>
+    as_fr_tdr(name = "my_mtcars", .template = d_mtcars)
+
+    dd |>
+      as.list() |>
+      purrr::pluck("schema", "fields", "mpg", "title") |>
+      expect_identical("Miles per Gallon")
+
+    dd |>
+      as.list() |>
+      purrr::pluck("schema", "fields", "carb") |>
+      expect_null()
+
 })
 
 test_that("print methods for fr_tdr", {

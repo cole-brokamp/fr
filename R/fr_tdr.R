@@ -24,7 +24,9 @@ fr_tdr <- S7::new_class(
 #' Coerce a data frame into a [`fr_tdr`][fr::fr-package] object
 #' @param x a data.frame
 #' @param ... required (`name`) and optional [tabular-data-resource properties](https://specs.frictionlessdata.io/data-resource/#descriptor) (e.g., `path`, `version`, `title`, `homepage`, `description`)
-#' @param .template a template [`fr_tdr`][fr::fr-package] object from which table- and field-specific metadata will be copied
+#' @param .template a template [`fr_tdr`][fr::fr-package] object from which
+#' table-specific (i.e. "name", "version", "title", "homepage", "description")
+#' and field-specific metadata will be copied
 #' @return a [fr_tdr][fr::fr-package] object
 #' @export
 as_fr_tdr <- S7::new_generic("as_fr_tdr", "x")
@@ -44,12 +46,14 @@ S7::method(as_fr_tdr, S7::class_data.frame) <- function(x, ..., .template = NULL
   out <- d_tdr
 
   if (!is.null(.template)) {
+    field_intersect <- names(x)[names(x) %in% names(S7::prop(.template, "data"))]
     out <-
       purrr::reduce2(
-        names(x),
-        as.list(.template)$schema$fields[names(x)],
+        field_intersect,
+        as.list(.template)$schema$fields[field_intersect],
         \(accum, xx, yy) fr::update_field(x = accum, field = xx, !!!yy),
-        .init = .template)
+        .init = d_tdr)
+    S7::props(out) <- S7::props(.template)[c("name", "version", "title", "homepage", "description")]
   }
   
   return(out)
