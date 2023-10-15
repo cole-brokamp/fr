@@ -26,13 +26,15 @@ fr_tdr <- S7::new_class(
 #' @param ... required (`name`) and optional [tabular-data-resource properties](https://specs.frictionlessdata.io/data-resource/#descriptor) (e.g., `path`, `version`, `title`, `homepage`, `description`)
 #' @param .template a template [`fr_tdr`][fr::fr-package] object from which
 #' table-specific (i.e. "name", "version", "title", "homepage", "description")
-#' and field-specific metadata will be copied
+#' and field-specific metadata will be copied; note that all metadata provided
+#' in `...` will be ignored if this argument is provided
 #' @return a [fr_tdr][fr::fr-package] object
 #' @export
 as_fr_tdr <- S7::new_generic("as_fr_tdr", "x")
 
 S7::method(as_fr_tdr, S7::class_data.frame) <- function(x, ..., .template = NULL) {
   dots <- rlang::list2(...)
+  if (!is.null(.template)) dots$name <- "foofy"
   if (is.null(dots$name)) {
     dots$name <- deparse(substitute(x))
     cli::cli_warn(c(

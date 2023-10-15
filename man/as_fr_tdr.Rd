@@ -13,7 +13,8 @@ as_fr_tdr(x, ...)
 
 \item{.template}{a template \code{\link[=fr-package]{fr_tdr}} object from which
 table-specific (i.e. "name", "version", "title", "homepage", "description")
-and field-specific metadata will be copied}
+and field-specific metadata will be copied; note that all metadata provided
+in \code{...} will be ignored if this argument is provided}
 }
 \value{
 a \link[=fr-package]{fr_tdr} object

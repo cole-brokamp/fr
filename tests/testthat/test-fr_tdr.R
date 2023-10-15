@@ -85,7 +85,6 @@ test_that("fr_tdr works", {
       ))
     ))
 
-
   mtcars |>
     as_fr_tdr("mtcars", name = "mtcars") |>
     as_data_frame() |>
@@ -121,7 +120,7 @@ test_that("as_fr_tdr works with a .template supplied", {
     tibble::as_tibble() |>
     dplyr::select(mpg, cyl, disp) |>
     dplyr::rename(foofy = cyl) |>
-    as_fr_tdr(name = "my_mtcars", .template = d_mtcars)
+    as_fr_tdr(.template = d_mtcars)
 
     dd |>
       as.list() |>
