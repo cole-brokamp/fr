@@ -1,6 +1,6 @@
 Package: fr
 Title: Frictionless Standards in R
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: 
     person("Cole", "Brokamp", , "cole@colebrokamp.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-0289-3151"))
