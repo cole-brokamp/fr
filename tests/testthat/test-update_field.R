@@ -1,17 +1,17 @@
 test_that("update_field works", {
 
   d <- fr_tdr(
-    name = "my_example_dataset",
-    version = "0.1.0",
-    title = "My Example Dataset",
-    homepage = "https://example.com",
-    description = "This is the super fake dataset that was generated just for the purposes of illustrating the {fr} R package.",
-    data = tibble::tibble(
+    tibble::tibble(
       id = c("28f9j", "2ifne", "2foie"),
       cohort = factor(c("A", "B", "A"), levels = c("A", "B", "C")),
       score = c(1.2, 2.3, 2.1),
       case = c(TRUE, FALSE, TRUE)
     ),
+    name = "my_example_dataset",
+    version = "0.1.0",
+    title = "My Example Dataset",
+    homepage = "https://example.com",
+    description = "This is the super fake dataset that was generated just for the purposes of illustrating the {fr} R package.",
     schema =
       fr_schema(
         fields = list(

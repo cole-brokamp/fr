@@ -84,14 +84,14 @@ read_fr_tdr <- function(file) {
 
   out <-
     fr_tdr(
+      the_data,
       name = pluck_char(fr_descs, "name"),
       path = pluck_char(fr_descs, "path"),
       version = pluck_char(fr_descs, "version"),
       title = pluck_char(fr_descs, "title"),
       homepage = pluck_char(fr_descs, "homepage"),
       description = pluck_char(fr_descs, "description"),
-      schema = fr_schema(fields = lapply(fr_descs$schema$fields, as_fr_field)),
-      data = the_data
+      schema = fr_schema(fields = lapply(fr_descs$schema$fields, as_fr_field))
     )
 
   return(out)

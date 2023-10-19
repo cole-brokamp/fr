@@ -1,5 +1,6 @@
 fr_tdr <- S7::new_class(
   "fr_tdr",
+  parent = S7::class_data.frame,
   properties = list(
     name = S7::class_character,
     path = S7::class_character,
@@ -7,15 +8,14 @@ fr_tdr <- S7::new_class(
     title = S7::class_character,
     homepage = S7::class_character,
     description = S7::class_character,
-    schema = fr_schema,
-    data = S7::class_data.frame
+    schema = fr_schema
   ),
   validator = function(self) {
     if (length(self@name) != 1) {
       "@name must be length 1"
-    } else if (!all(names(self@schema@fields) %in% names(self@data))) {
+    } else if (!all(names(self@schema@fields) %in% names(S7::S7_data(self)))) {
       "not all fields in the schema are columns in the data frame"
-    } else if (!all(names(self@data) %in% names(self@schema@fields))) {
+    } else if (!all(names(S7::S7_data(self)) %in% names(self@schema@fields))) {
       "not all columns in the data frame are fields in the schema"
     }
   }
@@ -43,12 +43,13 @@ S7::method(as_fr_tdr, S7::class_data.frame) <- function(x, ..., .template = NULL
     ))
   }
   dots$schema <- fr_schema(fields = purrr::imap(x, as_fr_field))
-  dots$data <- tibble::as_tibble(x)
+  dots <- c(list(tibble::as_tibble(x)), dots)
   d_tdr <- do.call(fr_tdr, dots)
+  ## d_tdr <- fr_tdr(tibble::as_tibble(x), !!! dots)
   out <- d_tdr
 
   if (!is.null(.template)) {
-    field_intersect <- names(x)[names(x) %in% names(S7::prop(.template, "data"))]
+    field_intersect <- names(x)[names(x) %in% names(S7::S7_data(.template))]
     out <-
       purrr::reduce2(
         field_intersect,
@@ -62,7 +63,7 @@ S7::method(as_fr_tdr, S7::class_data.frame) <- function(x, ..., .template = NULL
 }
 
 S7::method(as.data.frame, fr_tdr) <- function(x, ...) {
-  as.data.frame(x@data)
+  S7::convert(x, S7::class_data.frame)
 }
 
 #' Coerce a [`fr_tdr`][fr::fr-package] object into a data frame
@@ -77,6 +78,12 @@ as_data_frame <- S7::new_generic("as_data_frame", "x")
 
 S7::method(as_data_frame, fr_tdr) <- function(x, ...) {
   as.data.frame(x)
+}
+
+as_tibble <- S7::new_generic("as_tibble", "x")
+
+S7::method(as_tibble, fr_tdr) <- function(x, ...) {
+  tibble::as_tibble(as.data.frame(x), ...)
 }
 
 S7::method(as.list, fr_tdr) <- function(x, ...) {
@@ -115,14 +122,14 @@ S7::method(print, fr_tdr) <- function(x, ...) {
 }
 
 S7::method(`$`, fr_tdr) <- function(x, name, ...) {
-  x@data[[name]]
+  S7::S7_data(x)[[name]]
 }
 
 S7::method(`[[`, fr_tdr) <- function(x, name, ...) {
-  x@data[[name]]
+  S7::S7_data(x)[[name]]
 }
 
 S7::method(`[`, fr_tdr) <- function(x, name, ...) {
-  x@data[[name]]
+  S7::S7_data(x)[[name]]
 }
 

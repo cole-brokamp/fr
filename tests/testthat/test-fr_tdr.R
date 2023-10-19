@@ -1,16 +1,16 @@
 test_that("fr_tdr works", {
   fr_tdr(
-    name = "my_example_dataset",
-    version = "0.1.0",
-    title = "My Example Dataset",
-    homepage = "https://example.com",
-    description = "This is the super fake dataset that was generated just for the purposes of illustrating the {fr} R package.",
-    data = tibble::tibble(
+    tibble::tibble(
       id = c("28f9j", "2ifne", "2foie"),
       cohort = factor(c("A", "B", "A"), levels = c("A", "B", "C")),
       score = c(1.2, 2.3, 2.1),
       case = c(TRUE, FALSE, TRUE)
     ),
+    name = "my_example_dataset",
+    version = "0.1.0",
+    title = "My Example Dataset",
+    homepage = "https://example.com",
+    description = "This is the super fake dataset that was generated just for the purposes of illustrating the {fr} R package.",
     schema =
       fr_schema(
         fields = list(
@@ -34,7 +34,7 @@ test_that("fr_tdr works", {
     expect_identical(tibble::remove_rownames(mtcars))
 
   as_fr_tdr(mtcars, name = "mtcars") |>
-    tibble::as_tibble() |>
+    as_tibble() |>
     expect_identical(tibble::as_tibble(mtcars))
 
   d_fr <-
@@ -86,12 +86,12 @@ test_that("fr_tdr works", {
     ))
 
   mtcars |>
-    as_fr_tdr("mtcars", name = "mtcars") |>
+    as_fr_tdr(name = "mtcars") |>
     as_data_frame() |>
     expect_identical(tibble::remove_rownames(mtcars))
 
   d_fr |>
-    tibble::as_tibble() |>
+    as_tibble() |>
     expect_identical(dplyr::mutate(tibble::as_tibble(mtcars), cyl = as.factor(cyl)))
 })
 
