@@ -13,9 +13,6 @@
     <loc>https://cole-brokamp.github.io/fr/articles/creating_a_tabular-data-resource.html</loc>
   </url>
   <url>
-    <loc>https://cole-brokamp.github.io/fr/articles/frictionless.html</loc>
-  </url>
-  <url>
     <loc>https://cole-brokamp.github.io/fr/articles/index.html</loc>
   </url>
   <url>
@@ -38,6 +35,9 @@
   </url>
   <url>
     <loc>https://cole-brokamp.github.io/fr/reference/as_list.html</loc>
+  </url>
+  <url>
+    <loc>https://cole-brokamp.github.io/fr/reference/dplyr_methods.html</loc>
   </url>
   <url>
     <loc>https://cole-brokamp.github.io/fr/reference/fr-package.html</loc>
