@@ -1,8 +1,8 @@
 ---
-title: "Creating a tabular-data-resource"
+title: "Create and save a tabular-data-resource"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Creating a tabular-data-resource}
+  %\VignetteIndexEntry{Create and save a tabular-data-resource}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -54,20 +54,6 @@ d_tdr <-
     homepage = "https://geomarker.io",
     description = "This is used as an example dataset in the {fr} package vignette on `Creating a tabular-data-resource`."
   )
-
-d_tdr
-```
-
-Print the `fr_tdr` object to view any table-specific metadata:
-
-```{r}
-d_tdr
-```
-
-Use `str()` (or `tibble::glimpse()`) to view all field- and table-specific metadata:
-
-```{r}
-str(d_tdr)
 ```
 
 Reach in and update field-specific metadata:
@@ -78,22 +64,6 @@ d_tdr <-
   update_field("id",
                title = "Identifier",
                description = "This is a unique identifier for each study participant.")
-```
-
-It will complain if the descriptor is not valid:
-
-```{r}
-#| error: true
-d_tdr |>
-  update_field("id", foofy = "Identifier")
-```
-
-... or the field is not found:
-
-```{r}
-#| error: true
-d_tdr |>
-  update_field("foofy", title = "My foofy")
 ```
 
 Write this to disk with `write_fr_tdr`:

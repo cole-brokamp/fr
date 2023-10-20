@@ -1,8 +1,8 @@
 ---
-title: "Reading a tabular-data-resource"
+title: "Read and manipulate a tabular-data-resource"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Reading a tabular-data-resource}
+  %\VignetteIndexEntry{Read and manipulate a tabular-data-resource}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -24,35 +24,28 @@ The {fr} package comes with an example frictionless tabular-data-resource (tdr) 
 fs::dir_tree(fs::path_package("fr", "hamilton_poverty_2020"), recurse = TRUE)
 ```
 
-Read the `hamilton_poverty_2020` tdr into R by specifying the location of the tabular-data-resource file:
+Read the `hamilton_poverty_2020` tdr into R by specifying the location of the tabular-data-resource file *or* to a folder containing a `tabular-data-resource.yaml` file:
 
 ```{r}
-d_fr <- read_fr_tdr(
-  fs::path_package(
-    "fr",
-    "hamilton_poverty_2020",
-    "tabular-data-resource.yaml"
-  )
-)
+d_fr <- read_fr_tdr(fs::path_package("fr", "hamilton_poverty_2020"))
 ```
 
-Print the returned `fr_tdr` (frictionless tabular-data-resource) object to view all of the table-specific metadata descriptors and the underlying data frame:
+Print the returned `fr_tdr` (frictionless tabular-data-resource) object to view all of the table-specific metadata descriptors and the underlying data:
 
 ```{r}
 d_fr
 ```
 
-Use `str()` (or `tibble::glimpse()`) to view all field- and table-specific metadata:
+Use `str()` to view all field- and table-specific metadata:
 
 ```{r}
-tibble::glimpse(d_fr)
+str(d_fr)
 ```
 
-Convert the `fr_tdr` object to a list of metadata attributes for further processing:
+`fr_tdr` objects can be used mostly anywhere that the underlying data frame can be used because `as.data.frame` usually is used to coerce objects into data frames and works with `fr_tdr` objects:
 
 ```{r}
-as_list(d_fr) |>
-  str()
+lm(fraction_poverty ~ year, data = d_fr)
 ```
 
 Accessor functions work as they do with data frames and tibbles:
@@ -63,15 +56,53 @@ d_fr[["fraction_poverty"]] |> class()
 d_fr["fraction_poverty"] |> class()
 ```
 
-`fr_tdr` objects can be used mostly anywhere that the underlying data frame can be used because `as.data.frame` usually is used to coerce objects into data frames and works with `fr_tdr` objects:
+In some cases, `fr_tdr` objects need to be disassociated into data and metadata before the data is manipulated and the metadata is rejoined:
 
 ```{r}
-lm(fraction_poverty ~ year, data = d_fr)
+#| error: true
+d_fr |>
+  dplyr::mutate(high_poverty = fraction_poverty > median(fraction_poverty))
 ```
 
-Explicitly convert the `fr_tdr` object to a tibble by dropping the metadata attributes using `as_tibble`, `as_data_frame`, or `as.data.frame`:
+In this case, explicitly convert the `fr_tdr` object to a tibble by dropping the metadata attributes using `as_tibble`, `as_data_frame`, or `as.data.frame` and then use `as_fr_tdr()` while specifying the original `fr_tdr` object as a template to convert back to a `fr_tdr` object:
 
 ```{r}
-tibble::as_tibble(d_fr)
+d_fr |>
+  tibble::as_tibble() |>
+  dplyr::mutate(high_poverty = fraction_poverty > median(fraction_poverty)) |>
+  as_fr_tdr(.template = d_fr)
 ```
 
+Shortcuts are provided for some functions from {dplyr} (see `dplyr_methods()` for a full list). 
+
+```{r}
+d_fr |>
+  fr_mutate(high_poverty = fraction_poverty > median(fraction_poverty)) |>
+  fr_select(-year) |>
+  fr_arrange(desc(fraction_poverty))
+```
+
+More complicated dplyr functions (e.g., `group_by()` and friends) as well as functions from other packages that do not coerce their inputs to data.frame objects will need to use the pattern above. Below is a simple example for `dplyr::left_join()`:
+
+```{r}
+library(dplyr, warn.conflicts = FALSE)
+
+d_fr <- update_field(d_fr, "fraction_poverty", description = "the poverty fraction")
+
+d_extant <-
+  d_fr |>
+  fr_mutate(score = 1 + fraction_poverty) |>
+  fr_select(-fraction_poverty, -year) |>
+  as_tibble()
+
+d_fr_new <-
+  left_join(
+    as_tibble(d_fr),
+    d_extant,
+    by = join_by(census_tract_id_2020 == census_tract_id_2020)
+  ) |>
+  as_fr_tdr(.template = d_fr) |>
+  update_field("score", description = "the score")
+
+str(d_fr_new)
+```
