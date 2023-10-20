@@ -22,6 +22,7 @@ reference:
   - update_field
   - as_list
   - as_data_frame
+  - dplyr_methods
 - title: Create and modify `fr_field` objects
   contents:
   - as_fr_field
