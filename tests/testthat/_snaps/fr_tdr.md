@@ -3,7 +3,8 @@
     Code
       d_fr
     Message <cliMessage>
-      # name: mtcars
+      
+      -- mtcars 
       # version: 0.9.1
       # title: Motor Trend Car Road Tests
       # homepage: <https://rdrr.io/r/datasets/mtcars.html>
@@ -31,7 +32,8 @@
     Code
       as_fr_tdr(mtcars, name = "mtcars")
     Message <cliMessage>
-      # name: mtcars
+      
+      -- mtcars 
     Output
       # A tibble: 32 x 11
            mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb

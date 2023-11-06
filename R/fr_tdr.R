@@ -114,7 +114,7 @@ S7::method(print, fr_tdr) <- function(x, ...) {
     span.fr_desc = list(color = "darkgrey"),
     "span.fr_desc" = list(before = "# "),
     "span.fr_desc" = list(after = "")))
-  cli::cli_text(c(" " = "# name: {.pkg {x@name}}"))
+  cli::cli_h3("{.pkg {x@name}}")
   if (length(x@version) > 0) cli::cli_text("{.fr_desc version: {x@version}}")
   if (length(x@title) > 0) cli::cli_text("{.fr_desc title: {x@title}}")
   if (length(x@homepage) > 0) cli::cli_text("{.fr_desc homepage: {.url {x@homepage}}}")

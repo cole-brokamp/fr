@@ -36,10 +36,10 @@ Print the returned `fr_tdr` (frictionless tabular-data-resource) object to view 
 d_fr
 ```
 
-Use `str()` to view all field- and table-specific metadata:
+Print the `schema` property to view the table-specific metadata:
 
 ```{r}
-str(d_fr)
+d_fr@schema
 ```
 
 `fr_tdr` objects can be used mostly anywhere that the underlying data frame can be used because `as.data.frame` usually is used to coerce objects into data frames and works with `fr_tdr` objects:
@@ -48,12 +48,10 @@ str(d_fr)
 lm(fraction_poverty ~ year, data = d_fr)
 ```
 
-Accessor functions work as they do with data frames and tibbles:
+Accessor functions (`[`, `[[`, `$`) work as they do with data frames and tibbles:
 
 ```{r}
-d_fr$fraction_poverty
-d_fr[["fraction_poverty"]] |> class()
-d_fr["fraction_poverty"] |> class()
+head(d_fr$fraction_poverty)
 ```
 
 In some cases, `fr_tdr` objects need to be disassociated into data and metadata before the data is manipulated and the metadata is rejoined:
@@ -104,5 +102,7 @@ d_fr_new <-
   as_fr_tdr(.template = d_fr) |>
   update_field("score", description = "the score")
 
-str(d_fr_new)
+d_fr_new
+
+d_fr_new@schema
 ```
