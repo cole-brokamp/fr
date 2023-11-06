@@ -80,3 +80,15 @@ is_fr_field <- function(x) {
   inherits(x, "fr_field")
 }
 
+
+S7::method(print, fr_field) <- function(x, ...) {
+  cli::cli_div(theme = list(
+    span.fr_desc = list(color = "darkgrey"),
+    "span.fr_desc" = list(before = "# "),
+    "span.fr_desc" = list(after = "")))
+  cli::cli_text("── {.field {x@name}}")
+  cli::cli_text("{.fr_desc type: {x@type}}")
+  if (length(x@title) > 0) cli::cli_text("{.fr_desc title: {x@title}}")
+  if (length(x@description) > 0) cli::cli_text("{.fr_desc description: {x@description}}")
+  if (length(x@constraints) > 0) cli::cli_text("{.fr_desc constraints: enum = {x@constraints$enum}}")
+}

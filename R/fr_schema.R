@@ -21,3 +21,10 @@ S7::method(as.list, fr_schema) <- function(x, ...) {
   out$fields <- lapply(out$fields, \(x) purrr::compact(S7::props(x)))
   return(out)
 }
+
+S7::method(print, fr_schema) <- function(x, ...) {
+  sapply(x@fields, print)
+  if (length(x@missingValues) > 0) cli::cli_text("{.fr_desc missingValues: {x@missingValues}}")
+  if (length(x@primaryKey) > 0) cli::cli_text("{.fr_desc primaryKey: {x@primaryKey}}")
+  if (length(x@foreignKeys) > 0) cli::cli_text("{.fr_desc foreignKeys: {.url {x@foreignKeys}}}")
+  }
