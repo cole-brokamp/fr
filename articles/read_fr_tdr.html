@@ -102,7 +102,8 @@ tabular-data-resource) object to view all of the table-specific metadata
 descriptors and the underlying data:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d_fr</span></span>
-<span><span class="co">#&gt; # name: <span style="color: #0000BB;">hamilton_poverty_2020</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="color: #0000BB;">hamilton_poverty_2020</span></span></span>
 <span><span class="co">#&gt; <span style="color: #9E9E9E;"># version: 0.0.1</span></span></span>
 <span><span class="co">#&gt; <span style="color: #9E9E9E;"># title: Hamilton County Poverty Rates in 2020</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 226 × 3</span></span></span>
@@ -119,44 +120,24 @@ descriptors and the underlying data:</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 39061023902           <span style="text-decoration: underline;">2</span>020            0.013</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 39061022301           <span style="text-decoration: underline;">2</span>020            0.247</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 216 more rows</span></span></span></code></pre></div>
-<p>Use <code><a href="https://rdrr.io/r/utils/str.html" class="external-link">str()</a></code> to view all field- and table-specific
+<p>Print the <code>schema</code> property to view the table-specific
 metadata:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">d_fr</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Classes 'fr_tdr', 'S7_object' and 'data.frame':  226 obs. of  3 variables:</span></span>
-<span><span class="co">#&gt; &lt;fr_tdr&gt; List of 3</span></span>
-<span><span class="co">#&gt;  $ census_tract_id_2020: chr [1:226] "39061021508" "39061021421" "39061023300" "39061002000" ...</span></span>
-<span><span class="co">#&gt;  $ year                : num [1:226] 2020 2020 2020 2020 2020 2020 2020 2020 2020 2020 ...</span></span>
-<span><span class="co">#&gt;  $ fraction_poverty    : num [1:226] 0.057 0.031 0.03 0.098 0.442 0.603 0.15 0.15 0.013 0.247 ...</span></span>
-<span><span class="co">#&gt;  @ name       : chr "hamilton_poverty_2020"</span></span>
-<span><span class="co">#&gt;  @ path       : chr "hamilton_poverty_2020.csv"</span></span>
-<span><span class="co">#&gt;  @ version    : chr "0.0.1"</span></span>
-<span><span class="co">#&gt;  @ title      : chr "Hamilton County Poverty Rates in 2020"</span></span>
-<span><span class="co">#&gt;  @ homepage   : chr </span></span>
-<span><span class="co">#&gt;  @ description: chr </span></span>
-<span><span class="co">#&gt;  @ schema     : &lt;fr_schema&gt;</span></span>
-<span><span class="co">#&gt;  .. @ fields       :List of 3</span></span>
-<span><span class="co">#&gt;  .. .. $ census_tract_id_2020: &lt;fr_field&gt;</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ name       : chr "census_tract_id_2020"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ type       : chr "string"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ title      : chr "Census Tract Identifier"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ description: chr "refers to 2020 vintage census tracts identifiers"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ constraints: list()</span></span>
-<span><span class="co">#&gt;  .. .. $ year                : &lt;fr_field&gt;</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ name       : chr "year"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ type       : chr "integer"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ title      : chr "Year"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ description: chr "The year of the 5-year ACS estimates (e.g., the 2019 ACS covers 2015 - 2019)"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ constraints: list()</span></span>
-<span><span class="co">#&gt;  .. .. $ fraction_poverty    : &lt;fr_field&gt;</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ name       : chr "fraction_poverty"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ type       : chr "number"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ title      : chr "Fraction of Households in Poverty"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ description: chr "Fraction of households with income below poverty level within the past 12 months"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ constraints: list()</span></span>
-<span><span class="co">#&gt;  .. @ missingValues: chr </span></span>
-<span><span class="co">#&gt;  .. @ primaryKey   : chr </span></span>
-<span><span class="co">#&gt;  .. @ foreignKeys  : chr</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">d_fr</span><span class="op">@</span><span class="va">schema</span></span>
+<span><span class="co">#&gt; ── <span style="color: #00BB00;">census_tract_id_2020</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># type: string</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># title: Census Tract Identifier</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># description: refers to 2020 vintage census tracts identifiers</span></span></span>
+<span><span class="co">#&gt; ── <span style="color: #00BB00;">year</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># type: integer</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># title: Year</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># description: The year of the 5-year ACS estimates (e.g., the 2019 ACS covers</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;">2015 - 2019)</span></span></span>
+<span><span class="co">#&gt; ── <span style="color: #00BB00;">fraction_poverty</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># type: number</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># title: Fraction of Households in Poverty</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># description: Fraction of households with income below poverty level within</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;">the past 12 months</span></span></span></code></pre></div>
 <p><code>fr_tdr</code> objects can be used mostly anywhere that the
 underlying data frame can be used because <code>as.data.frame</code>
 usually is used to coerce objects into data frames and works with
@@ -170,32 +151,11 @@ usually is used to coerce objects into data frames and works with
 <span><span class="co">#&gt; Coefficients:</span></span>
 <span><span class="co">#&gt; (Intercept)         year  </span></span>
 <span><span class="co">#&gt;      0.1729           NA</span></span></code></pre></div>
-<p>Accessor functions work as they do with data frames and tibbles:</p>
+<p>Accessor functions (<code>[</code>, <code>[[</code>, <code>$</code>)
+work as they do with data frames and tibbles:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">d_fr</span><span class="op">$</span><span class="va">fraction_poverty</span></span>
-<span><span class="co">#&gt;   [1] 0.057 0.031 0.030 0.098 0.442 0.603 0.150 0.150 0.013 0.247 0.297 0.256</span></span>
-<span><span class="co">#&gt;  [13] 0.152 0.280 0.036 0.229 0.155 0.062 0.037 0.319 0.051 0.070 0.299 0.098</span></span>
-<span><span class="co">#&gt;  [25] 0.068 0.125 0.346 0.181 0.021 0.213 0.295 0.252 0.465 0.083 0.076 0.394</span></span>
-<span><span class="co">#&gt;  [37] 0.482 0.132 0.115 0.599 0.220 0.576 0.094 0.499 0.254 0.040 0.157 0.269</span></span>
-<span><span class="co">#&gt;  [49] 0.393 0.393 0.327 0.098 0.048 0.094 0.114 0.106 0.007 0.104 0.129 0.033</span></span>
-<span><span class="co">#&gt;  [61] 0.033 0.176 0.094 0.097 0.090 0.033 0.209 0.395 0.592 0.061 0.052 0.167</span></span>
-<span><span class="co">#&gt;  [73] 0.215 0.200 0.225 0.392 0.540 0.399 0.128 0.307 0.175 0.135 0.028 0.047</span></span>
-<span><span class="co">#&gt;  [85] 0.078 0.123 0.046 0.232 0.556 0.326 0.084 0.028 0.066 0.131 0.124 0.754</span></span>
-<span><span class="co">#&gt;  [97] 0.038 0.089 0.057 0.098 0.094 0.142 0.110 0.266 0.043 0.102 0.025 0.093</span></span>
-<span><span class="co">#&gt; [109] 0.086 0.216 0.193 0.076 0.017 0.096 0.024 0.059 0.008 0.072 0.398 0.098</span></span>
-<span><span class="co">#&gt; [121] 0.690 0.078 0.527 0.535 0.333 0.225 0.207 0.148 0.090 0.034 0.058 0.019</span></span>
-<span><span class="co">#&gt; [133] 0.141 0.041 0.164 0.032 0.380 0.065 0.154 0.039 0.561 0.422 0.206 0.162</span></span>
-<span><span class="co">#&gt; [145] 0.045 0.196 0.250 0.102 0.045 0.198 0.257 0.458 0.117 0.044 0.048 0.061</span></span>
-<span><span class="co">#&gt; [157] 0.021 0.111 0.004 0.127 0.061 0.008 0.042 0.067 0.030 0.040 0.328 0.045</span></span>
-<span><span class="co">#&gt; [169] 0.175 0.250 0.169 0.128 0.380 0.046 0.070 0.020 0.193 0.081 0.027 0.071</span></span>
-<span><span class="co">#&gt; [181] 0.399 0.079 0.041 0.036 0.089 0.193 0.030 0.286 0.229 0.094 0.050 0.010</span></span>
-<span><span class="co">#&gt; [193] 0.022 0.194 0.404 0.268 0.198 0.127 0.157 0.199 0.028 0.098 0.190 0.108</span></span>
-<span><span class="co">#&gt; [205] 0.025 0.059 0.183 0.176 0.131 0.160 0.213 0.014 0.284 0.045 0.369 0.346</span></span>
-<span><span class="co">#&gt; [217] 0.734 0.138 0.026 0.079 0.214 0.259 0.062 0.154 0.046 0.391</span></span>
-<span><span class="va">d_fr</span><span class="op">[[</span><span class="st">"fraction_poverty"</span><span class="op">]</span><span class="op">]</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "numeric"</span></span>
-<span><span class="va">d_fr</span><span class="op">[</span><span class="st">"fraction_poverty"</span><span class="op">]</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "numeric"</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">d_fr</span><span class="op">$</span><span class="va">fraction_poverty</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.057 0.031 0.030 0.098 0.442 0.603</span></span></code></pre></div>
 <p>In some cases, <code>fr_tdr</code> objects need to be disassociated
 into data and metadata before the data is manipulated and the metadata
 is rejoined:</p>
@@ -215,7 +175,8 @@ tibble by dropping the metadata attributes using <code>as_tibble</code>,
 <span>  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>high_poverty <span class="op">=</span> <span class="va">fraction_poverty</span> <span class="op">&gt;</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="va">fraction_poverty</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/as_fr_tdr.html">as_fr_tdr</a></span><span class="op">(</span>.template <span class="op">=</span> <span class="va">d_fr</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # name: <span style="color: #0000BB;">hamilton_poverty_2020</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="color: #0000BB;">hamilton_poverty_2020</span></span></span>
 <span><span class="co">#&gt; <span style="color: #9E9E9E;"># version: 0.0.1</span></span></span>
 <span><span class="co">#&gt; <span style="color: #9E9E9E;"># title: Hamilton County Poverty Rates in 2020</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 226 × 4</span></span></span>
@@ -239,7 +200,8 @@ tibble by dropping the metadata attributes using <code>as_tibble</code>,
 <span>  <span class="fu"><a href="../reference/dplyr_methods.html">fr_mutate</a></span><span class="op">(</span>high_poverty <span class="op">=</span> <span class="va">fraction_poverty</span> <span class="op">&gt;</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="va">fraction_poverty</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/dplyr_methods.html">fr_select</a></span><span class="op">(</span><span class="op">-</span><span class="va">year</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/dplyr_methods.html">fr_arrange</a></span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">fraction_poverty</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # name: <span style="color: #0000BB;">hamilton_poverty_2020</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="color: #0000BB;">hamilton_poverty_2020</span></span></span>
 <span><span class="co">#&gt; <span style="color: #9E9E9E;"># version: 0.0.1</span></span></span>
 <span><span class="co">#&gt; <span style="color: #9E9E9E;"># title: Hamilton County Poverty Rates in 2020</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 226 × 3</span></span></span>
@@ -280,48 +242,43 @@ Below is a simple example for <code><a href="https://dplyr.tidyverse.org/referen
 <span>  <span class="fu"><a href="../reference/as_fr_tdr.html">as_fr_tdr</a></span><span class="op">(</span>.template <span class="op">=</span> <span class="va">d_fr</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/update_field.html">update_field</a></span><span class="op">(</span><span class="st">"score"</span>, description <span class="op">=</span> <span class="st">"the score"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">d_fr_new</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Classes 'fr_tdr', 'S7_object' and 'data.frame':  226 obs. of  4 variables:</span></span>
-<span><span class="co">#&gt; &lt;fr_tdr&gt; List of 4</span></span>
-<span><span class="co">#&gt;  $ census_tract_id_2020: chr [1:226] "39061021508" "39061021421" "39061023300" "39061002000" ...</span></span>
-<span><span class="co">#&gt;  $ year                : num [1:226] 2020 2020 2020 2020 2020 2020 2020 2020 2020 2020 ...</span></span>
-<span><span class="co">#&gt;  $ fraction_poverty    : num [1:226] 0.057 0.031 0.03 0.098 0.442 0.603 0.15 0.15 0.013 0.247 ...</span></span>
-<span><span class="co">#&gt;  $ score               : num [1:226] 1.06 1.03 1.03 1.1 1.44 ...</span></span>
-<span><span class="co">#&gt;  @ name       : chr "hamilton_poverty_2020"</span></span>
-<span><span class="co">#&gt;  @ path       : chr "hamilton_poverty_2020.csv"</span></span>
-<span><span class="co">#&gt;  @ version    : chr "0.0.1"</span></span>
-<span><span class="co">#&gt;  @ title      : chr "Hamilton County Poverty Rates in 2020"</span></span>
-<span><span class="co">#&gt;  @ homepage   : chr </span></span>
-<span><span class="co">#&gt;  @ description: chr </span></span>
-<span><span class="co">#&gt;  @ schema     : &lt;fr_schema&gt;</span></span>
-<span><span class="co">#&gt;  .. @ fields       :List of 4</span></span>
-<span><span class="co">#&gt;  .. .. $ census_tract_id_2020: &lt;fr_field&gt;</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ name       : chr "census_tract_id_2020"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ type       : chr "string"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ title      : chr "Census Tract Identifier"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ description: chr "refers to 2020 vintage census tracts identifiers"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ constraints: list()</span></span>
-<span><span class="co">#&gt;  .. .. $ year                : &lt;fr_field&gt;</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ name       : chr "year"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ type       : chr "integer"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ title      : chr "Year"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ description: chr "The year of the 5-year ACS estimates (e.g., the 2019 ACS covers 2015 - 2019)"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ constraints: list()</span></span>
-<span><span class="co">#&gt;  .. .. $ fraction_poverty    : &lt;fr_field&gt;</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ name       : chr "fraction_poverty"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ type       : chr "number"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ title      : chr "Fraction of Households in Poverty"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ description: chr "the poverty fraction"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ constraints: list()</span></span>
-<span><span class="co">#&gt;  .. .. $ score               : &lt;fr_field&gt;</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ name       : chr "score"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ type       : chr "number"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ title      : chr </span></span>
-<span><span class="co">#&gt;  .. ..  ..@ description: chr "the score"</span></span>
-<span><span class="co">#&gt;  .. ..  ..@ constraints: list()</span></span>
-<span><span class="co">#&gt;  .. @ missingValues: chr </span></span>
-<span><span class="co">#&gt;  .. @ primaryKey   : chr </span></span>
-<span><span class="co">#&gt;  .. @ foreignKeys  : chr</span></span></code></pre></div>
+<span><span class="va">d_fr_new</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="color: #0000BB;">hamilton_poverty_2020</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># version: 0.0.1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># title: Hamilton County Poverty Rates in 2020</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 226 × 4</span></span></span>
+<span><span class="co">#&gt;    census_tract_id_2020  year fraction_poverty score</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 39061021508           <span style="text-decoration: underline;">2</span>020            0.057  1.06</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 39061021421           <span style="text-decoration: underline;">2</span>020            0.031  1.03</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 39061023300           <span style="text-decoration: underline;">2</span>020            0.03   1.03</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 39061002000           <span style="text-decoration: underline;">2</span>020            0.098  1.10</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 39061002500           <span style="text-decoration: underline;">2</span>020            0.442  1.44</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 39061007700           <span style="text-decoration: underline;">2</span>020            0.603  1.60</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 39061009902           <span style="text-decoration: underline;">2</span>020            0.15   1.15</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 39061010700           <span style="text-decoration: underline;">2</span>020            0.15   1.15</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 39061023902           <span style="text-decoration: underline;">2</span>020            0.013  1.01</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 39061022301           <span style="text-decoration: underline;">2</span>020            0.247  1.25</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 216 more rows</span></span></span>
+<span></span>
+<span><span class="va">d_fr_new</span><span class="op">@</span><span class="va">schema</span></span>
+<span><span class="co">#&gt; ── <span style="color: #00BB00;">census_tract_id_2020</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># type: string</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># title: Census Tract Identifier</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># description: refers to 2020 vintage census tracts identifiers</span></span></span>
+<span><span class="co">#&gt; ── <span style="color: #00BB00;">year</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># type: integer</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># title: Year</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># description: The year of the 5-year ACS estimates (e.g., the 2019 ACS covers</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;">2015 - 2019)</span></span></span>
+<span><span class="co">#&gt; ── <span style="color: #00BB00;">fraction_poverty</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># type: number</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># title: Fraction of Households in Poverty</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># description: the poverty fraction</span></span></span>
+<span><span class="co">#&gt; ── <span style="color: #00BB00;">score</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># type: number</span></span></span>
+<span><span class="co">#&gt; <span style="color: #9E9E9E;"># description: the score</span></span></span></code></pre></div>
   </main>
 </div>
 
