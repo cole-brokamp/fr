@@ -59,7 +59,7 @@ test_that("fr_tdr works", {
   d_fr |>
     as_list() |>
     expect_identical(list(
-      name = "mtcars", path = character(0), version = "0.9.1",
+      name = "mtcars", version = "0.9.1",
       title = "Motor Trend Car Road Tests", homepage = "https://rdrr.io/r/datasets/mtcars.html",
       description = "The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models).",
       schema = list(fields = list(

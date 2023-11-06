@@ -16,7 +16,8 @@ fr_schema <- S7::new_class(
   }
 )
 
-## fr_schema(fields = list(
-##   fr_field(name = "first_field", type = "numeric"),
-##   fr_field(name = "second_field", type = "string")
-## ))
+S7::method(as.list, fr_schema) <- function(x, ...) {
+  out <- purrr::compact(S7::props(x))
+  out$fields <- lapply(out$fields, \(x) purrr::compact(S7::props(x)))
+  return(out)
+}
