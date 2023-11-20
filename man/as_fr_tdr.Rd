@@ -10,15 +10,16 @@ as_fr_tdr(x, ...)
 \item{x}{a data.frame}
 
 \item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> required (\code{name}) and optional \href{https://specs.frictionlessdata.io/data-resource/#descriptor}{tabular-data-resource properties} (e.g., \code{path}, \code{version}, \code{title}, \code{homepage}, \code{description})}
-
-\item{.template}{a template \code{\link[=fr-package]{fr_tdr}} object from which
-table-specific (i.e. "name", "version", "title", "homepage", "description")
-and field-specific metadata will be copied; note that all metadata provided
-in \code{...} will be ignored if this argument is provided}
 }
 \value{
 a \link[=fr-package]{fr_tdr} object
 }
 \description{
 Coerce a data frame into a \code{\link[=fr-package]{fr_tdr}} object
+}
+\details{
+Use the \code{.template} argument to provide a template \code{\link[=fr-package]{fr_tdr}} object from which
+table-specific (i.e. "name", "version", "title", "homepage", "description")
+and field-specific metadata will be copied; note that all metadata provided
+in \code{...} will be ignored if this argument is provided
 }
