@@ -25,7 +25,7 @@ pak::pak("cole-brokamp/fr")
 
 ## Usage
 
-- See `vignette("read_fr_tdr")` to read a Frictionless Tabular Data Resource from disk or the web, access metadata, and maniuplate it as a data.frame
+- See `vignette("read_fr_tdr")` to read a Frictionless Tabular Data Resource from disk or the web, access metadata, and manipulate it as a data.frame
 - See `vignette("creating_a_tabular-data-resource")` to create a Frictionless Tabular Data Resource by converting a data.frame or tibble, adding metadata, and writing to disk
 
 ## Frictionless Standards
