@@ -29,11 +29,8 @@ fr_field <- S7::new_class(
 #' | `numeric()`, `integer()` | `number` |
 #' | `logical()` | `boolean` |
 #' | `Date` | `date` |
-#'
-#' - Use `as_fr_field()` with a list of named values corresponding to the ... properties
-#' - 
 #' @param x a character, factor, numeric, integer, logical, or Date vector
-#' @param ... `name`, `title`, or `description` property ([`name` is required](https://specs.frictionlessdata.io/table-schema/#name))
+#' @param ... <[`dynamic-dots`][rlang::dyn-dots]> required (`name`) and optional (`title`, `description`) [field descriptors](https://specs.frictionlessdata.io/table-schema/#field-descriptors))
 #' @return a [fr_field][fr::fr-package] object
 #' @examples
 #' as_fr_field(1:10, "example_integer") # -> frictionless number
@@ -86,7 +83,7 @@ S7::method(print, fr_field) <- function(x, ...) {
     span.fr_desc = list(color = "darkgrey"),
     "span.fr_desc" = list(before = "# "),
     "span.fr_desc" = list(after = "")))
-  cli::cli_text("── {.field {x@name}}")
+  cli::cli_h3("{.field {x@name}}")
   cli::cli_text("{.fr_desc type: {x@type}}")
   if (length(x@title) > 0) cli::cli_text("{.fr_desc title: {x@title}}")
   if (length(x@description) > 0) cli::cli_text("{.fr_desc description: {x@description}}")

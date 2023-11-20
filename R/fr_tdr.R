@@ -23,7 +23,7 @@ fr_tdr <- S7::new_class(
 
 #' Coerce a data frame into a [`fr_tdr`][fr::fr-package] object
 #' @param x a data.frame
-#' @param ... required (`name`) and optional [tabular-data-resource properties](https://specs.frictionlessdata.io/data-resource/#descriptor) (e.g., `path`, `version`, `title`, `homepage`, `description`)
+#' @param ... <[`dynamic-dots`][rlang::dyn-dots]> required (`name`) and optional [tabular-data-resource properties](https://specs.frictionlessdata.io/data-resource/#descriptor) (e.g., `path`, `version`, `title`, `homepage`, `description`)
 #' @param .template a template [`fr_tdr`][fr::fr-package] object from which
 #' table-specific (i.e. "name", "version", "title", "homepage", "description")
 #' and field-specific metadata will be copied; note that all metadata provided

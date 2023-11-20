@@ -10,7 +10,7 @@ as_fr_field(x, ...)
 \arguments{
 \item{x}{a character, factor, numeric, integer, logical, or Date vector}
 
-\item{...}{\code{name}, \code{title}, or \code{description} property (\href{https://specs.frictionlessdata.io/table-schema/#name}{\code{name} is required})}
+\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> required (\code{name}) and optional (\code{title}, \code{description}) \href{https://specs.frictionlessdata.io/table-schema/#field-descriptors}{field descriptors})}
 }
 \value{
 a \link[=fr-package]{fr_field} object
@@ -23,12 +23,6 @@ The supported classes of \code{R} objects are converted to the corresponding fri
    \code{numeric()}, \code{integer()} \tab \code{number} \cr
    \code{logical()} \tab \code{boolean} \cr
    \code{Date} \tab \code{date} \cr
-}
-}
-\details{
-\itemize{
-\item Use \code{as_fr_field()} with a list of named values corresponding to the ... properties
-\item 
 }
 }
 \examples{

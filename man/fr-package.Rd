@@ -4,9 +4,20 @@
 \name{fr-package}
 \alias{fr}
 \alias{fr-package}
-\title{fr: Frictionless Standards in R}
+\title{About the fr package}
 \description{
-Tools for creating, curating, writing, and reading Frictionless tabular-data-resources.
+\code{fr} provides functions and objects to reproducibly create and track changes to metadata alongside code that creates
+the data. This prevents a disconnect between data and metadata, but also allows for computing on the metadata
+to create richer documentation.
+The \code{fr} package provides \code{fr_tdr}, \code{fr_schema}, and \code{fr_field} objects to provide a representation of the
+\href{https://frictionlessdata.io/}{Frictionless}
+\href{https://specs.frictionlessdata.io/tabular-data-resource/}{Tabular Data Resource} standards in R.
+
+A \code{fr_tdr}, or frictionless tabular data resource, object encapsulates data and metadata by building on top
+of the data.frame and has a list of data resource-specific metadata properties (e.g., \code{name}, \code{description}).
+one of which is a \code{fr_schema} (Frictionless Schema) object. One of these is a \code{fr_schema} object, which is a list of table-specific metadata properties. One of these is a list of \code{fr_field} objects, which is a list #' field- (or column-) specific metadata properties (e.g., \code{name}, \code{type}, \code{constraints})
+
+Normal usage will only require using \code{as_fr_tdr()} to create a \code{fr_tdr} object based on a data.frame or tibble.
 }
 \seealso{
 Useful links:

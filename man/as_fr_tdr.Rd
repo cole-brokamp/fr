@@ -9,7 +9,7 @@ as_fr_tdr(x, ...)
 \arguments{
 \item{x}{a data.frame}
 
-\item{...}{required (\code{name}) and optional \href{https://specs.frictionlessdata.io/data-resource/#descriptor}{tabular-data-resource properties} (e.g., \code{path}, \code{version}, \code{title}, \code{homepage}, \code{description})}
+\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> required (\code{name}) and optional \href{https://specs.frictionlessdata.io/data-resource/#descriptor}{tabular-data-resource properties} (e.g., \code{path}, \code{version}, \code{title}, \code{homepage}, \code{description})}
 
 \item{.template}{a template \code{\link[=fr-package]{fr_tdr}} object from which
 table-specific (i.e. "name", "version", "title", "homepage", "description")

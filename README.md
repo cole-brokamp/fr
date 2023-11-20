@@ -26,11 +26,8 @@ pak::pak("cole-brokamp/fr")
 
 ## Usage
 
-```r
-library(fr)
-```
-
-Using these functions to set attributes in R means we can do so reproducibly and changes to the metadata are tracked alongside the R script that creates the data. This prevents a disconnect between data and metadata, but also allows for computing on the metadata to use it to create richer documentation.
+- See `vignette("read_fr_tdr")` to read a Frictionless Tabular Data Resource from disk or the web, access metadata, and maniuplate it as a data.frame
+- See `vignette("creating_a_tabular-data-resource")` to create a Frictionless Tabular Data Resource by converting a data.frame or tibble, adding metadata, and writing to disk
 
 ## Frictionless Standards
 

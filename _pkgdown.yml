@@ -16,6 +16,7 @@ reference:
   contents:
   - read_fr_tdr
   - write_fr_tdr
+  - "fr-package"
 - title: Create and modify `fr_tdr` objects
   contents:
   - as_fr_tdr
