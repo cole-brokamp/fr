@@ -1,10 +1,10 @@
 Package: fr
-Title: Frictionless Standards in R
+Title: Frictionless Standards
 Version: 0.4.0
 Authors@R: 
-    person("Cole", "Brokamp", , "cole@colebrokamp.com", role = c("aut", "cre"),
+    person("Cole", "Brokamp", , "cole@colebrokamp.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-0289-3151"))
-Description: Tools for creating, curating, writing, and reading Frictionless tabular-data-resources.
+Description: Tools for creating, curating, writing, and reading 'Frictionless tabular-data-resources'.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
