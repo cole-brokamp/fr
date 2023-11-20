@@ -9,8 +9,8 @@ status](https://www.r-pkg.org/badges/version/fr)](https://CRAN.R-project.org/pac
 <!-- badges: end -->
 
 `fr` provides `fr_tdr`, `fr_schema`, and `fr_field` objects for implementing
-[frictionless](https://specs.frictionlessdata.io)
-[tabular-data-resource](https://specs.frictionlessdata.io/tabular-data-resource)
+[frictionless](https://specs.frictionlessdata.io/)
+[tabular-data-resource](https://specs.frictionlessdata.io/tabular-data-resource/)
 standards in R.
 
 ## Installation
