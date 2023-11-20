@@ -57,12 +57,12 @@ fr_filter <- function(x, ...) {
   as_fr_tdr(x_d_mod, .template = x)
 }
 
-#' fr_summarise
+#' fr_summarize
 #' @rdname dplyr_methods
 #' @export
-fr_summarise <- function(x, ...) {
+fr_summarize <- function(x, ...) {
   x_d <- S7::convert(x, S7::class_data.frame)
-  x_d_mod <- dplyr::summarise(x_d, ...)
+  x_d_mod <- dplyr::summarize(x_d, ...)
   as_fr_tdr(x_d_mod, .template = x)
 }
 

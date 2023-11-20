@@ -50,9 +50,9 @@ test_that("fr_filter works", {
   expect_equal(nrow(d_new), 113)
 })
 
-test_that("fr_summarise works", {
+test_that("fr_summarize works", {
   d <- read_fr_tdr(test_path("hamilton_poverty_2020"))
-  d_new <- fr_summarise(d, median_poverty_fraction = median(fraction_poverty))
+  d_new <- fr_summarize(d, median_poverty_fraction = median(fraction_poverty))
   expect_s3_class(d_new, "fr_tdr")
   expect_equal(nrow(d_new), 1)
   expect_identical(names(d_new), "median_poverty_fraction")

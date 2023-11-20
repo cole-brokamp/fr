@@ -6,7 +6,7 @@
 \alias{fr_rename}
 \alias{fr_select}
 \alias{fr_filter}
-\alias{fr_summarise}
+\alias{fr_summarize}
 \alias{fr_arrange}
 \title{dplyr methods for fr_tdr objects}
 \usage{
@@ -18,7 +18,7 @@ fr_select(x, ...)
 
 fr_filter(x, ...)
 
-fr_summarise(x, ...)
+fr_summarize(x, ...)
 
 fr_arrange(x, ...)
 }
@@ -45,4 +45,13 @@ possible by using \code{as_fr_tdr()} and specifying the \code{.template} argumen
    \code{summarise()} \tab \code{fr_summarise()} \cr
    \code{arrange()} \tab \code{fr_arrange()} \cr
 }
+}
+\examples{
+read_fr_tdr(fs::path_package("fr", "hamilton_poverty_2020")) |>
+  fr_mutate(next_year = year + 1) |>
+  fr_rename(new_year = next_year) |>
+  fr_select(-new_year) |>
+  fr_filter(fraction_poverty > 0.1) |>
+  fr_summarize(median_poverty_fraction = median(fraction_poverty)) |>
+  fr_arrange(median_poverty_fraction)
 }
