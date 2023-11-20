@@ -18,3 +18,7 @@ a data frame
 Equivalent to \code{as.data.frame()}; directly using \code{tibble::as_tibble()}
 also works because its input is first coerced with \code{as.data.frame()}
 }
+\examples{
+as_fr_tdr(mtcars, name = "mtcars") |>
+  as_data_frame()
+}

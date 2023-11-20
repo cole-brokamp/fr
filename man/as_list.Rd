@@ -17,3 +17,7 @@ a list representing the frictionless metadata descriptor
 \description{
 equivalent to \code{as.list()}
 }
+\examples{
+as_fr_tdr(mtcars, name = "mtcars") |>
+  as_list()
+}

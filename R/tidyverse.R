@@ -19,6 +19,15 @@
 #' @param x a [`fr_tdr`][fr::fr-package] object
 #' @param ... passed to the underlying dplyr function
 #' @return a [`fr_tdr`][fr::fr-package] object
+#' @examples
+#' read_fr_tdr(fs::path_package("fr", "hamilton_poverty_2020")) |>
+#'   fr_mutate(next_year = year + 1) |>
+#'   fr_rename(new_year = next_year) |>
+#'   fr_select(-new_year) |>
+#'   fr_filter(fraction_poverty > 0.1) |>
+#'   fr_summarize(median_poverty_fraction = median(fraction_poverty)) |>
+#'   fr_arrange(median_poverty_fraction)
+
 NULL
 
 #' fr_mutate

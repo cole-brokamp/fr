@@ -31,6 +31,8 @@ fr_tdr <- S7::new_class(
 #' in `...` will be ignored if this argument is provided
 #' @return a [fr_tdr][fr::fr-package] object
 #' @export
+#' @examples
+#' as_fr_tdr(mtcars, name = "mtcars")
 as_fr_tdr <- S7::new_generic("as_fr_tdr", "x")
 
 S7::method(as_fr_tdr, S7::class_data.frame) <- function(x, ..., .template = NULL) {
@@ -75,6 +77,9 @@ S7::method(as.data.frame, fr_tdr) <- function(x, ...) {
 #' @param ... ignored
 #' @return a data frame
 #' @export
+#' @examples
+#' as_fr_tdr(mtcars, name = "mtcars") |>
+#'   as_data_frame()
 as_data_frame <- S7::new_generic("as_data_frame", "x")
 
 S7::method(as_data_frame, fr_tdr) <- function(x, ...) {
@@ -100,6 +105,9 @@ S7::method(as.list, fr_tdr) <- function(x, ...) {
 #' @param ... ignored
 #' @return a list representing the frictionless metadata descriptor
 #' @export
+#' @examples
+#' as_fr_tdr(mtcars, name = "mtcars") |>
+#'   as_list()
 as_list <- S7::new_generic("as_list", "x")
 
 S7::method(as_list, fr_tdr) <- function(x, ...) {

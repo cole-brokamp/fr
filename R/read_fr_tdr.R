@@ -9,6 +9,8 @@ has_tdr_yaml <- function(x) grepl("tabular-data-resource.yaml", x)
 #' that contains a "tabular-data-resource.yaml" can
 #' be used in `file`.
 #' @export
+#' @examples
+#' read_fr_tdr(fs::path_package("fr", "hamilton_poverty_2020"))
 read_fr_tdr <- function(file) {
   if (has_tdr_yaml(file)) {
     tdr_path <- file

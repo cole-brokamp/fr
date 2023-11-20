@@ -30,3 +30,6 @@ A file path (or url) representing a folder
 that contains a "tabular-data-resource.yaml" can
 be used in \code{file}.
 }
+\examples{
+read_fr_tdr(fs::path_package("fr", "hamilton_poverty_2020"))
+}

@@ -23,3 +23,6 @@ table-specific (i.e. "name", "version", "title", "homepage", "description")
 and field-specific metadata will be copied; note that all metadata provided
 in \code{...} will be ignored if this argument is provided
 }
+\examples{
+as_fr_tdr(mtcars, name = "mtcars")
+}
