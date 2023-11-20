@@ -8,7 +8,7 @@ status](https://www.r-pkg.org/badges/version/fr)](https://CRAN.R-project.org/pac
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- badges: end -->
 
-`fr` provides `fr_field` and `fr_tdr` objects for implementing
+`fr` provides `fr_tdr`, `fr_schema`, and `fr_field` objects for implementing
 [frictionless](https://specs.frictionlessdata.io)
 [tabular-data-resource](https://specs.frictionlessdata.io/tabular-data-resource)
 standards in R.
