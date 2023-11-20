@@ -15,6 +15,12 @@ standards in R.
 
 ## Installation
 
+Install {fr} from CRAN:
+
+```r
+install.packages("fr")
+```
+
 You can install the development version of {fr} from
 [GitHub](https://github.com/) with:
 
