@@ -33,6 +33,7 @@ fr_tdr <- S7::new_class(
 #' @export
 #' @examples
 #' as_fr_tdr(mtcars, name = "mtcars")
+#' as_fr_tdr(mtcars, name = "mtcars")@schema
 as_fr_tdr <- S7::new_generic("as_fr_tdr", "x")
 
 S7::method(as_fr_tdr, S7::class_data.frame) <- function(x, ..., .template = NULL) {
@@ -121,9 +122,9 @@ S7::method(summary, fr_tdr) <- function(x, ...) {
 S7::method(print, fr_tdr) <- function(x, ...) {
   cli::cli_div(theme = list(
     span.fr_desc = list(color = "darkgrey"),
-    "span.fr_desc" = list(before = "# "),
+    "span.fr_desc" = list(before = "- "),
     "span.fr_desc" = list(after = "")))
-  cli::cli_h3("{.pkg {x@name}}")
+  cli::cli_text("{.pkg {x@name}}")
   if (length(x@version) > 0) cli::cli_text("{.fr_desc version: {x@version}}")
   if (length(x@title) > 0) cli::cli_text("{.fr_desc title: {x@title}}")
   if (length(x@homepage) > 0) cli::cli_text("{.fr_desc homepage: {.url {x@homepage}}}")

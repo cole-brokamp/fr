@@ -1,11 +1,6 @@
 #' write a fr_tdr object to disk
 #'
-#' The `name` property of the `fr_tdr` object is used to write a frictionless tabular-data-resource to disk.  For example, if `name = "my_data"`, then the created folder and two files would look like:  
-#' ```
-#'my_data
-#'├── my_data.csv
-#'└── tabular-data-resource.yaml
-#' ```
+#' The `name` property of the `fr_tdr` object is used to write a frictionless tabular-data-resource to disk.  For example, if `name = "my_data"`, then a folder named `my_data` would be created with (1) `my_data.csv` and (2) `tabular-data-resource.yaml`.
 #' @param x a [fr_tdr][fr::fr-package] object to write to disk
 #' @param dir path to directory where tabular-data-resource folder will be created
 #' @return x (invisibly)

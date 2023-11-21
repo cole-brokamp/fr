@@ -3,12 +3,11 @@
     Code
       d_fr
     Message <cliMessage>
-      
-      -- mtcars 
-      # version: 0.9.1
-      # title: Motor Trend Car Road Tests
-      # homepage: <https://rdrr.io/r/datasets/mtcars.html>
-      # description: The data was extracted from the 1974 Motor Trend US magazine,
+      mtcars
+      - version: 0.9.1
+      - title: Motor Trend Car Road Tests
+      - homepage: <https://rdrr.io/r/datasets/mtcars.html>
+      - description: The data was extracted from the 1974 Motor Trend US magazine,
       and comprises fuel consumption and 10 aspects of automobile design and
       performance for 32 automobiles (1973–74 models).
     Output
@@ -32,8 +31,7 @@
     Code
       as_fr_tdr(mtcars, name = "mtcars")
     Message <cliMessage>
-      
-      -- mtcars 
+      mtcars
     Output
       # A tibble: 32 x 11
            mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb

@@ -15,10 +15,5 @@ write_fr_tdr(x, dir = getwd())
 x (invisibly)
 }
 \description{
-The \code{name} property of the \code{fr_tdr} object is used to write a frictionless tabular-data-resource to disk.  For example, if \code{name = "my_data"}, then the created folder and two files would look like:
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{my_data
-├── my_data.csv
-└── tabular-data-resource.yaml
-}\if{html}{\out{</div>}}
+The \code{name} property of the \code{fr_tdr} object is used to write a frictionless tabular-data-resource to disk.  For example, if \code{name = "my_data"}, then a folder named \code{my_data} would be created with (1) \code{my_data.csv} and (2) \code{tabular-data-resource.yaml}.
 }
