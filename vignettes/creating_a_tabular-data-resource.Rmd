@@ -69,12 +69,7 @@ d_tdr <-
 Write this to disk with `write_fr_tdr`:
 
 ```{r}
-write_fr_tdr(d_tdr)
+write_fr_tdr(d_tdr, dir = tempdir())
 
-fs::dir_tree("types_example")
+fs::dir_tree(fs::path(tempdir(), "types_example"))
 ```
-
-```{r, echo = FALSE}
-fs::dir_delete("types_example")
-```
-

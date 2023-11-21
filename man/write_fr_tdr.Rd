@@ -4,7 +4,7 @@
 \alias{write_fr_tdr}
 \title{write a fr_tdr object to disk}
 \usage{
-write_fr_tdr(x, dir = getwd())
+write_fr_tdr(x, dir)
 }
 \arguments{
 \item{x}{a \link[=fr-package]{fr_tdr} object to write to disk}

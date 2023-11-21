@@ -4,7 +4,7 @@ Version: 0.5.0
 Authors@R: 
     person("Cole", "Brokamp", , "cole@colebrokamp.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-0289-3151"))
-Description: Tools for creating, curating, writing, and reading 'Frictionless tabular-data-resources'.
+Description: A "tabular-data-resource" (<https://specs.frictionlessdata.io/tabular-data-resource/>) is a simple format to describe a singular tabular data resource such as a CSV file. It includes support both for metadata such as author and title and a schema to describe the data, for example the types of the fields/columns in the data. Create a tabular-data-resource by providing a data.frame and specifying metadata. Write and read tabular-data-resources to and from disk. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

@@ -5,7 +5,7 @@
 #' @param dir path to directory where tabular-data-resource folder will be created
 #' @return x (invisibly)
 #' @export
-write_fr_tdr <- function(x, dir = getwd()) {
+write_fr_tdr <- function(x, dir) {
   tdr_name <- x@name
   tdr_dir <- fs::path(dir, tdr_name)
   fs::dir_create(tdr_dir)
