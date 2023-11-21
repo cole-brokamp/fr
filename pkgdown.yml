@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   creating_a_tabular-data-resource: creating_a_tabular-data-resource.html
   read_fr_tdr: read_fr_tdr.html
-last_built: 2023-11-21T15:49Z
+last_built: 2023-11-21T21:19Z
 urls:
   reference: https://cole-brokamp.github.io/fr/reference
   article: https://cole-brokamp.github.io/fr/articles
