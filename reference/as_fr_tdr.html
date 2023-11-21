@@ -88,8 +88,7 @@ in <code>...</code> will be ignored if this argument is provided</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">as_fr_tdr</span><span class="op">(</span><span class="va">mtcars</span>, name <span class="op">=</span> <span class="st">"mtcars"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="color: #0000BB;">mtcars</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">mtcars</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 32 × 11</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -104,6 +103,29 @@ in <code>...</code> will be ignored if this argument is provided</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 22 more rows</span></span>
+<span class="r-in"><span><span class="fu">as_fr_tdr</span><span class="op">(</span><span class="va">mtcars</span>, name <span class="op">=</span> <span class="st">"mtcars"</span><span class="op">)</span><span class="op">@</span><span class="va">schema</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">mpg</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E;">- type: number</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">cyl</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E;">- type: number</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">disp</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E;">- type: number</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">hp</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E;">- type: number</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">drat</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E;">- type: number</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">wt</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E;">- type: number</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">qsec</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E;">- type: number</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">vs</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E;">- type: number</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">am</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E;">- type: number</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">gear</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E;">- type: number</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">carb</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E;">- type: number</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

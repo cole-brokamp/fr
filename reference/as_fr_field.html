@@ -101,31 +101,25 @@ vectors into <code><a href="fr-package.html">fr_field</a></code> objects</h1>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">as_fr_field</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="st">"example_integer"</span><span class="op">)</span> <span class="co"># -&gt; frictionless number</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="color: #00BB00;">example_integer</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E;"># type: number</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">example_integer</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E;">- type: number</span></span>
 <span class="r-in"><span><span class="fu">as_fr_field</span><span class="op">(</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span> <span class="op">*</span> <span class="fl">0.1</span>, <span class="st">"example_double"</span><span class="op">)</span> <span class="co"># -&gt; frictionless number</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="color: #00BB00;">example_double</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E;"># type: number</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">example_double</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E;">- type: number</span></span>
 <span class="r-in"><span><span class="fu">as_fr_field</span><span class="op">(</span><span class="va">letters</span>, <span class="st">"example_character"</span><span class="op">)</span> <span class="co"># -&gt; frictionless string</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="color: #00BB00;">example_character</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E;"># type: string</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">example_character</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E;">- type: string</span></span>
 <span class="r-in"><span><span class="fu">as_fr_field</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">letters</span><span class="op">)</span>, <span class="st">"example_factor"</span><span class="op">)</span> <span class="co"># -&gt; frictionless string with enum constraints</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="color: #00BB00;">example_factor</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E;"># type: string</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E;"># constraints: enum = a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, …,</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">example_factor</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E;">- type: string</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E;">- constraints: enum = a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, …,</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E;">y, and z</span></span>
 <span class="r-in"><span><span class="fu">as_fr_field</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span>, <span class="st">"example_logical"</span><span class="op">)</span> <span class="co"># -&gt; frictionless boolean</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="color: #00BB00;">example_logical</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E;"># type: boolean</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">example_logical</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E;">- type: boolean</span></span>
 <span class="r-in"><span><span class="fu">as_fr_field</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2023-04-23"</span>, <span class="st">"2004-12-31"</span><span class="op">)</span><span class="op">)</span>, <span class="st">"example_date"</span><span class="op">)</span> <span class="co"># -&gt; frictionless date</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="color: #00BB00;">example_date</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E;"># type: date</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">example_date</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #9E9E9E;">- type: date</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
