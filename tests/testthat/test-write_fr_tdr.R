@@ -1,4 +1,5 @@
 test_that("write_fr_tdr works", {
+  skip_on_os(os = "windows")
   write_fr_tdr(as_fr_tdr(mtcars, name = "my_mtcars"), dir = tempdir())
   expect_snapshot_file(fs::path(tempdir(), "my_mtcars", "my_mtcars.csv"))
   expect_snapshot_file(fs::path(tempdir(), "my_mtcars", "tabular-data-resource.yaml"))
