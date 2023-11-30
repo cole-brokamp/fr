@@ -39,7 +39,7 @@ d_fr
 Print the `schema` property to view the table-specific metadata:
 
 ```{r}
-d_fr@schema
+S7::prop(d_fr, "schema")
 ```
 
 `fr_tdr` objects can be used mostly anywhere that the underlying data frame can be used because `as.data.frame` usually is used to coerce objects into data frames and works with `fr_tdr` objects:
@@ -104,5 +104,5 @@ d_fr_new <-
 
 d_fr_new
 
-d_fr_new@schema
+S7::prop(d_fr_new, "schema")
 ```

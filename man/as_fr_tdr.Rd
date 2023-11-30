@@ -25,5 +25,5 @@ in \code{...} will be ignored if this argument is provided
 }
 \examples{
 as_fr_tdr(mtcars, name = "mtcars")
-as_fr_tdr(mtcars, name = "mtcars")@schema
+S7::prop(as_fr_tdr(mtcars, name = "mtcars"), "schema")
 }
