@@ -25,5 +25,5 @@ my_mtcars <-
   as_fr_tdr(name = "mtcars") |>
   update_field("mpg", title = "Miles Per Gallon")
 
-str(my_mtcars@schema@fields$mpg)
+S7::prop(my_mtcars, "schema")
 }

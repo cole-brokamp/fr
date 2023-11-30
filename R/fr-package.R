@@ -27,5 +27,5 @@ NULL
 #' @rawNamespace if (getRversion() < "4.3.0") importFrom("S7", "@")
 NULL
 
-utils::globalVariables(c("path", "enum", "schema", "fields"))
+utils::globalVariables(c("name", "path", "enum", "schema", "fields"))
 

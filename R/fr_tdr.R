@@ -33,7 +33,7 @@ fr_tdr <- S7::new_class(
 #' @export
 #' @examples
 #' as_fr_tdr(mtcars, name = "mtcars")
-#' as_fr_tdr(mtcars, name = "mtcars")@schema
+#' S7::prop(as_fr_tdr(mtcars, name = "mtcars"), "schema")
 as_fr_tdr <- S7::new_generic("as_fr_tdr", "x")
 
 S7::method(as_fr_tdr, S7::class_data.frame) <- function(x, ..., .template = NULL) {
