@@ -104,5 +104,5 @@ d_fr_new <-
 
 d_fr_new
 
-d_fr_new@schema
+S7::prop(d_fr_new, "schema")
 ```
