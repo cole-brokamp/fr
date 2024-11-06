@@ -2,7 +2,7 @@
 
     Code
       read_fr_tdr(fs::path_package("fr", "hamilton_poverty_2020"))@schema
-    Message <cliMessage>
+    Message
       census_tract_id_2020
       - type: string
       - title: Census Tract Identifier

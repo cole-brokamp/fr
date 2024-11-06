@@ -3,7 +3,7 @@
     Code
       as_fr_field(factor(letters[1:5]), name = "letters_five", title = "Five Letters",
       description = "The first five letters from `letters` in R.")
-    Message <cliMessage>
+    Message
       letters_five
       - type: string
       - title: Five Letters
@@ -14,7 +14,7 @@
 
     Code
       as_fr_field(1:10, name = "example_integer")
-    Message <cliMessage>
+    Message
       example_integer
       - type: number
 

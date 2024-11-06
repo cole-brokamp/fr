@@ -2,7 +2,7 @@
 
     Code
       d_fr
-    Message <cliMessage>
+    Message
       mtcars
       - version: 0.9.1
       - title: Motor Trend Car Road Tests
@@ -30,7 +30,7 @@
 
     Code
       as_fr_tdr(mtcars, name = "mtcars")
-    Message <cliMessage>
+    Message
       mtcars
     Output
       # A tibble: 32 x 11
