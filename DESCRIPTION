@@ -8,7 +8,7 @@ Description: A "tabular-data-resource" (<https://specs.frictionlessdata.io/tabul
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 Imports: 
     cli,
     purrr,
