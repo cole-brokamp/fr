@@ -1,5 +1,6 @@
 ## https://specs.frictionlessdata.io/table-schema
 fr_schema <- S7::new_class(
+  package = NULL,
   "fr_schema",
   properties = list(
     fields = S7::class_list,
