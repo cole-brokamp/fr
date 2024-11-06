@@ -75,7 +75,7 @@ S7::method(as_fr_field, S7::class_Date) <- function(x, name, ...) {
 #' is_fr_field(as_fr_field(letters, "letters"))
 #' @export
 is_fr_field <- function(x) {
-  inherits(x, "fr_field")
+  S7::S7_inherits(x, fr_field)
 }
 
 
