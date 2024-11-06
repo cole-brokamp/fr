@@ -1,63 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://cole-brokamp.github.io/fr/404.html</loc>
-  </url>
-  <url>
-    <loc>https://cole-brokamp.github.io/fr/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://cole-brokamp.github.io/fr/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://cole-brokamp.github.io/fr/articles/creating_a_tabular-data-resource.html</loc>
-  </url>
-  <url>
-    <loc>https://cole-brokamp.github.io/fr/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://cole-brokamp.github.io/fr/articles/read_fr_tdr.html</loc>
-  </url>
-  <url>
-    <loc>https://cole-brokamp.github.io/fr/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://cole-brokamp.github.io/fr/index.html</loc>
-  </url>
-  <url>
-    <loc>https://cole-brokamp.github.io/fr/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://cole-brokamp.github.io/fr/reference/as_data_frame.html</loc>
-  </url>
-  <url>
-    <loc>https://cole-brokamp.github.io/fr/reference/as_fr_field.html</loc>
-  </url>
-  <url>
-    <loc>https://cole-brokamp.github.io/fr/reference/as_fr_tdr.html</loc>
-  </url>
-  <url>
-    <loc>https://cole-brokamp.github.io/fr/reference/as_list.html</loc>
-  </url>
-  <url>
-    <loc>https://cole-brokamp.github.io/fr/reference/dplyr_methods.html</loc>
-  </url>
-  <url>
-    <loc>https://cole-brokamp.github.io/fr/reference/fr-package.html</loc>
-  </url>
-  <url>
-    <loc>https://cole-brokamp.github.io/fr/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://cole-brokamp.github.io/fr/reference/is_fr_field.html</loc>
-  </url>
-  <url>
-    <loc>https://cole-brokamp.github.io/fr/reference/read_fr_tdr.html</loc>
-  </url>
-  <url>
-    <loc>https://cole-brokamp.github.io/fr/reference/update_field.html</loc>
-  </url>
-  <url>
-    <loc>https://cole-brokamp.github.io/fr/reference/write_fr_tdr.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://cole-brokamp.github.io/fr/404.html</loc></url>
+<url><loc>https://cole-brokamp.github.io/fr/LICENSE-text.html</loc></url>
+<url><loc>https://cole-brokamp.github.io/fr/LICENSE.html</loc></url>
+<url><loc>https://cole-brokamp.github.io/fr/articles/creating_a_tabular-data-resource.html</loc></url>
+<url><loc>https://cole-brokamp.github.io/fr/articles/index.html</loc></url>
+<url><loc>https://cole-brokamp.github.io/fr/articles/read_fr_tdr.html</loc></url>
+<url><loc>https://cole-brokamp.github.io/fr/authors.html</loc></url>
+<url><loc>https://cole-brokamp.github.io/fr/index.html</loc></url>
+<url><loc>https://cole-brokamp.github.io/fr/news/index.html</loc></url>
+<url><loc>https://cole-brokamp.github.io/fr/reference/as_data_frame.html</loc></url>
+<url><loc>https://cole-brokamp.github.io/fr/reference/as_fr_field.html</loc></url>
+<url><loc>https://cole-brokamp.github.io/fr/reference/as_fr_tdr.html</loc></url>
+<url><loc>https://cole-brokamp.github.io/fr/reference/as_list.html</loc></url>
+<url><loc>https://cole-brokamp.github.io/fr/reference/dplyr_methods.html</loc></url>
+<url><loc>https://cole-brokamp.github.io/fr/reference/fr-package.html</loc></url>
+<url><loc>https://cole-brokamp.github.io/fr/reference/index.html</loc></url>
+<url><loc>https://cole-brokamp.github.io/fr/reference/is_fr_field.html</loc></url>
+<url><loc>https://cole-brokamp.github.io/fr/reference/read_fr_tdr.html</loc></url>
+<url><loc>https://cole-brokamp.github.io/fr/reference/update_field.html</loc></url>
+<url><loc>https://cole-brokamp.github.io/fr/reference/write_fr_tdr.html</loc></url>
 </urlset>
+
