@@ -1,4 +1,5 @@
 fr_tdr <- S7::new_class(
+  package = NULL,
   "fr_tdr",
   parent = S7::class_data.frame,
   properties = list(
@@ -62,7 +63,7 @@ S7::method(as_fr_tdr, S7::class_data.frame) <- function(x, ..., .template = NULL
         .init = d_tdr)
     S7::props(out) <- S7::props(.template)[c("name", "version", "title", "homepage", "description")]
   }
-  
+
   return(out)
 }
 

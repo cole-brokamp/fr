@@ -1,5 +1,6 @@
 fr_field <- S7::new_class(
   "fr_field",
+  package = NULL,
   properties = list(
     name = S7::class_character,
     type = S7::class_character,
