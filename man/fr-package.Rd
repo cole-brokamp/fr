@@ -31,5 +31,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Cole Brokamp \email{cole@colebrokamp.com} (\href{https://orcid.org/0000-0002-0289-3151}{ORCID}) [copyright holder]
 
+Other contributors:
+\itemize{
+  \item Tomasz Kalinowski [contributor]
+}
+
 }
 \keyword{internal}
