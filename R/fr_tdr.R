@@ -116,10 +116,6 @@ S7::method(as_list, fr_tdr) <- function(x, ...) {
   as.list(x)
 }
 
-S7::method(summary, fr_tdr) <- function(x, ...) {
-  summary(S7::convert(d, S7::class_data.frame))
-}
-
 S7::method(print, fr_tdr) <- function(x, ...) {
   cli::cli_div(theme = list(
     span.fr_desc = list(color = "darkgrey"),
